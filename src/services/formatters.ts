@@ -6,5 +6,5 @@ export function currencyFormat(value: number, currency: string): string {
     maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
   });
 
-  return formatter.format(value / 100);
+  return formatter.format(value / 10000);
 }

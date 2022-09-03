@@ -50,7 +50,7 @@ export default function AccountCard({
 
     await createPayment(account.id, {
       ...paymentData,
-      amount: paymentData.amount * 100,
+      amount: paymentData.amount * 10000,
     });
 
     setPaymentData({

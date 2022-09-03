@@ -53,8 +53,8 @@ export default function AddTransfer({
 
     await createTransfer({
       ...transferData,
-      amount: transferData.amount * 100,
-      rate: transferData.rate * 100,
+      amount: transferData.amount * 10000,
+      rate: transferData.rate * 10000,
     });
 
     setTransferData({
