@@ -2,12 +2,13 @@ import React, {
   ChangeEvent,
   FormEvent,
   PropsWithChildren,
+  useEffect,
   useState,
 } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import Account from "./interfaces/Account";
 import CreateTransferData from "./interfaces/CreateTransferData";
-import { createTransfer } from "./api/accounts";
+import { createTransfer, getRate } from "./api/accounts";
 
 export default function AddTransfer({
   accounts,
@@ -21,6 +22,28 @@ export default function AddTransfer({
     account_from_id: 0,
     account_to_id: 0,
   });
+
+  const loadRate = async () => {
+    const accountFrom = accounts.find(
+      (account) => account.id === transferData.account_from_id
+    );
+    const accountTo = accounts.find(
+      (account) => account.id === transferData.account_to_id
+    );
+
+    if (accountFrom && accountTo) {
+      const res = await getRate(accountFrom.currency, accountTo.currency);
+
+      setTransferData({
+        ...transferData,
+        rate: res.buy,
+      });
+    }
+  };
+
+  useEffect(() => {
+    (async () => await loadRate())();
+  }, [transferData.account_from_id, transferData.account_to_id]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -117,7 +140,7 @@ export default function AddTransfer({
                 <Form.Group>
                   <Form.Label>Account from</Form.Label>
                   <Form.Select
-                    onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                       setTransferData({
                         ...transferData,
                         account_from_id: Number(e.target.value),
@@ -126,7 +149,7 @@ export default function AddTransfer({
                   >
                     <option>Please select...</option>
                     {accounts.map((account) => (
-                      <option value={account.id}>
+                      <option value={account.id} key={account.id}>
                         {account.name} — {account.currency}
                       </option>
                     ))}
@@ -137,7 +160,7 @@ export default function AddTransfer({
                 <Form.Group>
                   <Form.Label>Account to</Form.Label>
                   <Form.Select
-                    onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                       setTransferData({
                         ...transferData,
                         account_to_id: Number(e.target.value),
@@ -146,7 +169,7 @@ export default function AddTransfer({
                   >
                     <option>Please select...</option>
                     {accounts.map((account) => (
-                      <option value={account.id}>
+                      <option value={account.id} key={account.id}>
                         {account.name} — {account.currency}
                       </option>
                     ))}
