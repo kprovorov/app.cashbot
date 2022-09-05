@@ -24,11 +24,11 @@ export default function AddTransfer({
   });
 
   const loadRate = async () => {
-    const accountFrom = accounts.find(
-      (account) => account.id === transferData.jar_from_id
+    const accountFrom = accounts.find((account) =>
+      account.jars.map((jar) => jar.id).includes(transferData.jar_from_id)
     );
-    const accountTo = accounts.find(
-      (account) => account.id === transferData.jar_to_id
+    const accountTo = accounts.find((account) =>
+      account.jars.map((jar) => jar.id).includes(transferData.jar_to_id)
     );
 
     if (accountFrom && accountTo) {
