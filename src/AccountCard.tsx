@@ -20,7 +20,7 @@ export default function AccountCard({
 }: PropsWithChildren<{ account: Account }>) {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [paymentData, setPaymentData] = useState<Omit<Payment, "id">>({
-    account_id: 0,
+    jar_id: 0,
     description: "",
     amount: 0,
     currency: "",
@@ -48,13 +48,13 @@ export default function AccountCard({
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await createPayment(account.id, {
+    await createPayment(paymentData.jar_id, {
       ...paymentData,
       amount: paymentData.amount * 10000,
     });
 
     setPaymentData({
-      account_id: 0,
+      jar_id: 0,
       description: "",
       amount: 0,
       currency: "",
@@ -80,6 +80,7 @@ export default function AccountCard({
               <tr>
                 <th>Date</th>
                 <th>Description</th>
+                <th>Jar</th>
                 <th>Amount</th>
                 <th>Balance</th>
                 <th></th>
@@ -119,6 +120,26 @@ export default function AccountCard({
                         });
                       }}
                     />
+                  </Form.Group>
+                </td>
+                <td>
+                  <Form.Group>
+                    <Form.Select
+                      value={paymentData.jar_id}
+                      onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+                        setPaymentData({
+                          ...paymentData,
+                          jar_id: Number(e.target.value),
+                        });
+                      }}
+                    >
+                      <option>Please select...</option>
+                      {account.jars.map((jar) => (
+                        <option key={jar.id} value={jar.id}>
+                          {jar.default ? "default" : jar.name}
+                        </option>
+                      ))}
+                    </Form.Select>
                   </Form.Group>
                 </td>
                 <td>
@@ -166,6 +187,7 @@ export default function AccountCard({
                 <tr key={payment.id}>
                   <td>{payment.date}</td>
                   <td>{payment.description}</td>
+                  <td>{payment.jar?.name}</td>
                   <td
                     className={
                       payment.amount > 0 ? "text-success" : "text-danger"
@@ -173,7 +195,7 @@ export default function AccountCard({
                   >
                     {currencyFormat(payment.amount, payment.currency)}
                   </td>
-                  <td className={payment.balance > 0 ? "" : "text-bg-danger"}>
+                  <td className={payment.balance >= 0 ? "" : "text-bg-danger"}>
                     {currencyFormat(payment.balance, payment.currency)}
                   </td>
                   <td>

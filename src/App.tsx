@@ -32,7 +32,7 @@ function App() {
       </div>
       <div className="row">
         {accounts.map((account, index) => (
-          <div className="col-12 col-md-6" key={account.id}>
+          <div className="col-12" key={account.id}>
             <AccountCard account={account} />
           </div>
         ))}

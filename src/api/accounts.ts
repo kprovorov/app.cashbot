@@ -19,13 +19,10 @@ export async function getAccountPayments(
 }
 
 export async function createPayment(
-  accountId: number,
+  jarId: number,
   paymentData: Omit<Payment, "id">
 ): Promise<Payment> {
-  const { data } = await api.post(
-    `accounts/${accountId}/payments`,
-    paymentData
-  );
+  const { data } = await api.post(`jars/${jarId}/payments`, paymentData);
 
   return data;
 }

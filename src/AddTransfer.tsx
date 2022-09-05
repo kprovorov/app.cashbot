@@ -19,16 +19,16 @@ export default function AddTransfer({
     date: "",
     amount: 0,
     rate: 0,
-    account_from_id: 0,
-    account_to_id: 0,
+    jar_from_id: 0,
+    jar_to_id: 0,
   });
 
   const loadRate = async () => {
     const accountFrom = accounts.find(
-      (account) => account.id === transferData.account_from_id
+      (account) => account.id === transferData.jar_from_id
     );
     const accountTo = accounts.find(
-      (account) => account.id === transferData.account_to_id
+      (account) => account.id === transferData.jar_to_id
     );
 
     if (accountFrom && accountTo) {
@@ -43,7 +43,7 @@ export default function AddTransfer({
 
   useEffect(() => {
     (async () => await loadRate())();
-  }, [transferData.account_from_id, transferData.account_to_id]);
+  }, [transferData.jar_from_id, transferData.jar_to_id]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -61,8 +61,8 @@ export default function AddTransfer({
       date: "",
       amount: 0,
       rate: 0,
-      account_from_id: 0,
-      account_to_id: 0,
+      jar_from_id: 0,
+      jar_to_id: 0,
     });
 
     onCreated();
@@ -138,41 +138,47 @@ export default function AddTransfer({
             <Row>
               <Col>
                 <Form.Group>
-                  <Form.Label>Account from</Form.Label>
+                  <Form.Label>Jar from</Form.Label>
                   <Form.Select
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                       setTransferData({
                         ...transferData,
-                        account_from_id: Number(e.target.value),
+                        jar_from_id: Number(e.target.value),
                       });
                     }}
                   >
                     <option>Please select...</option>
-                    {accounts.map((account) => (
-                      <option value={account.id} key={account.id}>
-                        {account.name} — {account.currency}
-                      </option>
-                    ))}
+                    {accounts.map((account) =>
+                      account.jars.map((jar) => (
+                        <option value={jar.id} key={jar.id}>
+                          {account.name} ({jar.default ? "default" : jar.name})
+                          — {account.currency}
+                        </option>
+                      ))
+                    )}
                   </Form.Select>
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group>
-                  <Form.Label>Account to</Form.Label>
+                  <Form.Label>Jar to</Form.Label>
                   <Form.Select
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                       setTransferData({
                         ...transferData,
-                        account_to_id: Number(e.target.value),
+                        jar_to_id: Number(e.target.value),
                       });
                     }}
                   >
                     <option>Please select...</option>
-                    {accounts.map((account) => (
-                      <option value={account.id} key={account.id}>
-                        {account.name} — {account.currency}
-                      </option>
-                    ))}
+                    {accounts.map((account) =>
+                      account.jars.map((jar) => (
+                        <option value={jar.id} key={jar.id}>
+                          {account.name} ({jar.default ? "default" : jar.name})
+                          — {account.currency}
+                        </option>
+                      ))
+                    )}
                   </Form.Select>
                 </Form.Group>
               </Col>
