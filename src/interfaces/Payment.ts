@@ -12,5 +12,5 @@ export default interface Payment {
   jar_savings_balance?: number;
   repeat?: string;
   jar_id: number;
-  jar?: Jar;
+  jar: Jar;
 }

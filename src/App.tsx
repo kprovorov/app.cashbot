@@ -4,6 +4,7 @@ import Account from "./interfaces/Account";
 import { getAccounts } from "./api/accounts";
 import AccountCard from "./AccountCard";
 import AddTransfer from "./AddTransfer";
+import CreatePaymentButton from "./payments/components/CreatePaymentButton";
 
 function App() {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -28,6 +29,7 @@ function App() {
               setAccounts(res);
             }}
           />
+          <CreatePaymentButton accounts={accounts} />
         </div>
       </div>
       <div className="row">

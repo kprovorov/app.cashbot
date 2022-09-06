@@ -20,7 +20,7 @@ export async function getAccountPayments(
 
 export async function createPayment(
   jarId: number,
-  paymentData: Omit<Payment, "id">
+  paymentData: Omit<Payment, "id" | "jar">
 ): Promise<Payment> {
   const { data } = await api.post(`jars/${jarId}/payments`, paymentData);
 
