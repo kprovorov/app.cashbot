@@ -21,6 +21,7 @@ export default function AddTransfer({
     rate: 0,
     jar_from_id: 0,
     jar_to_id: 0,
+    repeat: "none",
   });
 
   const loadRate = async () => {
@@ -63,6 +64,7 @@ export default function AddTransfer({
       rate: 0,
       jar_from_id: 0,
       jar_to_id: 0,
+      repeat: "none",
     });
 
     onCreated();
@@ -73,7 +75,7 @@ export default function AddTransfer({
   return (
     <>
       <Button onClick={handleShow}>Add Transfer</Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Add Transfer</Modal.Title>
         </Modal.Header>
@@ -132,6 +134,24 @@ export default function AddTransfer({
                       });
                     }}
                   />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Repeat</Form.Label>
+                  <Form.Select
+                    value={transferData.repeat}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+                      setTransferData({
+                        ...transferData,
+                        repeat: e.target.value,
+                      });
+                    }}
+                  >
+                    <option value="none">none</option>
+                    <option value="weekly">weekly</option>
+                    <option value="monthly">monthly</option>
+                  </Form.Select>
                 </Form.Group>
               </Col>
             </Row>

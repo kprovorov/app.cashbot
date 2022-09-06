@@ -72,7 +72,7 @@ export default function AccountCard({
     <Card className="mt-4">
       <Card.Body>
         <Card.Title>
-          {account.name} - {account.currency}
+          {account.name} - {currencyFormat(account.balance, account.currency)}
         </Card.Title>
         <Form onSubmit={submit}>
           <Table hover>
