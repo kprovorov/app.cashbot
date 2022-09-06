@@ -83,6 +83,9 @@ export default function AccountCard({
                 <th>Jar</th>
                 <th>Amount</th>
                 <th>Balance</th>
+                {account.jars.map((jar) => (
+                  <th key={jar.id}>{jar.name} Balance</th>
+                ))}
                 <th></th>
               </tr>
             </thead>
@@ -195,9 +198,32 @@ export default function AccountCard({
                   >
                     {currencyFormat(payment.amount, payment.currency)}
                   </td>
-                  <td className={payment.balance >= 0 ? "" : "text-bg-danger"}>
-                    {currencyFormat(payment.balance, payment.currency)}
+                  <td
+                    className={
+                      payment.balance && payment.balance >= 0
+                        ? ""
+                        : "text-bg-danger"
+                    }
+                  >
+                    {payment.balance
+                      ? currencyFormat(payment.balance, payment.currency)
+                      : ""}
                   </td>
+                  {account.jars.map((jar) => (
+                    <td
+                      key={jar.id}
+                      className={
+                        payment.jar_id !== jar.id ||
+                        (payment.jar_balance && payment.jar_balance >= 0)
+                          ? ""
+                          : "text-bg-danger"
+                      }
+                    >
+                      {payment.jar_balance && payment.jar_id === jar.id
+                        ? currencyFormat(payment.jar_balance, payment.currency)
+                        : ""}
+                    </td>
+                  ))}
                   <td>
                     <Button onClick={() => delPayment(payment.id)}>del</Button>
                   </td>
