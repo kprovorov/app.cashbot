@@ -10,8 +10,8 @@ function App() {
   const [accounts, setAccounts] = useState<Account[]>([]);
 
   useEffect(() => {
-    (async () => await fetchAccounts())();
-  });
+    fetchAccounts();
+  }, []);
 
   const fetchAccounts = async () => {
     const res = await getAccounts();
