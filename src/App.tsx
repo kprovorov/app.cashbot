@@ -3,8 +3,8 @@ import "./App.scss";
 import Account from "./interfaces/Account";
 import { getAccounts } from "./api/accounts";
 import AccountCard from "./AccountCard";
-import AddTransfer from "./AddTransfer";
 import CreatePaymentButton from "./payments/components/CreatePaymentButton";
+import CreateTransferButton from "./transfers/components/CreateTransferButton";
 
 function App() {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -23,11 +23,8 @@ function App() {
     <div className="container-fluid">
       <div className="row mt-4">
         <div className="col">
-          <AddTransfer accounts={accounts} onCreated={fetchAccounts} />
-          <CreatePaymentButton
-            accounts={accounts}
-            onPaymentCreated={fetchAccounts}
-          />
+          <CreateTransferButton accounts={accounts} onCreated={fetchAccounts} />
+          <CreatePaymentButton accounts={accounts} onCreated={fetchAccounts} />
         </div>
       </div>
       <div className="row">

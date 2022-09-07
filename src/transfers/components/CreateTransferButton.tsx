@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useState } from "react";
-import { Button } from "react-bootstrap";
-import CreatePaymentModal from "./CreatePaymentModal";
 import Account from "../../interfaces/Account";
+import { Button } from "react-bootstrap";
+import CreateTransferModal from "../../transfers/components/CreateTransferModal";
 
-export default function CreatePaymentButton({
+export default function CreateTransferButton({
   accounts,
   onCreated,
 }: PropsWithChildren<{ accounts: Account[]; onCreated: () => void }>) {
@@ -20,9 +20,9 @@ export default function CreatePaymentButton({
   return (
     <>
       <Button onClick={handleShow} className="ms-2">
-        Add Payment
+        Add Transfer
       </Button>
-      <CreatePaymentModal
+      <CreateTransferModal
         show={show}
         onClose={handleClose}
         onCreated={handleCreated}

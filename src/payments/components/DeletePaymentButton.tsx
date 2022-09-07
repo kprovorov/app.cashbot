@@ -13,7 +13,12 @@ export default function DeletePaymentButton({
   };
 
   return (
-    <Button onClick={submit} className="ms-2">
+    <Button
+      onClick={submit}
+      className="ms-2"
+      variant="outline-danger"
+      size="sm"
+    >
       Delete
     </Button>
   );

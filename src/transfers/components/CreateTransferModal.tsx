@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from "react";
 import { Button, Modal } from "react-bootstrap";
-import CreatePaymentForm from "./CreatePaymentForm";
+import CreateTransferForm from "./CreateTransferForm";
 import Account from "../../interfaces/Account";
 
-export default function CreatePaymentModal({
+export default function CreateTransferModal({
   show,
   onClose,
   accounts,
@@ -17,11 +17,11 @@ export default function CreatePaymentModal({
   return (
     <Modal show={show} onHide={onClose} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Add Payment</Modal.Title>
+        <Modal.Title>Add Transfer</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <CreatePaymentForm
-          formId="create-payment-form"
+        <CreateTransferForm
+          formId="create-transfer-form"
           accounts={accounts}
           onCreated={onCreated}
         />
@@ -30,7 +30,7 @@ export default function CreatePaymentModal({
         <Button variant="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button variant="primary" form="create-payment-form" type="submit">
+        <Button variant="primary" form="create-transfer-form" type="submit">
           Save Changes
         </Button>
       </Modal.Footer>

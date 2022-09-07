@@ -21,7 +21,11 @@ export async function createPayment(
 }
 
 export async function createTransfer(data: CreateTransferData): Promise<void> {
-  await api.post("transfers", data);
+  await api.post("transfers", {
+    ...data,
+    amount: data.amount * 10000,
+    rate: data.rate * 10000,
+  });
 }
 
 export async function deletePayment(paymentId: number): Promise<void> {
