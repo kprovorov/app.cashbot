@@ -20,7 +20,7 @@ export default function PaymentsTableRow({
       </td>
       <td
         className={
-          payment.balance && payment.balance >= 0
+          payment.balance >= 0
             ? payment.jar_savings_balance &&
               payment.balance < payment.jar_savings_balance
               ? "text-bg-warning"
@@ -28,9 +28,7 @@ export default function PaymentsTableRow({
             : "text-bg-danger"
         }
       >
-        {payment.balance
-          ? currencyFormat(payment.balance, payment.currency)
-          : ""}
+        {currencyFormat(payment.balance, payment.currency)}
       </td>
       <td
         className={

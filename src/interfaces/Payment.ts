@@ -6,7 +6,7 @@ export default interface Payment {
   amount: number;
   currency: string;
   date: string;
-  balance?: number;
+  balance: number;
   default_jar?: boolean;
   jar_balance?: number;
   jar_savings_balance?: number;
