@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from "react";
 import { currencyFormat } from "../../services/formatters";
 import DeletePaymentButton from "./DeletePaymentButton";
 import Payment from "../../interfaces/Payment";
+import DeleteGroupButton from "../../groups/components/DeleteGroupButton";
 
 export default function PaymentsTableRow({
   payment,
@@ -61,6 +62,9 @@ export default function PaymentsTableRow({
         ))}
       <td>
         <DeletePaymentButton paymentId={payment.id} onDeleted={onDeleted} />
+        {payment.group_id ? (
+          <DeleteGroupButton groupId={payment.group_id} onDeleted={onDeleted} />
+        ) : null}
       </td>
     </tr>
   );
