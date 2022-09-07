@@ -2,15 +2,12 @@ import React, { PropsWithChildren } from "react";
 import { currencyFormat } from "../../services/formatters";
 import DeletePaymentButton from "./DeletePaymentButton";
 import Payment from "../../interfaces/Payment";
-import Account from "../../interfaces/Account";
 
 export default function PaymentsTableRow({
   payment,
-  account,
   onDeleted,
 }: PropsWithChildren<{
   payment: Payment;
-  account: Account;
   onDeleted: () => void;
 }>) {
   return (
@@ -37,7 +34,7 @@ export default function PaymentsTableRow({
       </td>
       <td
         className={
-          payment.default_jar ||
+          payment.jar.default ||
           (payment.jar_savings_balance && payment.jar_savings_balance >= 0)
             ? ""
             : "text-bg-danger"
@@ -47,7 +44,7 @@ export default function PaymentsTableRow({
           ? currencyFormat(payment.jar_savings_balance, payment.currency)
           : ""}
       </td>
-      {account.jars
+      {payment.jar.account.jars
         .filter((jar) => !jar.default)
         .map((jar) => (
           <td

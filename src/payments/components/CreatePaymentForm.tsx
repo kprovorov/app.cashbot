@@ -5,9 +5,9 @@ import React, {
   useState,
 } from "react";
 import { Form } from "react-bootstrap";
-import Payment from "../../interfaces/Payment";
 import Account from "../../interfaces/Account";
 import { createPayment } from "../../api/accounts";
+import CreatePaymentData from "../../interfaces/CreatePaymentData";
 
 export default function CreatePaymentForm({
   formId,
@@ -18,7 +18,7 @@ export default function CreatePaymentForm({
   accounts: Account[];
   onCreated: () => void;
 }>) {
-  const [paymentData, setPaymentData] = useState<Omit<Payment, "id" | "jar">>({
+  const [paymentData, setPaymentData] = useState<CreatePaymentData>({
     jar_id: 0,
     description: "",
     amount: 0,

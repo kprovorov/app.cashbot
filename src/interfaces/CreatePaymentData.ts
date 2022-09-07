@@ -1,3 +1,4 @@
 import Payment from "./Payment";
 
-interface CreatePaymentData extends Omit<Payment, "id"> {}
+export default interface CreatePaymentData
+  extends Omit<Payment, "id" | "jar"> {}

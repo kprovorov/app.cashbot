@@ -1,3 +1,6 @@
+import Payment from "./Payment";
+import Account from "./Account";
+
 export default interface Jar {
   id: number;
   created_at: string;
@@ -5,4 +8,6 @@ export default interface Jar {
   account_id: number;
   name: string;
   default: boolean;
+  account: Account;
+  payments: Payment[];
 }

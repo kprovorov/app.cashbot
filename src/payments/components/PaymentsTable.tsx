@@ -1,28 +1,38 @@
 import React, { PropsWithChildren } from "react";
 import PaymentsTableRow from "./PaymentsTableRow";
-import Payment from "../../interfaces/Payment";
 import Account from "../../interfaces/Account";
 import { Table } from "react-bootstrap";
-import PaymentsTableHeader from "./PaymentsTableHeader";
 
 export default function PaymentsTable({
-  payments,
   account,
   onPaymentDeleted,
 }: PropsWithChildren<{
-  payments: Payment[];
   account: Account;
   onPaymentDeleted: () => void;
 }>) {
   return (
     <Table hover>
-      <PaymentsTableHeader account={account} />
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Jar</th>
+          <th>Amount</th>
+          <th>Balance</th>
+          <th>Savings Balance</th>
+          {account.jars
+            .filter((jar) => !jar.default)
+            .map((jar) => (
+              <th key={jar.id}>{jar.name} Balance</th>
+            ))}
+          <th></th>
+        </tr>
+      </thead>
       <tbody>
-        {payments.map((payment, index) => (
+        {account.payments.map((payment, index) => (
           <PaymentsTableRow
             key={payment.id}
             payment={payment}
-            account={account}
             onDeleted={onPaymentDeleted}
           ></PaymentsTableRow>
         ))}

@@ -3,6 +3,7 @@ import api from "../services/api";
 import Payment from "../interfaces/Payment";
 import CreateTransferData from "../interfaces/CreateTransferData";
 import Rate from "../interfaces/Rate";
+import CreatePaymentData from "../interfaces/CreatePaymentData";
 
 export async function getAccounts(): Promise<Account[]> {
   const { data } = await api.get("accounts");
@@ -10,17 +11,9 @@ export async function getAccounts(): Promise<Account[]> {
   return data;
 }
 
-export async function getAccountPayments(
-  accountId: number
-): Promise<Payment[]> {
-  const { data } = await api.get(`accounts/${accountId}/payments`);
-
-  return data;
-}
-
 export async function createPayment(
   jarId: number,
-  paymentData: Omit<Payment, "id" | "jar">
+  paymentData: CreatePaymentData
 ): Promise<Payment> {
   const { data } = await api.post(`jars/${jarId}/payments`, paymentData);
 
