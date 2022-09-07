@@ -24,9 +24,9 @@ export default function UpdatePaymentButton({
     <>
       <Button
         onClick={handleShow}
-        className="ms-2"
         size="sm"
-        variant="outline-primary"
+        className="text-primary"
+        variant="light"
       >
         Edit Payment
       </Button>

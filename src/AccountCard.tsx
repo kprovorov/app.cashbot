@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 import { Card } from "react-bootstrap";
 import { currencyFormat } from "./services/formatters";
 import Account from "./interfaces/Account";
-import PaymentsTable from "./payments/components/PaymentsTable";
+import PaymentsList from "./payments/components/PaymentsList";
 
 export default function AccountCard({
   account,
@@ -19,7 +19,7 @@ export default function AccountCard({
         <Card.Title>
           {account.name} - {currencyFormat(account.balance, account.currency)}
         </Card.Title>
-        <PaymentsTable
+        <PaymentsList
           account={account}
           onDeleted={onDeleted}
           onUpdated={onUpdated}
