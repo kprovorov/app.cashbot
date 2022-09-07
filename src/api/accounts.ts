@@ -1,6 +1,5 @@
 import Account from "../interfaces/Account";
 import api from "../services/api";
-import Payment from "../interfaces/Payment";
 import CreateTransferData from "../interfaces/CreateTransferData";
 import Rate from "../interfaces/Rate";
 import CreatePaymentData from "../interfaces/CreatePaymentData";
@@ -12,12 +11,12 @@ export async function getAccounts(): Promise<Account[]> {
 }
 
 export async function createPayment(
-  jarId: number,
   paymentData: CreatePaymentData
-): Promise<Payment> {
-  const { data } = await api.post(`jars/${jarId}/payments`, paymentData);
-
-  return data;
+): Promise<void> {
+  await api.post("payments", {
+    ...paymentData,
+    amount: paymentData.amount * 10000,
+  });
 }
 
 export async function createTransfer(data: CreateTransferData): Promise<void> {

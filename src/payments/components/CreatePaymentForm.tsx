@@ -31,10 +31,7 @@ export default function CreatePaymentForm({
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await createPayment(paymentData.jar_id, {
-      ...paymentData,
-      amount: paymentData.amount * 10000,
-    });
+    await createPayment(paymentData);
 
     onCreated();
   };
