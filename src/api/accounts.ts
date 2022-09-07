@@ -3,6 +3,7 @@ import api from "../services/api";
 import CreateTransferData from "../interfaces/CreateTransferData";
 import Rate from "../interfaces/Rate";
 import CreatePaymentData from "../interfaces/CreatePaymentData";
+import UpdatePaymentData from "../interfaces/UpdatePaymentData";
 
 export async function getAccounts(): Promise<Account[]> {
   const { data } = await api.get("accounts");
@@ -14,6 +15,16 @@ export async function createPayment(
   paymentData: CreatePaymentData
 ): Promise<void> {
   await api.post("payments", {
+    ...paymentData,
+    amount: paymentData.amount * 10000,
+  });
+}
+
+export async function updatePayment(
+  paymentId: number,
+  paymentData: UpdatePaymentData
+): Promise<void> {
+  await api.put(`payments/${paymentId}`, {
     ...paymentData,
     amount: paymentData.amount * 10000,
   });

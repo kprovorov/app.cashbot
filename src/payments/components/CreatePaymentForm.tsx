@@ -22,9 +22,7 @@ export default function CreatePaymentForm({
     jar_id: 0,
     description: "",
     amount: 0,
-    currency: "",
     date: "",
-    balance: 0,
     repeat: "none",
   });
 

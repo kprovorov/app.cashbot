@@ -10,7 +10,6 @@ export default interface Payment {
   default_jar?: boolean;
   jar_balance?: number;
   jar_savings_balance?: number;
-  repeat?: string;
   jar_id: number;
   jar: Jar;
   group_id?: number;

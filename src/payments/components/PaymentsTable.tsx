@@ -5,10 +5,12 @@ import { Table } from "react-bootstrap";
 
 export default function PaymentsTable({
   account,
-  onPaymentDeleted,
+  onDeleted,
+  onUpdated,
 }: PropsWithChildren<{
   account: Account;
-  onPaymentDeleted: () => void;
+  onDeleted: () => void;
+  onUpdated: () => void;
 }>) {
   return (
     <Table hover>
@@ -33,7 +35,8 @@ export default function PaymentsTable({
           <PaymentsTableRow
             key={payment.id}
             payment={payment}
-            onDeleted={onPaymentDeleted}
+            onDeleted={onDeleted}
+            onUpdated={onUpdated}
           ></PaymentsTableRow>
         ))}
       </tbody>

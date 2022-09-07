@@ -3,13 +3,16 @@ import { currencyFormat } from "../../services/formatters";
 import DeletePaymentButton from "./DeletePaymentButton";
 import Payment from "../../interfaces/Payment";
 import DeleteGroupButton from "../../groups/components/DeleteGroupButton";
+import UpdatePaymentButton from "./EditPaymentButton";
 
 export default function PaymentsTableRow({
   payment,
   onDeleted,
+  onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
   onDeleted: () => void;
+  onUpdated: () => void;
 }>) {
   return (
     <tr>
@@ -61,6 +64,7 @@ export default function PaymentsTableRow({
           </td>
         ))}
       <td>
+        <UpdatePaymentButton payment={payment} onUpdated={onUpdated} />
         <DeletePaymentButton paymentId={payment.id} onDeleted={onDeleted} />
         {payment.group_id ? (
           <DeleteGroupButton groupId={payment.group_id} onDeleted={onDeleted} />

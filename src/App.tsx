@@ -30,7 +30,11 @@ function App() {
       <div className="row">
         {accounts.map((account, index) => (
           <div className="col-12" key={account.id}>
-            <AccountCard account={account} onPaymentDeleted={fetchAccounts} />
+            <AccountCard
+              account={account}
+              onDeleted={fetchAccounts}
+              onUpdated={fetchAccounts}
+            />
           </div>
         ))}
       </div>
