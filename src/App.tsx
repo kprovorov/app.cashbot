@@ -23,15 +23,11 @@ function App() {
     <div className="container-fluid">
       <div className="row mt-4">
         <div className="col">
-          <AddTransfer
+          <AddTransfer accounts={accounts} onCreated={fetchAccounts} />
+          <CreatePaymentButton
             accounts={accounts}
-            onCreated={async () => {
-              const res = await getAccounts();
-
-              setAccounts(res);
-            }}
+            onPaymentCreated={fetchAccounts}
           />
-          <CreatePaymentButton accounts={accounts} />
         </div>
       </div>
       <div className="row">
