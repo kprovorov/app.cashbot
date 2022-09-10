@@ -36,27 +36,25 @@ export default function CreateTransferForm({
     onCreated();
   };
 
-  const loadRate = async () => {
-    const accountFrom = accounts.find((account) =>
-      account.jars.map((jar) => jar.id).includes(transferData.jar_from_id)
-    );
-    const accountTo = accounts.find((account) =>
-      account.jars.map((jar) => jar.id).includes(transferData.jar_to_id)
-    );
-
-    if (accountFrom && accountTo) {
-      const res = await getRate(accountFrom.currency, accountTo.currency);
-
-      setTransferData({
-        ...transferData,
-        rate: res.buy,
-      });
-    }
-  };
-
   useEffect(() => {
-    (async () => await loadRate())();
-  }, [transferData.jar_from_id, transferData.jar_to_id]);
+    (async () => {
+      const accountFrom = accounts.find((account) =>
+        account.jars.map((jar) => jar.id).includes(transferData.jar_from_id)
+      );
+      const accountTo = accounts.find((account) =>
+        account.jars.map((jar) => jar.id).includes(transferData.jar_to_id)
+      );
+
+      if (accountFrom && accountTo) {
+        const res = await getRate(accountFrom.currency, accountTo.currency);
+
+        setTransferData({
+          ...transferData,
+          rate: res.buy,
+        });
+      }
+    })();
+  }, [transferData, accounts]);
 
   return (
     <Form id={formId} onSubmit={submit}>

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState } from "react";
 import { currencyFormat } from "../../services/formatters";
-import { Button, Collapse } from "react-bootstrap";
+import { Collapse } from "react-bootstrap";
 import Payment from "../../interfaces/Payment";
 import UpdatePaymentButton from "./EditPaymentButton";
 import DeletePaymentButton from "./DeletePaymentButton";
