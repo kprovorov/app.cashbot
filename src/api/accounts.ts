@@ -4,11 +4,19 @@ import CreateTransferData from "../interfaces/CreateTransferData";
 import Rate from "../interfaces/Rate";
 import CreatePaymentData from "../interfaces/CreatePaymentData";
 import UpdatePaymentData from "../interfaces/UpdatePaymentData";
+import UpdateAccountData from "../interfaces/UpdateAccountData";
 
 export async function getAccounts(): Promise<Account[]> {
   const { data } = await api.get("accounts");
 
   return data;
+}
+
+export async function updateAccount(
+  accountId: number,
+  accountData: UpdateAccountData
+): Promise<void> {
+  await api.put(`accounts/${accountId}`, accountData);
 }
 
 export async function createPayment(
