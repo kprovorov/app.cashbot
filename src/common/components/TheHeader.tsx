@@ -14,11 +14,13 @@ export default function TheHeader({
     <>
       <Navbar bg="dark" expand={true} fixed="top" variant="dark">
         <Container fluid className="d-flex align-items-center">
-          <Navbar.Brand href="/">
-            <img height="20" src="logo.svg" alt="cashbot" className="mb-2" />
-          </Navbar.Brand>
-          <CreateTransferButton accounts={accounts} onCreated={onCreated} />
-          <CreatePaymentButton accounts={accounts} onCreated={onCreated} />
+          <div>
+            <Navbar.Brand href="/">
+              <img height="20" src="logo.svg" alt="cashbot" className="mb-2" />
+            </Navbar.Brand>
+            <CreateTransferButton accounts={accounts} onCreated={onCreated} />
+            <CreatePaymentButton accounts={accounts} onCreated={onCreated} />
+          </div>
           <Button
             size="sm"
             as="a"
