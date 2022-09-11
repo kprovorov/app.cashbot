@@ -54,7 +54,8 @@ export default function CreateTransferForm({
         });
       }
     })();
-  }, [transferData, accounts]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transferData.jar_from_id, transferData.jar_to_id]);
 
   return (
     <Form id={formId} onSubmit={submit}>
