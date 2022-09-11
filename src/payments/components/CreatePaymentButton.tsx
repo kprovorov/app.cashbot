@@ -19,7 +19,7 @@ export default function CreatePaymentButton({
 
   return (
     <>
-      <Button onClick={handleShow} className="ms-2">
+      <Button onClick={handleShow} className="ms-2" size="sm" variant="dark">
         Add Payment
       </Button>
       <CreatePaymentModal

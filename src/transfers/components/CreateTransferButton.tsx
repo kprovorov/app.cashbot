@@ -19,7 +19,7 @@ export default function CreateTransferButton({
 
   return (
     <>
-      <Button onClick={handleShow} className="ms-2">
+      <Button onClick={handleShow} className="ms-2" size="sm" variant="dark">
         Add Transfer
       </Button>
       <CreateTransferModal
