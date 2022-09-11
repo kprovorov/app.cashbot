@@ -46,6 +46,7 @@ function App() {
           <div className="col-sm-6 col-md-6 col-lg-4 col-xl-3" key={account.id}>
             <AccountCard
               account={account}
+              accounts={accounts}
               onDeleted={fetchAccounts}
               onUpdated={fetchAccounts}
             />

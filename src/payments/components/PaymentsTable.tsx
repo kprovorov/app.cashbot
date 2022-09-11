@@ -5,10 +5,12 @@ import { Table } from "react-bootstrap";
 
 export default function PaymentsTable({
   account,
+  accounts,
   onDeleted,
   onUpdated,
 }: PropsWithChildren<{
   account: Account;
+  accounts: Account[];
   onDeleted: () => void;
   onUpdated: () => void;
 }>) {
@@ -33,6 +35,7 @@ export default function PaymentsTable({
       <tbody>
         {account.payments.map((payment, index) => (
           <PaymentsTableRow
+            accounts={accounts}
             key={payment.id}
             payment={payment}
             onDeleted={onDeleted}

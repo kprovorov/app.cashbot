@@ -2,16 +2,19 @@ import React, { PropsWithChildren, useState } from "react";
 import { currencyFormat } from "../../services/formatters";
 import { Collapse } from "react-bootstrap";
 import Payment from "../../interfaces/Payment";
-import UpdatePaymentButton from "./EditPaymentButton";
+import EditPaymentButton from "./EditPaymentButton";
 import DeletePaymentButton from "./DeletePaymentButton";
 import DeleteGroupButton from "../../groups/components/DeleteGroupButton";
+import Account from "../../interfaces/Account";
 
 export default function PaymentListItem({
   payment,
+  accounts,
   onDeleted,
   onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
+  accounts: Account[];
   onDeleted: () => void;
   onUpdated: () => void;
 }>) {
@@ -92,7 +95,11 @@ export default function PaymentListItem({
       </div>
       <Collapse in={open}>
         <div id={`expand-${payment.id}`}>
-          <UpdatePaymentButton payment={payment} onUpdated={onUpdated} />
+          <EditPaymentButton
+            accounts={accounts}
+            payment={payment}
+            onUpdated={onUpdated}
+          />
           <DeletePaymentButton paymentId={payment.id} onDeleted={onDeleted} />
           {payment.group_id ? (
             <DeleteGroupButton

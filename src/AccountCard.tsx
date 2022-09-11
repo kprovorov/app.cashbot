@@ -6,10 +6,12 @@ import PaymentsList from "./payments/components/PaymentsList";
 
 export default function AccountCard({
   account,
+  accounts,
   onDeleted,
   onUpdated,
 }: PropsWithChildren<{
   account: Account;
+  accounts: Account[];
   onDeleted: () => void;
   onUpdated: () => void;
 }>) {
@@ -21,6 +23,7 @@ export default function AccountCard({
         </Card.Title>
         <PaymentsList
           account={account}
+          accounts={accounts}
           onDeleted={onDeleted}
           onUpdated={onUpdated}
         />

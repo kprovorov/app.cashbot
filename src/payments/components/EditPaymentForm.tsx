@@ -8,17 +8,21 @@ import { Form } from "react-bootstrap";
 import { updatePayment } from "../../api/accounts";
 import UpdatePaymentData from "../../interfaces/UpdatePaymentData";
 import Payment from "../../interfaces/Payment";
+import Account from "../../interfaces/Account";
 
 export default function EditPaymentForm({
   payment,
   formId,
+  accounts,
   onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
   formId: string;
+  accounts: Account[];
   onUpdated: () => void;
 }>) {
   const [paymentData, setPaymentData] = useState<UpdatePaymentData>({
+    jar_id: payment.jar_id,
     description: payment.description,
     amount: payment.amount / 10000,
     date: payment.date,
@@ -64,6 +68,28 @@ export default function EditPaymentForm({
             });
           }}
         />
+      </Form.Group>
+
+      <Form.Group className="mt-2">
+        <Form.Label>Account:</Form.Label>
+        <Form.Select
+          value={paymentData.jar_id}
+          onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            setPaymentData({
+              ...paymentData,
+              jar_id: Number(e.target.value),
+            });
+          }}
+        >
+          <option>Please select...</option>
+          {accounts.map((account) =>
+            account.jars.map((jar) => (
+              <option key={jar.id} value={jar.id}>
+                {account.name} ({account.currency}) - {jar.name}
+              </option>
+            ))
+          )}
+        </Form.Select>
       </Form.Group>
 
       <Form.Group className="mt-2">
