@@ -35,8 +35,8 @@ export default function AccountCard({
     <Card className="mt-4">
       <Card.Body>
         <Card.Title>
-          <div onClick={() => setEditing(true)}>
-            {account.name} -{" "}
+          <div>
+            {account.name}
             {editing ? (
               <Form onSubmit={submit}>
                 <div className="d-flex">
@@ -55,7 +55,9 @@ export default function AccountCard({
                 </div>
               </Form>
             ) : (
-              currencyFormat(account.balance, account.currency)
+              <div onClick={() => setEditing(true)}>
+                {currencyFormat(account.balance, account.currency)}
+              </div>
             )}
           </div>
         </Card.Title>
