@@ -42,7 +42,10 @@ function App() {
                   className="ms-2"
                   size="sm"
                   variant="outline-secondary"
-                  onClick={updateBalances}
+                  onClick={async () => {
+                    await updateBalances();
+                    await fetchAccounts();
+                  }}
                 >
                   Update balances
                 </Button>
