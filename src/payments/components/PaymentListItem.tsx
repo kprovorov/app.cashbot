@@ -6,6 +6,7 @@ import EditPaymentButton from "./EditPaymentButton";
 import DeletePaymentButton from "./DeletePaymentButton";
 import DeleteGroupButton from "../../groups/components/DeleteGroupButton";
 import Account from "../../interfaces/Account";
+import moment from "moment";
 
 export default function PaymentListItem({
   payment,
@@ -29,7 +30,11 @@ export default function PaymentListItem({
         aria-expanded={open}
       >
         <div className="d-flex">
-          <small>
+          <small
+            className={
+              moment(payment.date).diff(moment()) < 0 ? "text-bg-success" : ""
+            }
+          >
             {payment.date} ({payment.jar.name})
           </small>
         </div>
