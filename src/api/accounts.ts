@@ -12,6 +12,10 @@ export async function getAccounts(): Promise<Account[]> {
   return data;
 }
 
+export async function updateBalances(): Promise<void> {
+  await api.post("accounts/update-balances");
+}
+
 export async function updateAccount(
   accountId: number,
   accountData: UpdateAccountData

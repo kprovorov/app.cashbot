@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Account from "./interfaces/Account";
-import { getAccounts } from "./api/accounts";
+import { getAccounts, updateBalances } from "./api/accounts";
 import AccountCard from "./AccountCard";
-import { ButtonGroup, Col, Row, ToggleButton } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Row, ToggleButton } from "react-bootstrap";
 import AccountBalances from "./accounts/components/AccountBalances";
 import Form from "react-bootstrap/Form";
 import TheHeader from "./common/components/TheHeader";
@@ -31,13 +31,21 @@ function App() {
         <Row>
           <Col>
             <div className="d-flex justify-content-between align-items-center bg-light p-3 border rounded">
-              <div>
+              <div className="d-flex align-items-center">
                 <Form.Check
                   onChange={(e) => setShowEmptyAccounts(e.target.checked)}
                   type="switch"
                   id="custom-switch"
                   label="Empty"
                 />
+                <Button
+                  className="ms-2"
+                  size="sm"
+                  variant="outline-secondary"
+                  onClick={updateBalances}
+                >
+                  Update balances
+                </Button>
               </div>
               <div>
                 <ButtonGroup>
