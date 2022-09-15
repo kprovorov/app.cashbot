@@ -7,6 +7,7 @@ import DeletePaymentButton from "./DeletePaymentButton";
 import DeleteGroupButton from "../../groups/components/DeleteGroupButton";
 import Account from "../../interfaces/Account";
 import moment from "moment";
+import { isIncomingPaymentWithinSameAccountTransfer } from "../../helpers/PaymentHelper";
 
 export default function PaymentListItem({
   payment,
@@ -41,8 +42,17 @@ export default function PaymentListItem({
         <div className="d-flex flex-row justify-content-between">
           <div>{payment.description}</div>
 
-          <div className={payment.amount > 0 ? "text-success fw-bold" : ""}>
-            {currencyFormat(payment.amount, payment.currency)}
+          <div
+            className={
+              payment.amount > 0 &&
+              !isIncomingPaymentWithinSameAccountTransfer(payment)
+                ? "text-success fw-bold"
+                : ""
+            }
+          >
+            {isIncomingPaymentWithinSameAccountTransfer(payment)
+              ? currencyFormat(-payment.amount, payment.currency)
+              : currencyFormat(payment.amount, payment.currency)}
           </div>
         </div>
         <div className="d-flex flex-row justify-content-between text-size-md">

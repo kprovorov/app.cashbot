@@ -1,6 +1,9 @@
 import Jar from "./Jar";
+import Transfer from "./Transfer";
 
 export default interface Payment {
+  from_transfer?: Transfer;
+  to_transfer?: Transfer;
   id: number;
   description: string;
   amount: number;
