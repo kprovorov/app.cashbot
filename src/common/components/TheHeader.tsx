@@ -12,11 +12,11 @@ export default function TheHeader({
 }: PropsWithChildren<{ accounts: Account[]; onCreated: () => void }>) {
   return (
     <>
-      <Navbar bg="dark" expand={true} fixed="top" variant="dark">
+      <Navbar bg="dark" expand={true} fixed="bottom" variant="dark">
         <Container fluid className="d-flex align-items-center">
           <div>
             <Navbar.Brand href="/">
-              <img height="20" src="logo.svg" alt="cashbot" className="mb-2" />
+              <img height="20" src="logo.svg" alt="cashbot" />
             </Navbar.Brand>
             <CreateTransferButton accounts={accounts} onCreated={onCreated} />
             <CreatePaymentButton accounts={accounts} onCreated={onCreated} />
