@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Account from "./interfaces/Account";
-import { getAccounts, updateBalances } from "./api/accounts";
+import { getAccounts } from "./api/accounts";
 import AccountCard from "./AccountCard";
-import { Button, ButtonGroup, Col, Row, ToggleButton } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  Row,
+  Spinner,
+  ToggleButton,
+} from "react-bootstrap";
 import AccountBalances from "./accounts/components/AccountBalances";
 import Form from "react-bootstrap/Form";
 import TheHeader from "./common/components/TheHeader";
 import Container from "react-bootstrap/Container";
 
 function App() {
+  const [loading, setLoading] = useState(false);
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [showEmptyAccounts, setShowEmptyAccounts] = useState(false);
   const [layout, setLayout] = useState<"table" | "cards">("cards");
@@ -19,9 +27,11 @@ function App() {
   }, []);
 
   const fetchAccounts = async () => {
+    setLoading(true);
     const res = await getAccounts();
 
     setAccounts(res);
+    setLoading(false);
   };
 
   return (
@@ -39,15 +49,23 @@ function App() {
                   label="Empty"
                 />
                 <Button
+                  style={{ width: "80px" }}
                   className="ms-2"
                   size="sm"
                   variant="outline-secondary"
-                  onClick={async () => {
-                    await updateBalances();
-                    await fetchAccounts();
-                  }}
+                  onClick={fetchAccounts}
                 >
-                  Update balances
+                  {loading ? (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    "Refresh"
+                  )}
                 </Button>
               </div>
               <div>
@@ -79,7 +97,7 @@ function App() {
         </Row>
         <div className="row">
           <div className="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <AccountBalances accounts={accounts} />
+            {accounts.length ? <AccountBalances accounts={accounts} /> : null}
           </div>
           {accounts
             .filter((account) => showEmptyAccounts || account.payments.length)
