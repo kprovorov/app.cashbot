@@ -80,24 +80,6 @@ export default function CreateTransferForm({
         </Col>
         <Col>
           <Form.Group>
-            <Form.Label>Amount</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Amount"
-              value={transferData.amount}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setTransferData({
-                  ...transferData,
-                  amount: Number(e.target.value),
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
             <Form.Label>Rate</Form.Label>
             <Form.Control
               type="number"
@@ -133,7 +115,47 @@ export default function CreateTransferForm({
           </Form.Group>
         </Col>
       </Row>
-      <Row>
+      <Row className="mt-3">
+        <Col>
+          <Form.Group>
+            <Form.Label>Amount From</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Amount From"
+              value={Math.round(transferData.amount * 100) / 100}
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ): void => {
+                setTransferData({
+                  ...transferData,
+                  amount: Number(e.target.value),
+                });
+              }}
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label>Amount To</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Amount To"
+              value={
+                Math.round(transferData.amount * transferData.rate * 100) / 100
+              }
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ): void => {
+                setTransferData({
+                  ...transferData,
+                  amount: Number(e.target.value) / transferData.rate,
+                });
+              }}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row className="mt-3">
         <Col>
           <Form.Group>
             <Form.Label>Jar from</Form.Label>
