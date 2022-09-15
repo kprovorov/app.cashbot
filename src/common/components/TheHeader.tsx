@@ -12,7 +12,7 @@ export default function TheHeader({
 }: PropsWithChildren<{ accounts: Account[]; onCreated: () => void }>) {
   return (
     <>
-      <Navbar bg="dark" expand={true} fixed="bottom" variant="dark">
+      <Navbar bg="dark" expand={true} fixed="top" variant="dark">
         <Container fluid className="d-flex align-items-center">
           <div>
             <Navbar.Brand href="/">
