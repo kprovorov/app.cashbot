@@ -1,4 +1,5 @@
 export default interface CreateTransferData {
+  description?: string;
   date: string;
   amount: number;
   rate: number;

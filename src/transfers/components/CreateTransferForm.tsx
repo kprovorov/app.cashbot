@@ -118,46 +118,6 @@ export default function CreateTransferForm({
       <Row className="mt-3">
         <Col>
           <Form.Group>
-            <Form.Label>Amount From</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Amount From"
-              value={Math.round(transferData.amount * 100) / 100}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setTransferData({
-                  ...transferData,
-                  amount: Number(e.target.value),
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Amount To</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Amount To"
-              value={
-                Math.round(transferData.amount * transferData.rate * 100) / 100
-              }
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setTransferData({
-                  ...transferData,
-                  amount: Number(e.target.value) / transferData.rate,
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col>
-          <Form.Group>
             <Form.Label>Jar from</Form.Label>
             <Form.Select
               onChange={(e: ChangeEvent<HTMLSelectElement>) => {
@@ -200,6 +160,66 @@ export default function CreateTransferForm({
                 ))
               )}
             </Form.Select>
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col>
+          <Form.Group>
+            <Form.Label>Amount From</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Amount From"
+              value={Math.round(transferData.amount * 100) / 100}
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ): void => {
+                setTransferData({
+                  ...transferData,
+                  amount: Number(e.target.value),
+                });
+              }}
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label>Amount To</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Amount To"
+              value={
+                Math.round(transferData.amount * transferData.rate * 100) / 100
+              }
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ): void => {
+                setTransferData({
+                  ...transferData,
+                  amount: Number(e.target.value) / transferData.rate,
+                });
+              }}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col>
+          <Form.Group>
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Description"
+              value={transferData.description}
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ): void => {
+                setTransferData({
+                  ...transferData,
+                  description: e.target.value,
+                });
+              }}
+            />
           </Form.Group>
         </Col>
       </Row>
