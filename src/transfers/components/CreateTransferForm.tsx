@@ -111,6 +111,7 @@ export default function CreateTransferForm({
               <option value="none">none</option>
               <option value="weekly">weekly</option>
               <option value="monthly">monthly</option>
+              <option value="quarterly">quarterly</option>
             </Form.Select>
           </Form.Group>
         </Col>
