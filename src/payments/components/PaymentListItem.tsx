@@ -23,7 +23,11 @@ export default function PaymentListItem({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="py-2 d-flex flex-column border-bottom">
+    <div
+      className={`p-3 d-flex flex-column border-top ${
+        moment(payment.date).month() % 2 ? "bg-light" : null
+      }`}
+    >
       <div
         className="payment-card d-flex flex-column"
         onClick={() => setOpen(!open)}

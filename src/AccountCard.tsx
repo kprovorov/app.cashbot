@@ -36,50 +36,55 @@ export default function AccountCard({
 
   return (
     <Card className="mt-4">
-      <Card.Body>
-        <Card.Title>
-          <div>
-            {account.name}
-            {editing ? (
-              <Form onSubmit={submit}>
-                <div className="d-flex">
-                  <Form.Control
-                    type="number"
-                    className="me-2"
-                    placeholder="Balance"
-                    value={balance / 10000}
-                    onChange={(
-                      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-                    ): void => {
-                      setBalance(Number(e.target.value) * 10000);
-                    }}
-                  />
-                  <Button type="submit">Ok</Button>
-                </div>
-              </Form>
-            ) : (
-              <div onClick={() => setEditing(true)}>
-                {currencyFormat(account.balance, account.currency)}
+      {/*<Card.Body>*/}
+      {/*  <Card.Title>*/}
+      <div className="p-3 d-flex justify-content-between fw-bold">
+        <div className="w-50">{account.name}</div>
+        <div className="w-50 d-flex justify-content-end">
+          {editing ? (
+            <Form onSubmit={submit}>
+              <div className="d-flex">
+                <Form.Control
+                  type="number"
+                  className="me-2"
+                  placeholder="Balance"
+                  value={balance / 10000}
+                  size="sm"
+                  onChange={(
+                    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+                  ): void => {
+                    setBalance(Number(e.target.value) * 10000);
+                  }}
+                />
+                <Button size="sm" type="submit">
+                  Ok
+                </Button>
               </div>
-            )}
-          </div>
-        </Card.Title>
-        {layout === "cards" ? (
-          <PaymentsList
-            account={account}
-            accounts={accounts}
-            onDeleted={onDeleted}
-            onUpdated={onUpdated}
-          />
-        ) : (
-          <PaymentsTable
-            account={account}
-            accounts={accounts}
-            onDeleted={onDeleted}
-            onUpdated={onUpdated}
-          />
-        )}
-      </Card.Body>
+            </Form>
+          ) : (
+            <div onClick={() => setEditing(true)}>
+              {currencyFormat(account.balance, account.currency)}
+            </div>
+          )}
+        </div>
+      </div>
+      {/*</Card.Title>*/}
+      {layout === "cards" ? (
+        <PaymentsList
+          account={account}
+          accounts={accounts}
+          onDeleted={onDeleted}
+          onUpdated={onUpdated}
+        />
+      ) : (
+        <PaymentsTable
+          account={account}
+          accounts={accounts}
+          onDeleted={onDeleted}
+          onUpdated={onUpdated}
+        />
+      )}
+      {/*</Card.Body>*/}
     </Card>
   );
 }
