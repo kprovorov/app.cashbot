@@ -36,8 +36,6 @@ export default function AccountCard({
 
   return (
     <Card className="mt-4">
-      {/*<Card.Body>*/}
-      {/*  <Card.Title>*/}
       <div className="p-3 d-flex justify-content-between fw-bold">
         <div className="w-50">{account.name}</div>
         <div className="w-50 d-flex justify-content-end">
@@ -68,7 +66,6 @@ export default function AccountCard({
           )}
         </div>
       </div>
-      {/*</Card.Title>*/}
       {layout === "cards" ? (
         <PaymentsList
           account={account}
@@ -84,7 +81,6 @@ export default function AccountCard({
           onUpdated={onUpdated}
         />
       )}
-      {/*</Card.Body>*/}
     </Card>
   );
 }
