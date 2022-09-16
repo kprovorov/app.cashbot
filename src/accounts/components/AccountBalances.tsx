@@ -8,18 +8,17 @@ export default function AccountBalances({
 }: PropsWithChildren<{ accounts: Account[] }>) {
   return (
     <Card className="mt-4">
-      <Card.Body>
-        <Table>
-          <tbody>
-            {accounts.map((account) => (
-              <tr key={account.id}>
-                <td>{account.name}</td>
-                <td>{currencyFormat(account.balance, account.currency)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Card.Body>
+      <div className="p-3 fw-bold">Balances</div>
+
+      {accounts.map((account) => (
+        <div
+          key={account.id}
+          className="d-flex justify-content-between py-2 px-3 border-top"
+        >
+          <div>{account.name}</div>
+          <div>{currencyFormat(account.balance, account.currency)}</div>
+        </div>
+      ))}
     </Card>
   );
 }
