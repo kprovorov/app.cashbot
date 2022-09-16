@@ -16,7 +16,7 @@ import Form from "react-bootstrap/Form";
 import TheHeader from "./common/components/TheHeader";
 import Container from "react-bootstrap/Container";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, Mousewheel, Navigation, Pagination } from "swiper";
+import { Keyboard, Mousewheel } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
