@@ -15,6 +15,15 @@ import AccountBalances from "./accounts/components/AccountBalances";
 import Form from "react-bootstrap/Form";
 import TheHeader from "./common/components/TheHeader";
 import Container from "react-bootstrap/Container";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Keyboard, Mousewheel, Navigation, Pagination } from "swiper";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+// import "./styles.css";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -95,31 +104,52 @@ function App() {
             </div>
           </Col>
         </Row>
-        <div className="row">
-          <div className="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            {accounts.length ? <AccountBalances accounts={accounts} /> : null}
-          </div>
-          {accounts
-            .filter((account) => showEmptyAccounts || account.payments.length)
-            .map((account, index) => (
-              <div
-                className={
-                  layout === "cards"
-                    ? "col-sm-6 col-md-6 col-lg-4 col-xl-3"
-                    : "col-12"
-                }
-                key={account.id}
-              >
-                <AccountCard
-                  layout={layout}
-                  account={account}
-                  accounts={accounts}
-                  onDeleted={fetchAccounts}
-                  onUpdated={fetchAccounts}
-                />
+        <Row>
+          <Swiper
+            cssMode={true}
+            mousewheel={true}
+            keyboard={true}
+            slidesPerView={2}
+            breakpoints={{
+              "@0.00": {
+                slidesPerView: 1,
+              },
+              "@0.75": {
+                slidesPerView: 2,
+              },
+              "@1.00": {
+                slidesPerView: 3,
+              },
+              "@1.50": {
+                slidesPerView: 4,
+              },
+            }}
+            modules={[Mousewheel, Keyboard]}
+          >
+            <SwiperSlide>
+              <div className="p-3">
+                {accounts.length ? (
+                  <AccountBalances accounts={accounts} />
+                ) : null}
               </div>
-            ))}
-        </div>
+            </SwiperSlide>
+            {accounts
+              .filter((account) => showEmptyAccounts || account.payments.length)
+              .map((account, index) => (
+                <SwiperSlide key={account.id}>
+                  <div className="p-3">
+                    <AccountCard
+                      layout={layout}
+                      account={account}
+                      accounts={accounts}
+                      onDeleted={fetchAccounts}
+                      onUpdated={fetchAccounts}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </Row>
       </Container>
     </>
   );

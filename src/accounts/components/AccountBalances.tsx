@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { Card, Table } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Account from "../../interfaces/Account";
 import { currencyFormat } from "../../services/formatters";
 
