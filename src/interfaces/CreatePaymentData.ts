@@ -6,4 +6,5 @@ export default interface CreatePaymentData
     "id" | "jar" | "balance" | "currency" | "jar_savings_balance"
   > {
   repeat: string;
+  direction: "expense" | "income";
 }
