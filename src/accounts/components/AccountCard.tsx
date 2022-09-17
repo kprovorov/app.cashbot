@@ -1,14 +1,8 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  PropsWithChildren,
-  useState,
-} from "react";
-import { Button, Card, Form } from "react-bootstrap";
-import { currencyFormat } from "../../services/formatters";
+import React, { PropsWithChildren } from "react";
+import { Card } from "react-bootstrap";
 import Account from "../../interfaces/Account";
 import PaymentsList from "../../payments/components/PaymentsList";
-import { updateAccount } from "../../api/accounts";
+import AccountBalance from "./AccountBalance";
 
 export default function AccountCard({
   account,
@@ -21,46 +15,12 @@ export default function AccountCard({
   onDeleted: () => void;
   onUpdated: () => void;
 }>) {
-  const [balance, setBalance] = useState<number>(account.balance);
-  const [editing, setEditing] = useState<boolean>(false);
-
-  const submit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await updateAccount(account.id, { ...account, balance });
-    setEditing(false);
-    onUpdated();
-  };
-
   return (
     <Card className="mt-4">
       <div className="p-3 d-flex justify-content-between fw-bold">
-        <div className="w-50">{account.name}</div>
+        <div className="w-50 text-uppercase">{account.name}</div>
         <div className="w-50 d-flex justify-content-end">
-          {editing ? (
-            <Form onSubmit={submit}>
-              <div className="d-flex">
-                <Form.Control
-                  type="number"
-                  className="me-2"
-                  placeholder="Balance"
-                  value={balance / 10000}
-                  size="sm"
-                  onChange={(
-                    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-                  ): void => {
-                    setBalance(Number(e.target.value) * 10000);
-                  }}
-                />
-                <Button size="sm" type="submit">
-                  Ok
-                </Button>
-              </div>
-            </Form>
-          ) : (
-            <div onClick={() => setEditing(true)}>
-              {currencyFormat(account.balance, account.currency)}
-            </div>
-          )}
+          <AccountBalance account={account} onUpdated={onUpdated} />
         </div>
       </div>
       <PaymentsList

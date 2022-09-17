@@ -90,7 +90,10 @@ function App() {
             <SwiperSlide>
               <div className="p-3">
                 {accounts.length ? (
-                  <AccountBalances accounts={accounts} />
+                  <AccountBalances
+                    accounts={accounts}
+                    onUpdated={fetchAccounts}
+                  />
                 ) : null}
               </div>
             </SwiperSlide>
