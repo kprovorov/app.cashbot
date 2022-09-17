@@ -5,10 +5,10 @@ import React, {
   useState,
 } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import { currencyFormat } from "./services/formatters";
-import Account from "./interfaces/Account";
-import PaymentsList from "./payments/components/PaymentsList";
-import { updateAccount } from "./api/accounts";
+import { currencyFormat } from "../../services/formatters";
+import Account from "../../interfaces/Account";
+import PaymentsList from "../../payments/components/PaymentsList";
+import { updateAccount } from "../../api/accounts";
 
 export default function AccountCard({
   account,

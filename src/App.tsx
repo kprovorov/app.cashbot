@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Account from "./interfaces/Account";
 import { getAccounts } from "./api/accounts";
-import AccountCard from "./AccountCard";
+import AccountCard from "./accounts/components/AccountCard";
 import { Button, Col, Row, Spinner } from "react-bootstrap";
 import AccountBalances from "./accounts/components/AccountBalances";
 import Form from "react-bootstrap/Form";
@@ -10,11 +10,6 @@ import TheHeader from "./common/components/TheHeader";
 import Container from "react-bootstrap/Container";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Mousewheel } from "swiper";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 function App() {
   const [loading, setLoading] = useState(false);
