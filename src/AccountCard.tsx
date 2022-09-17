@@ -9,18 +9,15 @@ import { currencyFormat } from "./services/formatters";
 import Account from "./interfaces/Account";
 import PaymentsList from "./payments/components/PaymentsList";
 import { updateAccount } from "./api/accounts";
-import PaymentsTable from "./payments/components/PaymentsTable";
 
 export default function AccountCard({
   account,
   accounts,
-  layout,
   onDeleted,
   onUpdated,
 }: PropsWithChildren<{
   account: Account;
   accounts: Account[];
-  layout: "table" | "cards";
   onDeleted: () => void;
   onUpdated: () => void;
 }>) {
@@ -66,21 +63,12 @@ export default function AccountCard({
           )}
         </div>
       </div>
-      {layout === "cards" ? (
-        <PaymentsList
-          account={account}
-          accounts={accounts}
-          onDeleted={onDeleted}
-          onUpdated={onUpdated}
-        />
-      ) : (
-        <PaymentsTable
-          account={account}
-          accounts={accounts}
-          onDeleted={onDeleted}
-          onUpdated={onUpdated}
-        />
-      )}
+      <PaymentsList
+        account={account}
+        accounts={accounts}
+        onDeleted={onDeleted}
+        onUpdated={onUpdated}
+      />
     </Card>
   );
 }
