@@ -48,7 +48,7 @@ export default function EditPaymentForm({
       <Row>
         <Col>
           <Form.Group>
-            <Form.Label>Date:</Form.Label>
+            <Form.Label>Date</Form.Label>
             <Form.Control
               type="date"
               value={paymentData.date}
@@ -68,7 +68,7 @@ export default function EditPaymentForm({
       <Row className="mt-3">
         <Col>
           <Form.Group>
-            <Form.Label>Account:</Form.Label>
+            <Form.Label>Account</Form.Label>
             <Form.Select
               value={paymentData.jar_id}
               onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
@@ -94,7 +94,7 @@ export default function EditPaymentForm({
       <Row className="mt-3">
         <Col>
           <Form.Group>
-            <Form.Label>Amount:</Form.Label>
+            <Form.Label>Amount</Form.Label>
             <Form.Control
               type="text"
               value={paymentData.amount}
@@ -111,7 +111,7 @@ export default function EditPaymentForm({
         </Col>
         <Col>
           <Form.Group>
-            <Form.Label>Direction:</Form.Label>
+            <Form.Label>Direction</Form.Label>
             <Form.Select
               value={paymentData.direction}
               onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
@@ -131,7 +131,7 @@ export default function EditPaymentForm({
       <Row className="mt-3">
         <Col>
           <Form.Group>
-            <Form.Label>Description:</Form.Label>
+            <Form.Label>Description</Form.Label>
             <Form.Control
               type="text"
               value={paymentData.description}

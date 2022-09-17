@@ -20,7 +20,7 @@ export default function EditPaymentModal({
   return (
     <Modal show={show} onHide={onClose} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Edit Payment</Modal.Title>
+        <div className="text-uppercase fw-bold">Edit Payment</div>
       </Modal.Header>
       <Modal.Body>
         <EditPaymentForm

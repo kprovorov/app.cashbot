@@ -17,7 +17,7 @@ export default function CreateTransferModal({
   return (
     <Modal show={show} onHide={onClose} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Add Transfer</Modal.Title>
+        <div className="text-uppercase fw-bold">Add Transfer</div>
       </Modal.Header>
       <Modal.Body>
         <CreateTransferForm
