@@ -56,7 +56,8 @@ export default function PaymentListItem({
               moment(payment.date).diff(moment()) < 0 ? "text-bg-success" : ""
             }
           >
-            {payment.date} {showAccountName ? null : `(${payment.jar.name})`}
+            {moment(payment.date).format("D MMM YYYY")}{" "}
+            {showAccountName ? null : `(${payment.jar.name})`}
           </small>
         </div>
         <div className="d-flex flex-row justify-content-between align-items-center">
