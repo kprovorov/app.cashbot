@@ -5,7 +5,12 @@ import { deletePayment } from "../../api/accounts";
 export default function DeletePaymentButton({
   paymentId,
   onDeleted,
-}: PropsWithChildren<{ paymentId: number; onDeleted: () => void }>) {
+  size = "lg",
+}: PropsWithChildren<{
+  paymentId: number;
+  onDeleted: () => void;
+  size?: "sm" | "lg";
+}>) {
   const submit = async () => {
     await deletePayment(paymentId);
 
@@ -17,9 +22,9 @@ export default function DeletePaymentButton({
       onClick={submit}
       className="ms-2 text-danger"
       variant="light"
-      size="sm"
+      size={size}
     >
-      Delete
+      <i className="bi bi-trash"></i>
     </Button>
   );
 }

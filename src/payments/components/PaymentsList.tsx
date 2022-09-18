@@ -15,20 +15,20 @@ export default function PaymentsList({
   onUpdated: () => void;
 }>) {
   return (
-    <>
+    <div className="payment-list">
       {account.payments
         .filter(
           (payment) => !isOutgoingPaymentWithinSameAccountTransfer(payment)
         )
         .map((payment) => (
           <PaymentListItem
-            accounts={accounts}
             key={payment.id}
             payment={payment}
+            accounts={accounts}
             onDeleted={onDeleted}
             onUpdated={onUpdated}
           />
         ))}
-    </>
+    </div>
   );
 }

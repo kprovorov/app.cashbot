@@ -1,5 +1,6 @@
 import Jar from "./Jar";
 import Transfer from "./Transfer";
+import Group from "./Group";
 
 export default interface Payment {
   from_transfer?: Transfer;
@@ -16,4 +17,5 @@ export default interface Payment {
   jar_id: number;
   jar: Jar;
   group_id?: number;
+  group?: Group;
 }

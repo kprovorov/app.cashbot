@@ -1,38 +1,54 @@
 import React, { PropsWithChildren, useState } from "react";
 import { currencyFormat } from "../../services/formatters";
-import { Collapse } from "react-bootstrap";
 import Payment from "../../interfaces/Payment";
-import EditPaymentButton from "./EditPaymentButton";
-import DeletePaymentButton from "./DeletePaymentButton";
-import DeleteGroupButton from "../../groups/components/DeleteGroupButton";
-import Account from "../../interfaces/Account";
 import moment from "moment";
 import { isIncomingPaymentWithinSameAccountTransfer } from "../../helpers/PaymentHelper";
+import GroupDetailModal from "../../groups/components/GroupDetailModal";
+import EditPaymentModal from "./EditPaymentModal";
+import Account from "../../interfaces/Account";
+import DeletePaymentButton from "./DeletePaymentButton";
 
 export default function PaymentListItem({
   payment,
   accounts,
+  showDescription = true,
+  showAccountName = false,
+  showDeleteButton = false,
+  clickable = true,
   onDeleted,
   onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
   accounts: Account[];
+  showDescription?: boolean;
+  showAccountName?: boolean;
+  showDeleteButton?: boolean;
+  clickable?: boolean;
   onDeleted: () => void;
   onUpdated: () => void;
 }>) {
-  const [open, setOpen] = useState(false);
+  const [showGroup, setShowGroup] = useState(false);
+  const handleCloseGroup = () => setShowGroup(false);
+  const handleShowGroup = () => setShowGroup(true);
+
+  const [showEdit, setShowEdit] = useState(false);
+  const handleCloseEdit = () => setShowEdit(false);
+  const handleShowEdit = () => setShowEdit(true);
 
   return (
     <div
-      className={`p-3 d-flex flex-column border-top ${
+      className={`p-3 d-flex flex-column border-top payment-list-item ${
         moment(payment.date).month() % 2 ? "bg-light" : null
       }`}
+      style={{ cursor: clickable ? "pointer" : "default" }}
     >
       <div
         className="payment-card d-flex flex-column"
-        onClick={() => setOpen(!open)}
-        aria-controls={`expand-${payment.id}`}
-        aria-expanded={open}
+        onClick={() => {
+          if (clickable) {
+            payment.group_id ? handleShowGroup() : handleShowEdit();
+          }
+        }}
       >
         <div className="d-flex">
           <small
@@ -43,8 +59,14 @@ export default function PaymentListItem({
             {payment.date} ({payment.jar.name})
           </small>
         </div>
-        <div className="d-flex flex-row justify-content-between">
-          <div>{payment.description}</div>
+        <div className="d-flex flex-row justify-content-between align-items-center">
+          <div className="me-auto">
+            {showDescription
+              ? payment.description
+              : showAccountName
+              ? payment.jar.account.name
+              : null}
+          </div>
 
           <div
             className={
@@ -58,22 +80,32 @@ export default function PaymentListItem({
               ? currencyFormat(-payment.amount, payment.currency)
               : currencyFormat(payment.amount, payment.currency)}
           </div>
+
+          {showDeleteButton ? (
+            <DeletePaymentButton
+              paymentId={payment.id}
+              onDeleted={onUpdated}
+              size="sm"
+            />
+          ) : null}
         </div>
-        <div className="d-flex flex-row justify-content-between text-size-md">
-          <div className="text-secondary">Default</div>
-          <div
-            className={
-              payment.balance >= 0
-                ? payment.jar_savings_balance &&
-                  payment.balance < payment.jar_savings_balance
-                  ? "text-warning"
-                  : "text-secondary"
-                : "text-bg-danger"
-            }
-          >
-            {currencyFormat(payment.balance, payment.currency)}
+        {payment.balance ? (
+          <div className="d-flex flex-row justify-content-between text-size-md">
+            <div className="text-secondary">Default</div>
+            <div
+              className={
+                payment.balance >= 0
+                  ? payment.jar_savings_balance &&
+                    payment.balance < payment.jar_savings_balance
+                    ? "text-warning"
+                    : "text-secondary"
+                  : "text-bg-danger"
+              }
+            >
+              {currencyFormat(payment.balance, payment.currency)}
+            </div>
           </div>
-        </div>
+        ) : null}
 
         {payment.jar_savings_balance ? (
           <div className="d-flex flex-row justify-content-between text-size-md">
@@ -112,22 +144,22 @@ export default function PaymentListItem({
             ) : null
           )}
       </div>
-      <Collapse in={open}>
-        <div id={`expand-${payment.id}`}>
-          <EditPaymentButton
-            accounts={accounts}
-            payment={payment}
-            onUpdated={onUpdated}
-          />
-          <DeletePaymentButton paymentId={payment.id} onDeleted={onDeleted} />
-          {payment.group_id ? (
-            <DeleteGroupButton
-              groupId={payment.group_id}
-              onDeleted={onDeleted}
-            />
-          ) : null}
-        </div>
-      </Collapse>
+      {payment.group_id ? (
+        <GroupDetailModal
+          show={showGroup}
+          accounts={accounts}
+          groupId={payment.group_id}
+          onClose={handleCloseGroup}
+        />
+      ) : (
+        <EditPaymentModal
+          show={showEdit}
+          payment={payment}
+          accounts={accounts}
+          onUpdated={onUpdated}
+          onClose={handleCloseEdit}
+        />
+      )}
     </div>
   );
 }

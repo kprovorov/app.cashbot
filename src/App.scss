@@ -28,3 +28,7 @@ label {
   font-weight: 700;
   font-size: 0.7rem;
 }
+
+.payment-list .payment-list-item:first-child {
+  border-top: 0 !important;
+}

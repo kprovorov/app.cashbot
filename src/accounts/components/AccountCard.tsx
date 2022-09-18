@@ -17,7 +17,7 @@ export default function AccountCard({
 }>) {
   return (
     <Card className="mt-4">
-      <div className="p-3 d-flex justify-content-between fw-bold">
+      <div className="p-3 d-flex justify-content-between fw-bold border-bottom">
         <div className="w-50 text-uppercase">{account.name}</div>
         <div className="w-50 d-flex justify-content-end">
           <AccountBalance account={account} onUpdated={onUpdated} />

@@ -3,6 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import EditPaymentForm from "./EditPaymentForm";
 import Payment from "../../interfaces/Payment";
 import Account from "../../interfaces/Account";
+import DeletePaymentButton from "./DeletePaymentButton";
 
 export default function EditPaymentModal({
   payment,
@@ -31,6 +32,7 @@ export default function EditPaymentModal({
         />
       </Modal.Body>
       <Modal.Footer>
+        <DeletePaymentButton paymentId={payment.id} onDeleted={onUpdated} />
         <Button variant="secondary" onClick={onClose}>
           Close
         </Button>
