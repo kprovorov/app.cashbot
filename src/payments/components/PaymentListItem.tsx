@@ -56,7 +56,7 @@ export default function PaymentListItem({
               moment(payment.date).diff(moment()) < 0 ? "text-bg-success" : ""
             }
           >
-            {payment.date} ({payment.jar.name})
+            {payment.date} {showAccountName ? null : `(${payment.jar.name})`}
           </small>
         </div>
         <div className="d-flex flex-row justify-content-between align-items-center">
@@ -64,7 +64,7 @@ export default function PaymentListItem({
             {showDescription
               ? payment.description
               : showAccountName
-              ? payment.jar.account.name
+              ? `${payment.jar.account.name} (${payment.jar.name})`
               : null}
           </div>
 
