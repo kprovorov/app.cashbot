@@ -5,7 +5,7 @@ import { deletePayment } from "../../api/accounts";
 export default function DeletePaymentButton({
   paymentId,
   onDeleted,
-  size = "lg",
+  size,
 }: PropsWithChildren<{
   paymentId: number;
   onDeleted: () => void;

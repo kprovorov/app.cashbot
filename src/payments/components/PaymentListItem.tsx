@@ -14,7 +14,7 @@ export default function PaymentListItem({
   showDescription = true,
   showAccountName = false,
   showDeleteButton = false,
-  clickable = true,
+  showGroupOnClick = true,
   onDeleted,
   onUpdated,
 }: PropsWithChildren<{
@@ -23,7 +23,7 @@ export default function PaymentListItem({
   showDescription?: boolean;
   showAccountName?: boolean;
   showDeleteButton?: boolean;
-  clickable?: boolean;
+  showGroupOnClick?: boolean;
   onDeleted: () => void;
   onUpdated: () => void;
 }>) {
@@ -40,14 +40,14 @@ export default function PaymentListItem({
       className={`p-3 d-flex flex-column border-top payment-list-item ${
         moment(payment.date).month() % 2 ? "bg-light" : null
       }`}
-      style={{ cursor: clickable ? "pointer" : "default" }}
+      style={{ cursor: "pointer" }}
     >
       <div
         className="payment-card d-flex flex-column"
         onClick={() => {
-          if (clickable) {
-            payment.group_id ? handleShowGroup() : handleShowEdit();
-          }
+          payment.group_id && showGroupOnClick
+            ? handleShowGroup()
+            : handleShowEdit();
         }}
       >
         <div className="d-flex">
@@ -84,7 +84,7 @@ export default function PaymentListItem({
           {showDeleteButton ? (
             <DeletePaymentButton
               paymentId={payment.id}
-              onDeleted={onUpdated}
+              onDeleted={onDeleted}
               size="sm"
             />
           ) : null}
@@ -144,19 +144,24 @@ export default function PaymentListItem({
             ) : null
           )}
       </div>
-      {payment.group_id ? (
+      {payment.group_id && showGroupOnClick ? (
         <GroupDetailModal
           show={showGroup}
           accounts={accounts}
           groupId={payment.group_id}
           onClose={handleCloseGroup}
+          onUpdated={onUpdated}
+          onDeleted={onDeleted}
         />
       ) : (
         <EditPaymentModal
           show={showEdit}
           payment={payment}
           accounts={accounts}
-          onUpdated={onUpdated}
+          onUpdated={() => {
+            handleCloseEdit();
+            onUpdated();
+          }}
           onClose={handleCloseEdit}
         />
       )}

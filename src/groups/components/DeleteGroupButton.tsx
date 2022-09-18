@@ -5,7 +5,12 @@ import { deleteGroup } from "../../api/accounts";
 export default function DeleteGroupButton({
   groupId,
   onDeleted,
-}: PropsWithChildren<{ groupId: number; onDeleted: () => void }>) {
+  size,
+}: PropsWithChildren<{
+  groupId: number;
+  onDeleted: () => void;
+  size?: "sm" | "lg";
+}>) {
   const submit = async () => {
     await deleteGroup(groupId);
 
@@ -15,9 +20,9 @@ export default function DeleteGroupButton({
   return (
     <Button
       onClick={submit}
-      className="ms-2 text-danger"
+      className="text-danger"
       variant="light"
-      size="sm"
+      size={size}
     >
       Delete Group
     </Button>

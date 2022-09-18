@@ -27,7 +27,7 @@ export default function EditPaymentModal({
         <EditPaymentForm
           accounts={accounts}
           payment={payment}
-          formId="edit-payment-form"
+          formId={`edit-payment-form-${payment.id}`}
           onUpdated={onUpdated}
         />
       </Modal.Body>
@@ -36,7 +36,11 @@ export default function EditPaymentModal({
         <Button variant="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button variant="primary" form="edit-payment-form" type="submit">
+        <Button
+          variant="primary"
+          form={`edit-payment-form-${payment.id}`}
+          type="submit"
+        >
           Save Changes
         </Button>
       </Modal.Footer>

@@ -9,16 +9,21 @@ import { getGroup } from "../../api/groups";
 import Group from "../../interfaces/Group";
 import PaymentListItem from "../../payments/components/PaymentListItem";
 import Account from "../../interfaces/Account";
+import DeleteGroupButton from "./DeleteGroupButton";
 
 export default function GroupDetailModal({
   groupId,
   accounts,
   show,
+  onUpdated,
+  onDeleted,
   onClose,
 }: PropsWithChildren<{
   groupId: number;
   accounts: Account[];
   show: boolean;
+  onUpdated: () => void;
+  onDeleted: () => void;
   onClose: () => void;
 }>) {
   const [loading, setLoading] = useState(false);
@@ -54,25 +59,30 @@ export default function GroupDetailModal({
         <div className="payment-list">
           {group?.payments.map((payment) => (
             <PaymentListItem
+              key={payment.id}
               payment={payment}
               accounts={accounts}
               showDescription={false}
               showAccountName={true}
               showDeleteButton={true}
-              clickable={false}
-              onUpdated={() => console.log("onUpdated")}
-              onDeleted={() => console.log("onDeleted")}
+              showGroupOnClick={false}
+              onUpdated={async () => {
+                await fetchGroup();
+                onUpdated();
+              }}
+              onDeleted={async () => {
+                await fetchGroup();
+                onDeleted();
+              }}
             />
           ))}
         </div>
       )}
       {loading ? null : (
         <Modal.Footer>
+          <DeleteGroupButton groupId={groupId} onDeleted={onDeleted} />
           <Button variant="secondary" onClick={onClose}>
             Close
-          </Button>
-          <Button variant="primary" form="edit-payment-form" type="submit">
-            Save Changes
           </Button>
         </Modal.Footer>
       )}
