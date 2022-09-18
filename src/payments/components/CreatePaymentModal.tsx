@@ -15,7 +15,7 @@ export default function CreatePaymentModal({
   onCreated: () => void;
 }>) {
   return (
-    <Modal show={show} onHide={onClose} size="lg">
+    <Modal centered show={show} onHide={onClose} size="lg">
       <Modal.Header closeButton>
         <div className="text-uppercase fw-bold">Add Payment</div>
       </Modal.Header>

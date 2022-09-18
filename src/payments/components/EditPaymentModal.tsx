@@ -19,7 +19,7 @@ export default function EditPaymentModal({
   onUpdated: () => void;
 }>) {
   return (
-    <Modal show={show} onHide={onClose} size="lg">
+    <Modal centered show={show} onHide={onClose} size="lg">
       <Modal.Header closeButton>
         <div className="text-uppercase fw-bold">Edit Payment</div>
       </Modal.Header>

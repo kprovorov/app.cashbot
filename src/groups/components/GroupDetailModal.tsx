@@ -44,7 +44,7 @@ export default function GroupDetailModal({
   }, [fetchGroup]);
 
   return (
-    <Modal show={show} onHide={onClose} size="lg">
+    <Modal centered show={show} onHide={onClose} size="lg">
       <Modal.Header closeButton>
         <div className="text-uppercase fw-bold">{group?.name}</div>
       </Modal.Header>
@@ -78,6 +78,7 @@ export default function GroupDetailModal({
           ))}
         </div>
       )}
+
       {loading ? null : (
         <Modal.Footer>
           <DeleteGroupButton groupId={groupId} onDeleted={onDeleted} />
