@@ -8,6 +8,7 @@ export default interface Payment {
   id: number;
   description: string;
   amount: number;
+  original_amount: number;
   currency: string;
   date: string;
   balance: number;

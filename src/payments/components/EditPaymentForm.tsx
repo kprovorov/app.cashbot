@@ -24,9 +24,10 @@ export default function EditPaymentForm({
   const [paymentData, setPaymentData] = useState<UpdatePaymentData>({
     jar_id: payment.jar_id,
     description: payment.description,
-    amount: Math.abs(payment.amount / 10000),
+    amount: Math.abs(payment.original_amount / 10000),
     date: payment.date,
     direction: payment.amount > 0 ? "income" : "expense",
+    currency: payment.currency,
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -107,6 +108,24 @@ export default function EditPaymentForm({
                 });
               }}
             />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label>Currency</Form.Label>
+            <Form.Select
+              value={paymentData.currency}
+              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+                setPaymentData({
+                  ...paymentData,
+                  currency: e.target.value,
+                });
+              }}
+            >
+              <option value="UAH">UAH</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+            </Form.Select>
           </Form.Group>
         </Col>
         <Col>

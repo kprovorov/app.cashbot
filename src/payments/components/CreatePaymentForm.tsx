@@ -25,6 +25,7 @@ export default function CreatePaymentForm({
     date: "",
     repeat: "none",
     direction: "expense",
+    currency: "UAH",
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -90,6 +91,12 @@ export default function CreatePaymentForm({
               onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
                 setPaymentData({
                   ...paymentData,
+                  currency:
+                    accounts.find((account) => {
+                      return account.jars.find((jar) => {
+                        return jar.id === Number(e.target.value);
+                      });
+                    })?.currency || "UAH",
                   jar_id: Number(e.target.value),
                 });
               }}
@@ -122,6 +129,24 @@ export default function CreatePaymentForm({
                 });
               }}
             />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label>Currency</Form.Label>
+            <Form.Select
+              value={paymentData.currency}
+              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+                setPaymentData({
+                  ...paymentData,
+                  currency: e.target.value,
+                });
+              }}
+            >
+              <option value="UAH">UAH</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+            </Form.Select>
           </Form.Group>
         </Col>
         <Col>

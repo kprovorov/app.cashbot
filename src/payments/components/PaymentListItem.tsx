@@ -78,8 +78,8 @@ export default function PaymentListItem({
             }
           >
             {isIncomingPaymentWithinSameAccountTransfer(payment)
-              ? currencyFormat(-payment.amount, payment.currency)
-              : currencyFormat(payment.amount, payment.currency)}
+              ? currencyFormat(-payment.amount, payment.jar.account.currency)
+              : currencyFormat(payment.amount, payment.jar.account.currency)}
           </div>
 
           {showDeleteButton ? (
