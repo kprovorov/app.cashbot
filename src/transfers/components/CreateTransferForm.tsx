@@ -19,6 +19,8 @@ export default function CreateTransferForm({
   accounts: Account[];
   onCreated: () => void;
 }>) {
+  const [accountFrom, setAccountFrom] = useState<Account | undefined>();
+  const [accountTo, setAccountTo] = useState<Account | undefined>();
   const [transferData, setTransferData] = useState<CreateTransferData>({
     date: "",
     amount: 0,
@@ -26,34 +28,49 @@ export default function CreateTransferForm({
     jar_from_id: 0,
     jar_to_id: 0,
     repeat: "none",
+    currency: "",
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await createTransfer(transferData);
+    await createTransfer({
+      ...transferData,
+      amount:
+        transferData.currency === accountFrom?.currency
+          ? Math.round(transferData.amount * 100) / 100
+          : Math.round(transferData.amount * transferData.rate * 100) / 100,
+    });
 
     onCreated();
   };
 
   useEffect(() => {
     (async () => {
-      const accountFrom = accounts.find((account) =>
-        account.jars.map((jar) => jar.id).includes(transferData.jar_from_id)
-      );
-      const accountTo = accounts.find((account) =>
-        account.jars.map((jar) => jar.id).includes(transferData.jar_to_id)
-      );
-
       if (accountFrom && accountTo) {
         const res = await getRate(accountFrom.currency, accountTo.currency);
 
         setTransferData({
           ...transferData,
           rate: res.buy,
+          currency: accountFrom.currency,
         });
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accountFrom, accountTo]);
+
+  useEffect(() => {
+    setAccountFrom(
+      accounts.find((account) =>
+        account.jars.map((jar) => jar.id).includes(transferData.jar_from_id)
+      )
+    );
+    setAccountTo(
+      accounts.find((account) =>
+        account.jars.map((jar) => jar.id).includes(transferData.jar_to_id)
+      )
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transferData.jar_from_id, transferData.jar_to_id]);
 
@@ -82,6 +99,7 @@ export default function CreateTransferForm({
           <Form.Group>
             <Form.Label>Rate</Form.Label>
             <Form.Control
+              disabled
               type="number"
               placeholder="Rate"
               value={transferData.rate}
@@ -201,6 +219,34 @@ export default function CreateTransferForm({
                 });
               }}
             />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label>Fix currency</Form.Label>
+            <Form.Select
+              disabled={
+                !accountFrom ||
+                !accountTo ||
+                accountFrom?.currency === accountTo?.currency
+              }
+              value={transferData.currency}
+              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+                setTransferData({
+                  ...transferData,
+                  currency: e.target.value,
+                });
+              }}
+            >
+              {accountFrom && (
+                <option value={accountFrom.currency}>
+                  {accountFrom.currency}
+                </option>
+              )}
+              {accountTo && (
+                <option value={accountTo.currency}>{accountTo.currency}</option>
+              )}
+            </Form.Select>
           </Form.Group>
         </Col>
       </Row>

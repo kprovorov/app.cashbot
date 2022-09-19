@@ -6,4 +6,5 @@ export default interface CreateTransferData {
   jar_from_id: number;
   jar_to_id: number;
   repeat: string;
+  currency: string;
 }
