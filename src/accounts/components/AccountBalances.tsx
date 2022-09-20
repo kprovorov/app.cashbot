@@ -23,7 +23,7 @@ export default function AccountBalances({
         </div>
       </div>
       {accounts.map((account) => (
-        <div key={account.id} className="py-2 px-3 border-top row">
+        <div key={account.id} className="py-2 px-3 border-top row g-0">
           <div className="col-4 p-0 ">{account.name}</div>
 
           <div className="col-4 p-0 text-end">
