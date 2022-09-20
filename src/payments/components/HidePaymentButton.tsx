@@ -22,7 +22,7 @@ export default function HidePaymentButton({
     await updatePayment(payment.id, {
       jar_id,
       description,
-      amount: Math.abs(payment.original_amount / 10000),
+      amount: payment.amount / 10000,
       date,
       currency,
       direction: payment.amount > 0 ? "income" : "expense",
