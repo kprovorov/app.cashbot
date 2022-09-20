@@ -8,4 +8,5 @@ export default interface Account {
   balance: number;
   payments: Payment[];
   jars: Jar[];
+  uah_balance?: number;
 }
