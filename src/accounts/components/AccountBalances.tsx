@@ -29,7 +29,7 @@ export default function AccountBalances({
           <div className="col-4 p-0 text-end">
             <AccountBalance account={account} onUpdated={onUpdated} />
           </div>
-          {account.uah_balance && (
+          {account.uah_balance !== undefined && (
             <div className="col-4 p-0 text-end">
               {currencyFormat(account.uah_balance, "UAH")}
             </div>
