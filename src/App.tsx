@@ -10,7 +10,7 @@ import TheHeader from "./common/components/TheHeader";
 import Container from "react-bootstrap/Container";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Mousewheel } from "swiper";
-import UpcomingPayments from "./payments/components/UpcomingPayments";
+import PaymentsCard from "./payments/components/PaymentsCard";
 import moment from "moment";
 
 function App() {
@@ -109,13 +109,33 @@ function App() {
                     {accounts
                       .map((account) => account.payments)
                       .flat()
+                      .filter((payment) => payment.balance < 0)
+                      .filter(
+                        (payment) => showHiddenPayments || !payment.hidden
+                      ).length ? (
+                      <PaymentsCard
+                        title="Alerts"
+                        payments={accounts
+                          .map((account) => account.payments)
+                          .flat()
+                          .filter((payment) => payment.balance < 0)}
+                        accounts={accounts}
+                        onDeleted={fetchAccounts}
+                        onUpdated={fetchAccounts}
+                        showHiddenPayments={showHiddenPayments}
+                      />
+                    ) : null}
+                    {accounts
+                      .map((account) => account.payments)
+                      .flat()
                       .filter(
                         (payment) => moment(payment.date).diff(moment()) < 0
                       )
                       .filter(
                         (payment) => showHiddenPayments || !payment.hidden
                       ).length ? (
-                      <UpcomingPayments
+                      <PaymentsCard
+                        title="Upcoming"
                         payments={accounts
                           .map((account) => account.payments)
                           .flat()

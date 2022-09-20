@@ -5,13 +5,15 @@ import { isOutgoingPaymentWithinSameAccountTransfer } from "../../helpers/Paymen
 import PaymentListItem from "./PaymentListItem";
 import Payment from "../../interfaces/Payment";
 
-export default function UpcomingPayments({
+export default function PaymentsCard({
+  title,
   payments,
   accounts,
   onDeleted,
   onUpdated,
   showHiddenPayments = false,
 }: PropsWithChildren<{
+  title: string;
   payments: Payment[];
   accounts: Account[];
   onDeleted: () => void;
@@ -21,7 +23,7 @@ export default function UpcomingPayments({
   return (
     <Card className="mt-4">
       <div className="p-3 d-flex justify-content-between fw-bold border-bottom">
-        <div className="text-uppercase">Upcoming</div>
+        <div className="text-uppercase">{title}</div>
       </div>
       <div className="payment-list">
         {payments
