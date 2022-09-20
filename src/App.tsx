@@ -10,6 +10,8 @@ import TheHeader from "./common/components/TheHeader";
 import Container from "react-bootstrap/Container";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Mousewheel } from "swiper";
+import UpcomingPayments from "./payments/components/UpcomingPayments";
+import moment from "moment";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -99,10 +101,34 @@ function App() {
             <SwiperSlide>
               <div className="p-3">
                 {accounts.length ? (
-                  <AccountBalances
-                    accounts={accounts}
-                    onUpdated={fetchAccounts}
-                  />
+                  <>
+                    <AccountBalances
+                      accounts={accounts}
+                      onUpdated={fetchAccounts}
+                    />
+                    {accounts
+                      .map((account) => account.payments)
+                      .flat()
+                      .filter(
+                        (payment) => moment(payment.date).diff(moment()) < 0
+                      )
+                      .filter(
+                        (payment) => showHiddenPayments || !payment.hidden
+                      ).length ? (
+                      <UpcomingPayments
+                        payments={accounts
+                          .map((account) => account.payments)
+                          .flat()
+                          .filter(
+                            (payment) => moment(payment.date).diff(moment()) < 0
+                          )}
+                        accounts={accounts}
+                        onDeleted={fetchAccounts}
+                        onUpdated={fetchAccounts}
+                        showHiddenPayments={showHiddenPayments}
+                      />
+                    ) : null}
+                  </>
                 ) : null}
               </div>
             </SwiperSlide>
