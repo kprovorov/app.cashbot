@@ -26,6 +26,7 @@ export default function CreatePaymentForm({
     repeat: "none",
     direction: "expense",
     currency: "UAH",
+    hidden: false,
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {

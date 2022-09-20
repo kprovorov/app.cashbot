@@ -19,4 +19,5 @@ export default interface Payment {
   jar: Jar;
   group_id?: number;
   group?: Group;
+  hidden: boolean;
 }

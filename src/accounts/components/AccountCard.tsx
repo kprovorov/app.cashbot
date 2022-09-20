@@ -9,11 +9,13 @@ export default function AccountCard({
   accounts,
   onDeleted,
   onUpdated,
+  showHiddenPayments = false,
 }: PropsWithChildren<{
   account: Account;
   accounts: Account[];
   onDeleted: () => void;
   onUpdated: () => void;
+  showHiddenPayments?: boolean;
 }>) {
   return (
     <Card className="mt-4">
@@ -28,6 +30,7 @@ export default function AccountCard({
         accounts={accounts}
         onDeleted={onDeleted}
         onUpdated={onUpdated}
+        showHidden={showHiddenPayments}
       />
     </Card>
   );

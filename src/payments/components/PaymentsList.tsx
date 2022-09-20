@@ -8,11 +8,13 @@ export default function PaymentsList({
   accounts,
   onDeleted,
   onUpdated,
+  showHidden = false,
 }: PropsWithChildren<{
   account: Account;
   accounts: Account[];
   onDeleted: () => void;
   onUpdated: () => void;
+  showHidden?: boolean;
 }>) {
   return (
     <div className="payment-list">
@@ -20,6 +22,7 @@ export default function PaymentsList({
         .filter(
           (payment) => !isOutgoingPaymentWithinSameAccountTransfer(payment)
         )
+        .filter((payment) => showHidden || !payment.hidden)
         .map((payment) => (
           <PaymentListItem
             key={payment.id}

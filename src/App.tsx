@@ -15,6 +15,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [showEmptyAccounts, setShowEmptyAccounts] = useState(false);
+  const [showHiddenPayments, setShowHiddenPayments] = useState(false);
 
   useEffect(() => {
     fetchAccounts();
@@ -37,14 +38,22 @@ function App() {
             <div className="d-flex justify-content-between align-items-center bg-light p-3 border rounded">
               <div className="d-flex align-items-center">
                 <Form.Check
+                  className="me-3"
                   onChange={(e) => setShowEmptyAccounts(e.target.checked)}
                   type="switch"
                   id="custom-switch"
                   label="Empty"
                 />
+                <Form.Check
+                  onChange={(e) => setShowHiddenPayments(e.target.checked)}
+                  type="switch"
+                  id="custom-switch"
+                  label="Hidden"
+                />
+              </div>
+              <div>
                 <Button
                   style={{ width: "80px" }}
-                  className="ms-2"
                   size="sm"
                   variant="outline-secondary"
                   onClick={fetchAccounts}
@@ -98,7 +107,13 @@ function App() {
               </div>
             </SwiperSlide>
             {accounts
-              .filter((account) => showEmptyAccounts || account.payments.length)
+              .filter(
+                (account) =>
+                  showEmptyAccounts ||
+                  account.payments.filter(
+                    (payment) => showHiddenPayments || !payment.hidden
+                  ).length
+              )
               .map((account, index) => (
                 <SwiperSlide key={account.id}>
                   <div className="p-3">
@@ -107,6 +122,7 @@ function App() {
                       accounts={accounts}
                       onDeleted={fetchAccounts}
                       onUpdated={fetchAccounts}
+                      showHiddenPayments={showHiddenPayments}
                     />
                   </div>
                 </SwiperSlide>

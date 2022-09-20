@@ -4,6 +4,7 @@ import EditPaymentForm from "./EditPaymentForm";
 import Payment from "../../interfaces/Payment";
 import Account from "../../interfaces/Account";
 import DeletePaymentButton from "./DeletePaymentButton";
+import HidePaymentButton from "./HidePaymentButton";
 
 export default function EditPaymentModal({
   payment,
@@ -32,6 +33,8 @@ export default function EditPaymentModal({
         />
       </Modal.Body>
       <Modal.Footer>
+        <HidePaymentButton payment={payment} onUpdated={onUpdated} />
+
         <DeletePaymentButton paymentId={payment.id} onDeleted={onUpdated} />
         <Button variant="secondary" onClick={onClose}>
           Close

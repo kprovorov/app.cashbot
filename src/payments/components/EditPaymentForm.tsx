@@ -28,6 +28,7 @@ export default function EditPaymentForm({
     date: payment.date,
     direction: payment.amount > 0 ? "income" : "expense",
     currency: payment.currency,
+    hidden: payment.hidden,
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
