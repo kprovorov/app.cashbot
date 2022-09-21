@@ -1,17 +1,5 @@
-@import "bootstrap/scss/functions.scss";
-@import "./scss/_variables.scss";
-@import "bootstrap/scss/maps.scss";
-@import "bootstrap/scss/mixins.scss";
-@import "bootstrap/scss/root.scss";
-@import "bootstrap/scss/utilities.scss";
-@import "bootstrap/scss/reboot.scss";
-@import "bootstrap/scss/type.scss";
-@import "bootstrap/scss/images.scss";
-@import "bootstrap/scss/containers.scss";
-@import "bootstrap/scss/grid.scss";
-@import "bootstrap/scss/helpers.scss";
-@import "bootstrap/scss/utilities/api.scss";
-@import "bootstrap/scss/bootstrap.scss";
+@import "./assets/scss/core";
+@import "./assets/scss/theme-default";
 @import "bootstrap-icons/font/bootstrap-icons";
 
 .payment-card {
