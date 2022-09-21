@@ -39,8 +39,11 @@ export default function PaymentListItem({
     <div
       className={`p-3 d-flex flex-column border-top payment-list-item ${
         moment(payment.date).month() % 2 ? "bg-light" : null
-      } ${payment.hidden ? "opacity-50" : ""}`}
-      style={{ cursor: "pointer" }}
+      }`}
+      style={{
+        cursor: "pointer",
+        opacity: payment.hidden ? 0.5 : 1,
+      }}
     >
       <div
         className="payment-card d-flex flex-column"
