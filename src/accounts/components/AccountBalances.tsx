@@ -9,7 +9,7 @@ export default function AccountBalances({
   onUpdated,
 }: PropsWithChildren<{ accounts: Account[]; onUpdated: () => void }>) {
   return (
-    <Card className="mt-4">
+    <Card className="mt-4 shadow">
       <div className="p-3 d-flex justify-content-between fw-bold border-bottom">
         <div className="w-50 text-uppercase">Balances</div>
         <div className="w-50 d-flex justify-content-end">

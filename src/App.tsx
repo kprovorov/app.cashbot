@@ -37,7 +37,7 @@ function App() {
       <Container fluid className="container-main">
         <Row>
           <Col>
-            <div className="d-flex justify-content-between align-items-center bg-light p-3 border rounded">
+            <div className="d-flex justify-content-between align-items-center bg-white p-3 border rounded">
               <div className="d-flex align-items-center">
                 <Form.Check
                   className="me-3"

@@ -21,7 +21,7 @@ export default function PaymentsCard({
   showHiddenPayments?: boolean;
 }>) {
   return (
-    <Card className="mt-4">
+    <Card className="mt-4 shadow">
       <div className="p-3 d-flex justify-content-between fw-bold border-bottom">
         <div className="text-uppercase">{title}</div>
       </div>
