@@ -36,8 +36,8 @@ export default function HidePaymentButton({
     <Button
       disabled={loading}
       onClick={submit}
-      className="ms-2 text-dark"
-      variant="light"
+      className="ms-2"
+      variant="outline-secondary"
       size={size}
     >
       {loading ? (

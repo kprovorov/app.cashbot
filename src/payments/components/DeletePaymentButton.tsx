@@ -20,8 +20,8 @@ export default function DeletePaymentButton({
   return (
     <Button
       onClick={submit}
-      className="ms-2 text-danger"
-      variant="light"
+      className="ms-2"
+      variant="outline-danger"
       size={size}
     >
       <i className="bi bi-trash"></i>

@@ -53,7 +53,7 @@ export default function PaymentListItem({
         <div className="d-flex">
           <small
             className={
-              moment(payment.date).diff(moment()) < 0 ? "text-bg-success" : ""
+              moment(payment.date).diff(moment()) < 0 ? "text-primary" : ""
             }
           >
             {moment(payment.date).format("D MMM YYYY")}{" "}
@@ -100,7 +100,7 @@ export default function PaymentListItem({
                     payment.balance < payment.jar_savings_balance
                     ? "text-warning"
                     : "text-secondary"
-                  : "text-bg-danger"
+                  : "text-danger"
               }
             >
               {currencyFormat(payment.balance, payment.currency)}
@@ -115,7 +115,7 @@ export default function PaymentListItem({
               className={
                 payment.jar.default || payment.jar_savings_balance >= 0
                   ? "text-secondary"
-                  : "text-bg-danger"
+                  : "text-danger"
               }
             >
               {currencyFormat(payment.jar_savings_balance, payment.currency)}
@@ -136,7 +136,7 @@ export default function PaymentListItem({
                   className={
                     payment.jar_id !== jar.id || payment.jar_balance >= 0
                       ? "text-secondary"
-                      : "text-bg-danger"
+                      : "text-danger"
                   }
                 >
                   {currencyFormat(payment.jar_balance, payment.currency)}
