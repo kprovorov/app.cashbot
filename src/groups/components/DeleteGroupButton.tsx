@@ -18,12 +18,7 @@ export default function DeleteGroupButton({
   };
 
   return (
-    <Button
-      onClick={submit}
-      className="text-danger"
-      variant="light"
-      size={size}
-    >
+    <Button onClick={submit} variant="outline-danger" size={size}>
       Delete Group
     </Button>
   );

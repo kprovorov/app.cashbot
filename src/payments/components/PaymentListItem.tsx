@@ -106,7 +106,7 @@ export default function PaymentListItem({
                   : "text-danger"
               }
             >
-              {currencyFormat(payment.balance, payment.currency)}
+              {currencyFormat(payment.balance, payment.jar.account.currency)}
             </div>
           </div>
         ) : null}
@@ -121,7 +121,10 @@ export default function PaymentListItem({
                   : "text-danger"
               }
             >
-              {currencyFormat(payment.jar_savings_balance, payment.currency)}
+              {currencyFormat(
+                payment.jar_savings_balance,
+                payment.jar.account.currency
+              )}
             </div>
           </div>
         ) : null}
@@ -142,7 +145,10 @@ export default function PaymentListItem({
                       : "text-danger"
                   }
                 >
-                  {currencyFormat(payment.jar_balance, payment.currency)}
+                  {currencyFormat(
+                    payment.jar_balance,
+                    payment.jar.account.currency
+                  )}
                 </div>
               </div>
             ) : null
