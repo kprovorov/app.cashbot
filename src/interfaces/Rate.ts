@@ -1,4 +1,5 @@
 export default interface Rate {
-  buy: number;
-  sell: number;
+  from: string;
+  to: string;
+  rate: number;
 }

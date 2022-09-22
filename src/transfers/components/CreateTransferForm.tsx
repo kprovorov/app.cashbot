@@ -52,7 +52,7 @@ export default function CreateTransferForm({
 
         setTransferData({
           ...transferData,
-          rate: res.buy,
+          rate: res.rate,
           currency: accountFrom.currency,
         });
       }
