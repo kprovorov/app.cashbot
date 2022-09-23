@@ -9,6 +9,7 @@ import { updatePayment } from "../../api/accounts";
 import UpdatePaymentData from "../../interfaces/UpdatePaymentData";
 import Payment from "../../interfaces/Payment";
 import Account from "../../interfaces/Account";
+import moment from "moment";
 
 export default function EditPaymentForm({
   payment,
@@ -29,6 +30,7 @@ export default function EditPaymentForm({
     direction: payment.amount > 0 ? "income" : "expense",
     currency: payment.currency,
     hidden: payment.hidden,
+    ends_on: payment.ends_on,
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -53,13 +55,34 @@ export default function EditPaymentForm({
             <Form.Label>Date</Form.Label>
             <Form.Control
               type="date"
-              value={paymentData.date}
+              value={moment(paymentData.date).format("YYYY-MM-DD")}
               onChange={(
                 e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
               ): void => {
                 setPaymentData({
                   ...paymentData,
                   date: e.target.value,
+                });
+              }}
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label>Ends</Form.Label>
+            <Form.Control
+              type="date"
+              value={
+                paymentData.ends_on
+                  ? moment(paymentData.ends_on).format("YYYY-MM-DD")
+                  : ""
+              }
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ): void => {
+                setPaymentData({
+                  ...paymentData,
+                  ends_on: e.target.value,
                 });
               }}
             />

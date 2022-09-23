@@ -8,6 +8,7 @@ import { Col, Form, Row } from "react-bootstrap";
 import Account from "../../interfaces/Account";
 import { createPayment } from "../../api/accounts";
 import CreatePaymentData from "../../interfaces/CreatePaymentData";
+import moment from "moment";
 
 export default function CreatePaymentForm({
   formId,
@@ -27,6 +28,7 @@ export default function CreatePaymentForm({
     direction: "expense",
     currency: "UAH",
     hidden: false,
+    ends_on: "",
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -51,13 +53,30 @@ export default function CreatePaymentForm({
             <Form.Label>Date</Form.Label>
             <Form.Control
               type="date"
-              value={paymentData.date}
+              value={moment(paymentData.date).format("YYYY-MM-DD")}
               onChange={(
                 e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
               ): void => {
                 setPaymentData({
                   ...paymentData,
                   date: e.target.value,
+                });
+              }}
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group>
+            <Form.Label>Ends</Form.Label>
+            <Form.Control
+              type="date"
+              value={moment(paymentData.ends_on).format("YYYY-MM-DD")}
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ): void => {
+                setPaymentData({
+                  ...paymentData,
+                  ends_on: e.target.value,
                 });
               }}
             />

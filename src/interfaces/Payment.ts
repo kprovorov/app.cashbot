@@ -20,4 +20,5 @@ export default interface Payment {
   group_id?: number;
   group?: Group;
   hidden: boolean;
+  ends_on?: string;
 }

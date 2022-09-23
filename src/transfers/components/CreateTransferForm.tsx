@@ -29,6 +29,7 @@ export default function CreateTransferForm({
     jar_to_id: 0,
     repeat: "none",
     currency: "",
+    description: "",
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
