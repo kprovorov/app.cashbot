@@ -96,22 +96,23 @@ export default function PaymentListItem({
               />
             ) : null}
           </div>
-
-          <div className="d-flex flex-row justify-content-between text-size-md">
-            <div className="text-secondary">Default</div>
-            <div
-              className={
-                payment.balance >= 0
-                  ? payment.jar_savings_balance &&
-                    payment.balance < payment.jar_savings_balance
-                    ? "text-warning"
-                    : "text-secondary"
-                  : "text-danger"
-              }
-            >
-              {currencyFormat(payment.balance, payment.jar.account.currency)}
+          {payment.balance !== undefined ? (
+            <div className="d-flex flex-row justify-content-between text-size-md">
+              <div className="text-secondary">Default</div>
+              <div
+                className={
+                  payment.balance >= 0
+                    ? payment.jar_savings_balance &&
+                      payment.balance < payment.jar_savings_balance
+                      ? "text-warning"
+                      : "text-secondary"
+                    : "text-danger"
+                }
+              >
+                {currencyFormat(payment.balance, payment.jar.account.currency)}
+              </div>
             </div>
-          </div>
+          ) : null}
 
           {payment.jar_savings_balance ? (
             <div className="d-flex flex-row justify-content-between text-size-md">
@@ -130,6 +131,7 @@ export default function PaymentListItem({
               </div>
             </div>
           ) : null}
+
           {payment.jar.account.jars
             .filter((jar) => !jar.default)
             .map((jar) =>

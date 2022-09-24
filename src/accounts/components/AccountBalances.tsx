@@ -10,7 +10,7 @@ export default function AccountBalances({
 }: PropsWithChildren<{ accounts: Account[]; onUpdated: () => void }>) {
   return (
     <Card className="mt-4 shadow">
-      <div className="p-3 d-flex justify-content-between fw-bold border-bottom">
+      <div className="p-3 d-flex justify-content-between fw-bold">
         <div className="w-50 text-uppercase">Balances</div>
         <div className="w-50 d-flex justify-content-end">
           {currencyFormat(
