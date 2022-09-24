@@ -37,122 +37,126 @@ export default function PaymentListItem({
 
   return (
     <div
-      className={`p-3 d-flex flex-column border-top payment-list-item ${
-        moment(payment.date).month() % 2 ? "bg-light" : null
-      }`}
+      className="p-2 d-flex flex-column border-top payment-list-item"
       style={{
         cursor: "pointer",
         opacity: payment.hidden ? 0.5 : 1,
       }}
     >
       <div
-        className="payment-card d-flex flex-column"
+        className="payment-card d-flex"
         onClick={() => {
           payment.group_id && showGroupOnClick
             ? handleShowGroup()
             : handleShowEdit();
         }}
       >
-        <div className="d-flex">
-          <small
-            className={
-              moment(payment.date).diff(moment()) < 0 ? "text-primary" : ""
-            }
-          >
-            {moment(payment.date).format("D MMM YYYY")}{" "}
-            {showAccountName ? null : `(${payment.jar.name})`}
-          </small>
+        <div
+          className={`d-flex flex-column rounded-pill text-size-sm align-items-center justify-content-center line-height-sm fw-bold ${
+            moment(payment.date).diff(moment()) < 0
+              ? "bg-primary text-white"
+              : "bg-lighter text-black"
+          }`}
+          style={{
+            width: "2rem",
+            height: "2rem",
+          }}
+        >
+          <div>{moment(payment.date).format("D")}</div>
+          <div>{moment(payment.date).format("MMM")}</div>
         </div>
-        <div className="d-flex flex-row justify-content-between align-items-center">
-          <div className="me-auto">
-            {showDescription
-              ? payment.description
-              : showAccountName
-              ? `${payment.jar.account.name} (${payment.jar.name})`
-              : null}
-          </div>
+        <div className="d-flex flex-column flex-grow-1 ps-2">
+          <div className="d-flex flex-row justify-content-between align-items-center">
+            <div className="me-auto">
+              {showDescription ? (
+                <span className="fw-semibold">{payment.description}</span>
+              ) : showAccountName ? (
+                `${payment.jar.account.name} (${payment.jar.name})`
+              ) : null}
+            </div>
 
-          <div
-            className={
-              payment.amount > 0 &&
-              !isIncomingPaymentWithinSameAccountTransfer(payment)
-                ? "text-success fw-bold"
-                : ""
-            }
-          >
-            {isIncomingPaymentWithinSameAccountTransfer(payment)
-              ? currencyFormat(-payment.amount, payment.jar.account.currency)
-              : currencyFormat(payment.amount, payment.jar.account.currency)}
-          </div>
-
-          {showDeleteButton ? (
-            <DeletePaymentButton
-              paymentId={payment.id}
-              onDeleted={onDeleted}
-              size="sm"
-            />
-          ) : null}
-        </div>
-        {payment.balance ? (
-          <div className="d-flex flex-row justify-content-between text-size-md">
-            <div className="text-secondary">Default</div>
             <div
               className={
-                payment.balance >= 0
-                  ? payment.jar_savings_balance &&
-                    payment.balance < payment.jar_savings_balance
-                    ? "text-warning"
-                    : "text-secondary"
-                  : "text-danger"
+                payment.amount > 0 &&
+                !isIncomingPaymentWithinSameAccountTransfer(payment)
+                  ? "text-success fw-bold"
+                  : ""
               }
             >
-              {currencyFormat(payment.balance, payment.jar.account.currency)}
+              {isIncomingPaymentWithinSameAccountTransfer(payment)
+                ? currencyFormat(-payment.amount, payment.jar.account.currency)
+                : currencyFormat(payment.amount, payment.jar.account.currency)}
             </div>
-          </div>
-        ) : null}
 
-        {payment.jar_savings_balance ? (
-          <div className="d-flex flex-row justify-content-between text-size-md">
-            <div className="text-secondary">Savings</div>
-            <div
-              className={
-                payment.jar.default || payment.jar_savings_balance >= 0
-                  ? "text-secondary"
-                  : "text-danger"
-              }
-            >
-              {currencyFormat(
-                payment.jar_savings_balance,
-                payment.jar.account.currency
-              )}
-            </div>
+            {showDeleteButton ? (
+              <DeletePaymentButton
+                paymentId={payment.id}
+                onDeleted={onDeleted}
+                size="sm"
+              />
+            ) : null}
           </div>
-        ) : null}
-
-        {payment.jar.account.jars
-          .filter((jar) => !jar.default)
-          .map((jar) =>
-            payment.jar_balance && payment.jar_id === jar.id ? (
+          {payment.balance ? (
+            <div className="d-flex flex-row justify-content-between text-size-md">
+              <div className="text-secondary">Default</div>
               <div
-                key={jar.id}
-                className="d-flex flex-row justify-content-between text-size-md"
+                className={
+                  payment.balance >= 0
+                    ? payment.jar_savings_balance &&
+                      payment.balance < payment.jar_savings_balance
+                      ? "text-warning"
+                      : "text-secondary"
+                    : "text-danger"
+                }
               >
-                <div className="text-secondary">{jar.name}</div>
-                <div
-                  className={
-                    payment.jar_id !== jar.id || payment.jar_balance >= 0
-                      ? "text-secondary"
-                      : "text-danger"
-                  }
-                >
-                  {currencyFormat(
-                    payment.jar_balance,
-                    payment.jar.account.currency
-                  )}
-                </div>
+                {currencyFormat(payment.balance, payment.jar.account.currency)}
               </div>
-            ) : null
-          )}
+            </div>
+          ) : null}
+
+          {payment.jar_savings_balance ? (
+            <div className="d-flex flex-row justify-content-between text-size-md">
+              <div className="text-secondary">Savings</div>
+              <div
+                className={
+                  payment.jar.default || payment.jar_savings_balance >= 0
+                    ? "text-secondary"
+                    : "text-danger"
+                }
+              >
+                {currencyFormat(
+                  payment.jar_savings_balance,
+                  payment.jar.account.currency
+                )}
+              </div>
+            </div>
+          ) : null}
+
+          {payment.jar.account.jars
+            .filter((jar) => !jar.default)
+            .map((jar) =>
+              payment.jar_balance && payment.jar_id === jar.id ? (
+                <div
+                  key={jar.id}
+                  className="d-flex flex-row justify-content-between text-size-md"
+                >
+                  <div className="text-secondary">{jar.name}</div>
+                  <div
+                    className={
+                      payment.jar_id !== jar.id || payment.jar_balance >= 0
+                        ? "text-secondary"
+                        : "text-danger"
+                    }
+                  >
+                    {currencyFormat(
+                      payment.jar_balance,
+                      payment.jar.account.currency
+                    )}
+                  </div>
+                </div>
+              ) : null
+            )}
+        </div>
       </div>
       {payment.group_id && showGroupOnClick ? (
         <GroupDetailModal
