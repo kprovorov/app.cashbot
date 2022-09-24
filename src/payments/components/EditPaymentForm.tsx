@@ -2,25 +2,24 @@ import React, {
   ChangeEvent,
   FormEvent,
   PropsWithChildren,
+  useContext,
   useState,
 } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { updatePayment } from "../../api/accounts";
 import UpdatePaymentData from "../../interfaces/UpdatePaymentData";
 import Payment from "../../interfaces/Payment";
-import Account from "../../interfaces/Account";
 import moment from "moment";
 import { isTransfer } from "../../helpers/PaymentHelper";
+import AccountsContext from "../../context/AccountsContext";
 
 export default function EditPaymentForm({
   payment,
   formId,
-  accounts,
   onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
   formId: string;
-  accounts: Account[];
   onUpdated: () => void;
 }>) {
   const [paymentData, setPaymentData] = useState<UpdatePaymentData>({
@@ -33,6 +32,8 @@ export default function EditPaymentForm({
     hidden: payment.hidden,
     ends_on: payment.ends_on,
   });
+
+  const { accounts } = useContext(AccountsContext);
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

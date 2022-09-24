@@ -5,12 +5,10 @@ import moment from "moment";
 import { isIncomingPaymentWithinSameAccountTransfer } from "../../helpers/PaymentHelper";
 import GroupDetailModal from "../../groups/components/GroupDetailModal";
 import EditPaymentModal from "./EditPaymentModal";
-import Account from "../../interfaces/Account";
 import DeletePaymentButton from "./DeletePaymentButton";
 
 export default function PaymentListItem({
   payment,
-  accounts,
   showDescription = true,
   showAccountName = false,
   showDeleteButton = false,
@@ -19,7 +17,6 @@ export default function PaymentListItem({
   onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
-  accounts: Account[];
   showDescription?: boolean;
   showAccountName?: boolean;
   showDeleteButton?: boolean;
@@ -132,36 +129,26 @@ export default function PaymentListItem({
             </div>
           ) : null}
 
-          {payment.jar.account.jars
-            .filter((jar) => !jar.default)
-            .map((jar) =>
-              payment.jar_balance && payment.jar_id === jar.id ? (
-                <div
-                  key={jar.id}
-                  className="d-flex flex-row justify-content-between text-size-md"
-                >
-                  <div className="text-secondary">{jar.name}</div>
-                  <div
-                    className={
-                      payment.jar_id !== jar.id || payment.jar_balance >= 0
-                        ? "text-secondary"
-                        : "text-danger"
-                    }
-                  >
-                    {currencyFormat(
-                      payment.jar_balance,
-                      payment.jar.account.currency
-                    )}
-                  </div>
-                </div>
-              ) : null
-            )}
+          {!payment.jar.default && payment.jar_balance !== undefined && (
+            <div className="d-flex flex-row justify-content-between text-size-md">
+              <div className="text-secondary">{payment.jar.name}</div>
+              <div
+                className={
+                  payment.jar_balance >= 0 ? "text-secondary" : "text-danger"
+                }
+              >
+                {currencyFormat(
+                  payment.jar_balance,
+                  payment.jar.account.currency
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {payment.group_id && showGroupOnClick ? (
         <GroupDetailModal
           show={showGroup}
-          accounts={accounts}
           groupId={payment.group_id}
           onClose={handleCloseGroup}
           onUpdated={onUpdated}
@@ -171,7 +158,6 @@ export default function PaymentListItem({
         <EditPaymentModal
           show={showEdit}
           payment={payment}
-          accounts={accounts}
           onUpdated={() => {
             handleCloseEdit();
             onUpdated();

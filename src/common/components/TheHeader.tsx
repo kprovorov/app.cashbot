@@ -2,14 +2,12 @@ import React, { PropsWithChildren } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import CreateTransferButton from "../../transfers/components/CreateTransferButton";
-import Account from "../../interfaces/Account";
 import CreatePaymentButton from "../../payments/components/CreatePaymentButton";
 import { Button } from "react-bootstrap";
 
 export default function TheHeader({
-  accounts,
   onCreated,
-}: PropsWithChildren<{ accounts: Account[]; onCreated: () => void }>) {
+}: PropsWithChildren<{ onCreated: () => void }>) {
   return (
     <>
       <Navbar bg="dark" expand={true} fixed="top" variant="dark">
@@ -18,8 +16,8 @@ export default function TheHeader({
             <Navbar.Brand href="/">
               <img height="20" src="logo.svg" alt="cashbot" />
             </Navbar.Brand>
-            <CreateTransferButton accounts={accounts} onCreated={onCreated} />
-            <CreatePaymentButton accounts={accounts} onCreated={onCreated} />
+            <CreateTransferButton onCreated={onCreated} />
+            <CreatePaymentButton onCreated={onCreated} />
           </div>
           <Button
             size="sm"

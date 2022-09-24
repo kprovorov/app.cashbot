@@ -2,6 +2,7 @@ import React, {
   ChangeEvent,
   FormEvent,
   PropsWithChildren,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -9,16 +10,16 @@ import { Col, Form, Row } from "react-bootstrap";
 import Account from "../../interfaces/Account";
 import CreateTransferData from "../../interfaces/CreateTransferData";
 import { createTransfer, getRate } from "../../api/accounts";
+import AccountsContext from "../../context/AccountsContext";
 
 export default function CreateTransferForm({
   formId,
-  accounts,
   onCreated,
 }: PropsWithChildren<{
   formId: string;
-  accounts: Account[];
   onCreated: () => void;
 }>) {
+  const { accounts } = useContext(AccountsContext);
   const [accountFrom, setAccountFrom] = useState<Account | undefined>();
   const [accountTo, setAccountTo] = useState<Account | undefined>();
   const [transferData, setTransferData] = useState<CreateTransferData>({

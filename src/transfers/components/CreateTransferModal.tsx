@@ -1,17 +1,14 @@
 import React, { PropsWithChildren } from "react";
 import { Button, Modal } from "react-bootstrap";
 import CreateTransferForm from "./CreateTransferForm";
-import Account from "../../interfaces/Account";
 
 export default function CreateTransferModal({
   show,
   onClose,
-  accounts,
   onCreated,
 }: PropsWithChildren<{
   show: boolean;
   onClose: () => void;
-  accounts: Account[];
   onCreated: () => void;
 }>) {
   return (
@@ -22,7 +19,6 @@ export default function CreateTransferModal({
       <Modal.Body>
         <CreateTransferForm
           formId="create-transfer-form"
-          accounts={accounts}
           onCreated={onCreated}
         />
       </Modal.Body>

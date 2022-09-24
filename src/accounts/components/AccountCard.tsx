@@ -6,13 +6,11 @@ import AccountBalance from "./AccountBalance";
 
 export default function AccountCard({
   account,
-  accounts,
   onDeleted,
   onUpdated,
   showHiddenPayments = false,
 }: PropsWithChildren<{
   account: Account;
-  accounts: Account[];
   onDeleted: () => void;
   onUpdated: () => void;
   showHiddenPayments?: boolean;
@@ -27,7 +25,6 @@ export default function AccountCard({
       </div>
       <PaymentsList
         account={account}
-        accounts={accounts}
         onDeleted={onDeleted}
         onUpdated={onUpdated}
         showHidden={showHiddenPayments}

@@ -1,12 +1,10 @@
 import React, { PropsWithChildren, useState } from "react";
 import { Button } from "react-bootstrap";
 import CreatePaymentModal from "./CreatePaymentModal";
-import Account from "../../interfaces/Account";
 
 export default function CreatePaymentButton({
-  accounts,
   onCreated,
-}: PropsWithChildren<{ accounts: Account[]; onCreated: () => void }>) {
+}: PropsWithChildren<{ onCreated: () => void }>) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -26,7 +24,6 @@ export default function CreatePaymentButton({
         show={show}
         onClose={handleClose}
         onCreated={handleCreated}
-        accounts={accounts}
       />
     </>
   );

@@ -8,19 +8,16 @@ import { Button, Modal, Spinner } from "react-bootstrap";
 import { getGroup } from "../../api/groups";
 import Group from "../../interfaces/Group";
 import PaymentListItem from "../../payments/components/PaymentListItem";
-import Account from "../../interfaces/Account";
 import DeleteGroupButton from "./DeleteGroupButton";
 
 export default function GroupDetailModal({
   groupId,
-  accounts,
   show,
   onUpdated,
   onDeleted,
   onClose,
 }: PropsWithChildren<{
   groupId: number;
-  accounts: Account[];
   show: boolean;
   onUpdated: () => void;
   onDeleted: () => void;
@@ -61,7 +58,6 @@ export default function GroupDetailModal({
             <PaymentListItem
               key={payment.id}
               payment={payment}
-              accounts={accounts}
               showDescription={false}
               showAccountName={true}
               showDeleteButton={true}

@@ -2,21 +2,20 @@ import React, {
   ChangeEvent,
   FormEvent,
   PropsWithChildren,
+  useContext,
   useState,
 } from "react";
 import { Col, Form, Row } from "react-bootstrap";
-import Account from "../../interfaces/Account";
 import { createPayment } from "../../api/accounts";
 import CreatePaymentData from "../../interfaces/CreatePaymentData";
 import moment from "moment";
+import AccountsContext from "../../context/AccountsContext";
 
 export default function CreatePaymentForm({
   formId,
-  accounts,
   onCreated,
 }: PropsWithChildren<{
   formId: string;
-  accounts: Account[];
   onCreated: () => void;
 }>) {
   const [paymentData, setPaymentData] = useState<CreatePaymentData>({
@@ -30,6 +29,8 @@ export default function CreatePaymentForm({
     hidden: false,
     ends_on: "",
   });
+
+  const { accounts } = useContext(AccountsContext);
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

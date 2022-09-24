@@ -5,13 +5,11 @@ import { isOutgoingPaymentWithinSameAccountTransfer } from "../../helpers/Paymen
 
 export default function PaymentsList({
   account,
-  accounts,
   onDeleted,
   onUpdated,
   showHidden = false,
 }: PropsWithChildren<{
   account: Account;
-  accounts: Account[];
   onDeleted: () => void;
   onUpdated: () => void;
   showHidden?: boolean;
@@ -27,7 +25,6 @@ export default function PaymentsList({
           <PaymentListItem
             key={payment.id}
             payment={payment}
-            accounts={accounts}
             onDeleted={onDeleted}
             onUpdated={onUpdated}
           />

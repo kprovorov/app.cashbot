@@ -2,15 +2,12 @@ import React, { PropsWithChildren, useState } from "react";
 import { Button } from "react-bootstrap";
 import EditPaymentModal from "./EditPaymentModal";
 import Payment from "../../interfaces/Payment";
-import Account from "../../interfaces/Account";
 
 export default function EditPaymentButton({
   payment,
-  accounts,
   onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
-  accounts: Account[];
   onUpdated: () => void;
 }>) {
   const [show, setShow] = useState(false);
@@ -34,7 +31,6 @@ export default function EditPaymentButton({
         Edit Payment
       </Button>
       <EditPaymentModal
-        accounts={accounts}
         payment={payment}
         show={show}
         onClose={handleClose}

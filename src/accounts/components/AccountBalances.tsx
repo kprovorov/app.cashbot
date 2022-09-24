@@ -1,13 +1,14 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useContext } from "react";
 import { Card } from "react-bootstrap";
-import Account from "../../interfaces/Account";
 import AccountBalance from "./AccountBalance";
 import { currencyFormat } from "../../services/formatters";
+import AccountsContext from "../../context/AccountsContext";
 
 export default function AccountBalances({
-  accounts,
   onUpdated,
-}: PropsWithChildren<{ accounts: Account[]; onUpdated: () => void }>) {
+}: PropsWithChildren<{ onUpdated: () => void }>) {
+  const { accounts } = useContext(AccountsContext);
+
   return (
     <Card className="mt-4 shadow">
       <div className="p-3 d-flex justify-content-between fw-bold">

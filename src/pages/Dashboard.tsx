@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Account from "../interfaces/Account";
-import { getAccounts } from "../api/accounts";
 import AccountCard from "../accounts/components/AccountCard";
 import { Button, Col, Row, Spinner } from "react-bootstrap";
 import AccountBalances from "../accounts/components/AccountBalances";
@@ -11,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Mousewheel } from "swiper";
 import PaymentsCard from "../payments/components/PaymentsCard";
 import moment from "moment";
+import { getDashboard } from "../api/dashboard";
 
 function Dashboard() {
   const [loading, setLoading] = useState(false);
@@ -18,21 +18,21 @@ function Dashboard() {
   const [showEmptyAccounts, setShowEmptyAccounts] = useState(false);
   const [showHiddenPayments, setShowHiddenPayments] = useState(false);
 
-  const fetchAccounts = useCallback(async () => {
+  const fetchDashboard = useCallback(async () => {
     setLoading(true);
-    const res = await getAccounts();
+    const res = await getDashboard();
 
     setAccounts(res);
     setLoading(false);
   }, []);
 
   useEffect(() => {
-    fetchAccounts();
-  }, [fetchAccounts]);
+    fetchDashboard();
+  }, [fetchDashboard]);
 
   return (
     <>
-      <TheHeader accounts={accounts} onCreated={fetchAccounts} />
+      <TheHeader onCreated={fetchDashboard} />
       <Container fluid className="container-main">
         <Row>
           <Col>
@@ -57,7 +57,7 @@ function Dashboard() {
                   style={{ width: "80px" }}
                   size="sm"
                   variant="outline-secondary"
-                  onClick={fetchAccounts}
+                  onClick={fetchDashboard}
                 >
                   {loading ? (
                     <Spinner
@@ -101,10 +101,7 @@ function Dashboard() {
               <div className="p-3">
                 {accounts.length ? (
                   <>
-                    <AccountBalances
-                      accounts={accounts}
-                      onUpdated={fetchAccounts}
-                    />
+                    <AccountBalances onUpdated={fetchDashboard} />
                     {accounts
                       .map((account) => account.payments)
                       .flat()
@@ -118,9 +115,8 @@ function Dashboard() {
                           .map((account) => account.payments)
                           .flat()
                           .filter((payment) => payment.balance < 0)}
-                        accounts={accounts}
-                        onDeleted={fetchAccounts}
-                        onUpdated={fetchAccounts}
+                        onDeleted={fetchDashboard}
+                        onUpdated={fetchDashboard}
                         showHiddenPayments={showHiddenPayments}
                       />
                     ) : null}
@@ -141,9 +137,8 @@ function Dashboard() {
                           .filter(
                             (payment) => moment(payment.date).diff(moment()) < 0
                           )}
-                        accounts={accounts}
-                        onDeleted={fetchAccounts}
-                        onUpdated={fetchAccounts}
+                        onDeleted={fetchDashboard}
+                        onUpdated={fetchDashboard}
                         showHiddenPayments={showHiddenPayments}
                       />
                     ) : null}
@@ -164,9 +159,8 @@ function Dashboard() {
                   <div className="p-3">
                     <AccountCard
                       account={account}
-                      accounts={accounts}
-                      onDeleted={fetchAccounts}
-                      onUpdated={fetchAccounts}
+                      onDeleted={fetchDashboard}
+                      onUpdated={fetchDashboard}
                       showHiddenPayments={showHiddenPayments}
                     />
                   </div>

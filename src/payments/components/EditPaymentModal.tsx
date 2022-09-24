@@ -2,20 +2,17 @@ import React, { PropsWithChildren } from "react";
 import { Button, Modal } from "react-bootstrap";
 import EditPaymentForm from "./EditPaymentForm";
 import Payment from "../../interfaces/Payment";
-import Account from "../../interfaces/Account";
 import DeletePaymentButton from "./DeletePaymentButton";
 import HidePaymentButton from "./HidePaymentButton";
 
 export default function EditPaymentModal({
   payment,
   show,
-  accounts,
   onClose,
   onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
   show: boolean;
-  accounts: Account[];
   onClose: () => void;
   onUpdated: () => void;
 }>) {
@@ -26,7 +23,6 @@ export default function EditPaymentModal({
       </Modal.Header>
       <Modal.Body>
         <EditPaymentForm
-          accounts={accounts}
           payment={payment}
           formId={`edit-payment-form-${payment.id}`}
           onUpdated={onUpdated}
