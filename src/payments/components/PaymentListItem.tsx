@@ -74,15 +74,21 @@ export default function PaymentListItem({
 
             <div
               className={
-                payment.amount > 0 &&
+                payment.amount_converted > 0 &&
                 !isIncomingPaymentWithinSameAccountTransfer(payment)
                   ? "text-success fw-bold"
                   : ""
               }
             >
               {isIncomingPaymentWithinSameAccountTransfer(payment)
-                ? currencyFormat(-payment.amount, payment.jar.account.currency)
-                : currencyFormat(payment.amount, payment.jar.account.currency)}
+                ? currencyFormat(
+                    -payment.amount_converted,
+                    payment.jar.account.currency
+                  )
+                : currencyFormat(
+                    payment.amount_converted,
+                    payment.jar.account.currency
+                  )}
             </div>
 
             {showDeleteButton ? (
