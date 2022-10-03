@@ -57,6 +57,8 @@ export default function PaymentListItem({
           style={{
             width: "2rem",
             height: "2rem",
+            minWidth: "2rem",
+            minHeight: "2rem",
           }}
         >
           <div>{moment(payment.date).format("D")}</div>
