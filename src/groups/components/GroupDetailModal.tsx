@@ -58,6 +58,7 @@ export default function GroupDetailModal({
             <PaymentListItem
               key={payment.id}
               payment={payment}
+              currency={payment.jar.account.currency}
               showDescription={false}
               showAccountName={true}
               showDeleteButton={true}

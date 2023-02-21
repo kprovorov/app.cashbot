@@ -10,7 +10,6 @@ import { updatePayment } from "../../api/accounts";
 import UpdatePaymentData from "../../interfaces/UpdatePaymentData";
 import Payment from "../../interfaces/Payment";
 import moment from "moment";
-import { isTransfer } from "../../helpers/PaymentHelper";
 import AccountsContext from "../../context/AccountsContext";
 
 export default function EditPaymentForm({
@@ -69,29 +68,27 @@ export default function EditPaymentForm({
             />
           </Form.Group>
         </Col>
-        {!isTransfer(payment) && (
-          <Col>
-            <Form.Group>
-              <Form.Label>Ends</Form.Label>
-              <Form.Control
-                type="date"
-                value={
-                  paymentData.ends_on
-                    ? moment(paymentData.ends_on).format("YYYY-MM-DD")
-                    : ""
-                }
-                onChange={(
-                  e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-                ): void => {
-                  setPaymentData({
-                    ...paymentData,
-                    ends_on: e.target.value,
-                  });
-                }}
-              />
-            </Form.Group>
-          </Col>
-        )}
+        <Col>
+          <Form.Group>
+            <Form.Label>Ends</Form.Label>
+            <Form.Control
+              type="date"
+              value={
+                paymentData.ends_on
+                  ? moment(paymentData.ends_on).format("YYYY-MM-DD")
+                  : ""
+              }
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ): void => {
+                setPaymentData({
+                  ...paymentData,
+                  ends_on: e.target.value,
+                });
+              }}
+            />
+          </Form.Group>
+        </Col>
       </Row>
 
       <Row className="mt-3">

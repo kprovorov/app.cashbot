@@ -1,7 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import Account from "../../interfaces/Account";
 import PaymentListItem from "./PaymentListItem";
-import { isOutgoingPaymentWithinSameAccountTransfer } from "../../helpers/PaymentHelper";
 
 export default function PaymentsList({
   account,
@@ -17,14 +16,12 @@ export default function PaymentsList({
   return (
     <div className="payment-list">
       {account.payments
-        .filter(
-          (payment) => !isOutgoingPaymentWithinSameAccountTransfer(payment)
-        )
         .filter((payment) => showHidden || !payment.hidden)
         .map((payment) => (
           <PaymentListItem
             key={payment.id}
             payment={payment}
+            currency={account.currency}
             onDeleted={onDeleted}
             onUpdated={onUpdated}
           />

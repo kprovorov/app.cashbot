@@ -2,13 +2,13 @@ import React, { PropsWithChildren, useState } from "react";
 import { currencyFormat } from "../../services/formatters";
 import Payment from "../../interfaces/Payment";
 import moment from "moment";
-import { isIncomingPaymentWithinSameAccountTransfer } from "../../helpers/PaymentHelper";
 import GroupDetailModal from "../../groups/components/GroupDetailModal";
 import EditPaymentModal from "./EditPaymentModal";
 import DeletePaymentButton from "./DeletePaymentButton";
 
 export default function PaymentListItem({
   payment,
+  currency,
   showDescription = true,
   showAccountName = false,
   showDeleteButton = false,
@@ -17,6 +17,7 @@ export default function PaymentListItem({
   onUpdated,
 }: PropsWithChildren<{
   payment: Payment;
+  currency: string;
   showDescription?: boolean;
   showAccountName?: boolean;
   showDeleteButton?: boolean;
@@ -70,27 +71,16 @@ export default function PaymentListItem({
               {showDescription ? (
                 <span className="fw-semibold">{payment.description}</span>
               ) : showAccountName ? (
-                `${payment.jar.account.name} (${payment.jar.name})`
+                `${payment.jar?.account?.name} (${payment.jar?.name})`
               ) : null}
             </div>
 
             <div
               className={
-                payment.amount_converted > 0 &&
-                !isIncomingPaymentWithinSameAccountTransfer(payment)
-                  ? "text-success fw-bold"
-                  : ""
+                payment.amount_converted > 0 ? "text-success fw-bold" : ""
               }
             >
-              {isIncomingPaymentWithinSameAccountTransfer(payment)
-                ? currencyFormat(
-                    -payment.amount_converted,
-                    payment.jar.account.currency
-                  )
-                : currencyFormat(
-                    payment.amount_converted,
-                    payment.jar.account.currency
-                  )}
+              {currencyFormat(payment.amount_converted, currency)}
             </div>
 
             {showDeleteButton ? (
@@ -114,7 +104,7 @@ export default function PaymentListItem({
                     : "text-danger"
                 }
               >
-                {currencyFormat(payment.balance, payment.jar.account.currency)}
+                {currencyFormat(payment.balance, currency)}
               </div>
             </div>
           ) : null}
@@ -129,10 +119,7 @@ export default function PaymentListItem({
                     : "text-danger"
                 }
               >
-                {currencyFormat(
-                  payment.jar_savings_balance,
-                  payment.jar.account.currency
-                )}
+                {currencyFormat(payment.jar_savings_balance, currency)}
               </div>
             </div>
           ) : null}
@@ -145,10 +132,7 @@ export default function PaymentListItem({
                   payment.jar_balance >= 0 ? "text-secondary" : "text-danger"
                 }
               >
-                {currencyFormat(
-                  payment.jar_balance,
-                  payment.jar.account.currency
-                )}
+                {currencyFormat(payment.jar_balance, currency)}
               </div>
             </div>
           )}

@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from "react";
 import { Card } from "react-bootstrap";
-import { isOutgoingPaymentWithinSameAccountTransfer } from "../../helpers/PaymentHelper";
 import PaymentListItem from "./PaymentListItem";
 import Payment from "../../interfaces/Payment";
 
@@ -24,14 +23,12 @@ export default function PaymentsCard({
       </div>
       <div className="payment-list">
         {payments
-          .filter(
-            (payment) => !isOutgoingPaymentWithinSameAccountTransfer(payment)
-          )
           .filter((payment) => showHiddenPayments || !payment.hidden)
           .map((payment) => (
             <PaymentListItem
               key={payment.id}
               payment={payment}
+              currency={payment.currency}
               onDeleted={onDeleted}
               onUpdated={onUpdated}
             />
