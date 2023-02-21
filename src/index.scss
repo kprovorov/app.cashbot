@@ -1,12 +1,9 @@
-@import "./assets/scss/core";
-@import "./assets/scss/theme-default";
+@import "~bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
 
-.payment-card {
-  small {
-    color: $gray-500;
-    font-size: 0.6rem;
-  }
+.payment-card small {
+  /* color: $gray-500; */
+  font-size: 0.6rem;
 }
 
 .text-size-md {

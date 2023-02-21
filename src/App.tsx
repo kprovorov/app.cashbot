@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./App.scss";
 import Dashboard from "./pages/Dashboard";
 import AccountsContext from "./context/AccountsContext";
 import { getAccounts } from "./api/accounts";
