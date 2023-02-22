@@ -5,6 +5,7 @@ import moment from "moment";
 import GroupDetailModal from "../../groups/components/GroupDetailModal";
 import EditPaymentModal from "./EditPaymentModal";
 import DeletePaymentButton from "./DeletePaymentButton";
+import { DatePill } from "../../common/components/DatePill";
 
 export default function PaymentListItem({
   payment,
@@ -35,109 +36,45 @@ export default function PaymentListItem({
 
   return (
     <div
-      className="p-2 d-flex flex-column border-top payment-list-item"
-      style={{
-        cursor: "pointer",
-        opacity: payment.hidden ? 0.5 : 1,
+      className={`tw-p-2 tw-grid tw-cursor-pointer tw-items-center ${
+        payment.hidden ? "tw-opacity-50" : ""
+      } ${showDeleteButton ? "tw-grid-cols-9" : "tw-grid-cols-8"} `}
+      onClick={() => {
+        payment.group_id && showGroupOnClick
+          ? handleShowGroup()
+          : handleShowEdit();
       }}
     >
-      <div
-        className="payment-card d-flex"
-        onClick={() => {
-          payment.group_id && showGroupOnClick
-            ? handleShowGroup()
-            : handleShowEdit();
-        }}
-      >
-        <div
-          className={`d-flex flex-column rounded-pill text-size-sm align-items-center justify-content-center line-height-sm fw-bold ${
-            moment(payment.date).diff(moment()) < 0
-              ? "bg-primary text-white"
-              : "bg-lighter text-black"
-          }`}
-          style={{
-            width: "2rem",
-            height: "2rem",
-            minWidth: "2rem",
-            minHeight: "2rem",
-          }}
-        >
-          <div>{moment(payment.date).format("D")}</div>
-          <div>{moment(payment.date).format("MMM")}</div>
-        </div>
-        <div className="d-flex flex-column flex-grow-1 ps-2">
-          <div className="d-flex flex-row justify-content-between align-items-center">
-            <div className="me-auto">
-              {showDescription ? (
-                <span className="fw-semibold">{payment.description}</span>
-              ) : showAccountName ? (
-                `${payment.jar?.account?.name} (${payment.jar?.name})`
-              ) : null}
-            </div>
-
-            <div
-              className={
-                payment.amount_converted > 0 ? "text-success fw-bold" : ""
-              }
-            >
-              {currencyFormat(payment.amount_converted, currency)}
-            </div>
-
-            {showDeleteButton ? (
-              <DeletePaymentButton
-                paymentId={payment.id}
-                onDeleted={onDeleted}
-                size="sm"
-              />
-            ) : null}
-          </div>
-          {payment.balance !== undefined ? (
-            <div className="d-flex flex-row justify-content-between text-size-md">
-              <div className="text-secondary">Default</div>
-              <div
-                className={
-                  payment.balance >= 0
-                    ? payment.jar_savings_balance &&
-                      payment.balance < payment.jar_savings_balance
-                      ? "text-warning"
-                      : "text-secondary"
-                    : "text-danger"
-                }
-              >
-                {currencyFormat(payment.balance, currency)}
-              </div>
-            </div>
-          ) : null}
-
-          {payment.jar_savings_balance ? (
-            <div className="d-flex flex-row justify-content-between text-size-md">
-              <div className="text-secondary">Savings</div>
-              <div
-                className={
-                  payment.jar.default || payment.jar_savings_balance >= 0
-                    ? "text-secondary"
-                    : "text-danger"
-                }
-              >
-                {currencyFormat(payment.jar_savings_balance, currency)}
-              </div>
-            </div>
-          ) : null}
-
-          {!payment.jar.default && payment.jar_balance !== undefined && (
-            <div className="d-flex flex-row justify-content-between text-size-md">
-              <div className="text-secondary">{payment.jar.name}</div>
-              <div
-                className={
-                  payment.jar_balance >= 0 ? "text-secondary" : "text-danger"
-                }
-              >
-                {currencyFormat(payment.jar_balance, currency)}
-              </div>
-            </div>
-          )}
-        </div>
+      <DatePill date={moment(payment.date)} />
+      <div className="tw-col-span-3 tw-truncate tw-font-semibold">
+        {payment.description}
       </div>
+      <div
+        className={`tw-col-span-2 tw-text-right ${
+          payment.amount_converted > 0
+            ? "tw-text-positive tw-font-semibold"
+            : "tw-text-slate-600"
+        }`}
+      >
+        {currencyFormat(payment.amount_converted, currency)}
+      </div>
+      <div
+        className={`tw-col-span-2 tw-text-right ${
+          payment.balance <= 0 ? "tw-text-negative" : "tw-text-slate-400"
+        }`}
+      >
+        {currencyFormat(payment.balance, currency)}
+      </div>
+      {showDeleteButton ? (
+        <div className="tw-text-center">
+          <DeletePaymentButton
+            paymentId={payment.id}
+            onDeleted={onDeleted}
+            size="sm"
+          />
+        </div>
+      ) : null}
+
       {payment.group_id && showGroupOnClick ? (
         <GroupDetailModal
           show={showGroup}

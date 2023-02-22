@@ -1,23 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons";
 
-.payment-card small {
-  /* color: $gray-500; */
-  font-size: 0.6rem;
-}
-
-.text-size-md {
-  font-size: 0.7rem;
-}
-
-.text-size-sm {
-  font-size: 0.5rem;
-}
-
-.line-height-sm {
-  line-height: 0.6rem;
-}
-
 .container-main {
   padding-top: 4rem;
   padding-bottom: 1rem;
@@ -27,8 +10,4 @@ label {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 0.7rem;
-}
-
-.payment-list .payment-list-item:first-child {
-  border-top: 0 !important;
 }

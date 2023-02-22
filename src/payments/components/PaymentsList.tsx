@@ -14,7 +14,7 @@ export default function PaymentsList({
   showHidden?: boolean;
 }>) {
   return (
-    <div className="payment-list">
+    <div className="tw-divide-y">
       {account.payments
         .filter((payment) => showHidden || !payment.hidden)
         .map((payment) => (
