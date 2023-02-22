@@ -1,8 +1,10 @@
 import React, { PropsWithChildren, useContext } from "react";
-import { Card } from "react-bootstrap";
 import AccountBalance from "./AccountBalance";
 import { currencyFormat } from "../../services/formatters";
 import AccountsContext from "../../context/AccountsContext";
+import Card from "../../common/components/ui/card/Card";
+import CardHeader from "../../common/components/ui/card/CardHeader";
+import CardTitle from "../../common/components/ui/card/CardTitle";
 
 export default function AccountBalances({
   onUpdated,
@@ -10,10 +12,10 @@ export default function AccountBalances({
   const { accounts } = useContext(AccountsContext);
 
   return (
-    <Card className="mt-4 shadow">
-      <div className="p-3 d-flex justify-content-between fw-bold">
-        <div className="w-50 text-uppercase">Balances</div>
-        <div className="w-50 d-flex justify-content-end">
+    <Card>
+      <CardHeader>
+        <CardTitle>Balances</CardTitle>
+        <div className="tw-font-bold">
           {currencyFormat(
             accounts.reduce(
               (partialSum, account) => partialSum + (account.uah_balance || 0),
@@ -22,21 +24,25 @@ export default function AccountBalances({
             "UAH"
           )}
         </div>
-      </div>
-      {accounts.map((account) => (
-        <div key={account.id} className="py-2 px-3 border-top row g-0">
-          <div className="col-4 p-0 fw-semibold">{account.name}</div>
-
-          <div className="col-4 p-0 text-end">
-            <AccountBalance account={account} onUpdated={onUpdated} />
-          </div>
-          {account.uah_balance !== undefined && (
-            <div className="col-4 p-0 text-end">
-              {currencyFormat(account.uah_balance, "UAH")}
+      </CardHeader>
+      <div>
+        {accounts.map((account) => (
+          <div key={account.id} className="tw-grid tw-grid-cols-4 tw-py-2">
+            <div className="tw-col-span-2 tw-truncate tw-font-semibold">
+              {account.name}
             </div>
-          )}
-        </div>
-      ))}
+
+            <div className="tw-text-end tw-text-slate-400">
+              <AccountBalance account={account} onUpdated={onUpdated} />
+            </div>
+            {account.uah_balance !== undefined && (
+              <div className="tw-text-end">
+                {currencyFormat(account.uah_balance, "UAH")}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </Card>
   );
 }

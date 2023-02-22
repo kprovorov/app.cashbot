@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "Inter var";
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+    font-named-instance: "Regular";
+    src: url("./assets/fonts/Inter-roman.var.woff2?v=3.19") format("woff2");
+  }
+  @font-face {
+    font-family: "Inter var";
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: italic;
+    font-named-instance: "Italic";
+    src: url("./assets/fonts/Inter-italic.var.woff2?v=3.19") format("woff2");
+  }
+}

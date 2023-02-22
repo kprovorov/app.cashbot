@@ -1,7 +1,9 @@
 import React, { PropsWithChildren } from "react";
-import { Card } from "react-bootstrap";
 import PaymentListItem from "./PaymentListItem";
 import Payment from "../../interfaces/Payment";
+import Card from "../../common/components/ui/card/Card";
+import CardHeader from "../../common/components/ui/card/CardHeader";
+import CardTitle from "../../common/components/ui/card/CardTitle";
 
 export default function PaymentsCard({
   title,
@@ -17,11 +19,11 @@ export default function PaymentsCard({
   showHiddenPayments?: boolean;
 }>) {
   return (
-    <Card className="mt-4 shadow">
-      <div className="p-3 d-flex justify-content-between fw-bold border-bottom">
-        <div className="text-uppercase">{title}</div>
-      </div>
-      <div className="payment-list">
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <div>
         {payments
           .filter((payment) => showHiddenPayments || !payment.hidden)
           .map((payment) => (

@@ -1,8 +1,10 @@
 import React, { PropsWithChildren } from "react";
-import { Card } from "react-bootstrap";
 import Account from "../../interfaces/Account";
 import PaymentsList from "../../payments/components/PaymentsList";
 import AccountBalance from "./AccountBalance";
+import Card from "../../common/components/ui/card/Card";
+import CardHeader from "../../common/components/ui/card/CardHeader";
+import CardTitle from "../../common/components/ui/card/CardTitle";
 
 export default function AccountCard({
   account,
@@ -16,13 +18,11 @@ export default function AccountCard({
   showHiddenPayments?: boolean;
 }>) {
   return (
-    <Card className="mt-4 shadow">
-      <div className="p-3 d-flex justify-content-between fw-bold border-bottom">
-        <div className="w-50 text-uppercase">{account.name}</div>
-        <div className="w-50 d-flex justify-content-end">
-          <AccountBalance account={account} onUpdated={onUpdated} />
-        </div>
-      </div>
+    <Card>
+      <CardHeader className="tw-font-bold">
+        <CardTitle>{account.name}</CardTitle>
+        <AccountBalance account={account} onUpdated={onUpdated} />
+      </CardHeader>
       <PaymentsList
         account={account}
         onDeleted={onDeleted}

@@ -36,7 +36,7 @@ export default function PaymentListItem({
 
   return (
     <div
-      className={`tw-p-2 tw-grid tw-cursor-pointer tw-items-center ${
+      className={`tw-p-2 tw-grid tw-cursor-pointer tw-items-center hover:tw-bg-slate-50 tw-rounded ${
         payment.hidden ? "tw-opacity-50" : ""
       } ${showDeleteButton ? "tw-grid-cols-9" : "tw-grid-cols-8"} `}
       onClick={() => {

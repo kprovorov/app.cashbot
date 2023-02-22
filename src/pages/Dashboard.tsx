@@ -33,49 +33,45 @@ function Dashboard() {
   return (
     <>
       <TheHeader onCreated={fetchDashboard} />
-      <Container fluid className="container-main">
-        <Row>
-          <Col>
-            <div className="d-flex justify-content-between align-items-center bg-white p-3 border rounded">
-              <div className="d-flex align-items-center">
-                <Form.Check
-                  className="me-3"
-                  onChange={(e) => setShowEmptyAccounts(e.target.checked)}
-                  type="switch"
-                  id="custom-switch"
-                  label="Empty"
-                />
-                <Form.Check
-                  onChange={(e) => setShowHiddenPayments(e.target.checked)}
-                  type="switch"
-                  id="custom-switch"
-                  label="Hidden"
-                />
-              </div>
-              <div>
-                <Button
-                  style={{ width: "80px" }}
+      <div className="tw-flex tw-flex-col tw-gap-4">
+        <div className="tw-flex tw-items-center tw-justify-between">
+          <div className="tw-flex tw-items-center">
+            <Form.Check
+              className="me-3"
+              onChange={(e) => setShowEmptyAccounts(e.target.checked)}
+              type="switch"
+              id="custom-switch"
+              label="Empty"
+            />
+            <Form.Check
+              onChange={(e) => setShowHiddenPayments(e.target.checked)}
+              type="switch"
+              id="custom-switch"
+              label="Hidden"
+            />
+          </div>
+          <div>
+            <Button
+              style={{ width: "80px" }}
+              size="sm"
+              variant="outline-secondary"
+              onClick={fetchDashboard}
+            >
+              {loading ? (
+                <Spinner
+                  as="span"
+                  animation="border"
                   size="sm"
-                  variant="outline-secondary"
-                  onClick={fetchDashboard}
-                >
-                  {loading ? (
-                    <Spinner
-                      as="span"
-                      animation="border"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                  ) : (
-                    "Refresh"
-                  )}
-                </Button>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <Row>
+                  role="status"
+                  aria-hidden="true"
+                />
+              ) : (
+                "Refresh"
+              )}
+            </Button>
+          </div>
+        </div>
+        <div>
           <Swiper
             cssMode={true}
             mousewheel={true}
@@ -98,7 +94,7 @@ function Dashboard() {
             modules={[Mousewheel, Keyboard]}
           >
             <SwiperSlide>
-              <div className="p-3">
+              <div className="tw-flex tw-flex-col tw-gap-4 tw-p-4 tw-pb-8">
                 {accounts.length ? (
                   <>
                     <AccountBalances onUpdated={fetchDashboard} />
@@ -156,7 +152,7 @@ function Dashboard() {
               )
               .map((account, index) => (
                 <SwiperSlide key={account.id}>
-                  <div className="p-3">
+                  <div className="tw-p-4 tw-pb-8">
                     <AccountCard
                       account={account}
                       onDeleted={fetchDashboard}
@@ -167,8 +163,8 @@ function Dashboard() {
                 </SwiperSlide>
               ))}
           </Swiper>
-        </Row>
-      </Container>
+        </div>
+      </div>
     </>
   );
 }
