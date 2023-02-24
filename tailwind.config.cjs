@@ -12,6 +12,7 @@ module.exports = {
       },
       colors: {
         primary: colors.blue[600],
+        "primary-darken": colors.blue[700],
         positive: colors.lime[500],
         negative: colors.red[500],
       },
