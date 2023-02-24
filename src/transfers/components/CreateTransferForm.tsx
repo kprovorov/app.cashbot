@@ -11,6 +11,9 @@ import Account from "../../interfaces/Account";
 import CreateTransferData from "../../interfaces/CreateTransferData";
 import { createTransfer, getRate } from "../../api/accounts";
 import AccountsContext from "../../context/AccountsContext";
+import Label from "../../common/components/ui/forms/Label";
+import Input from "../../common/components/ui/forms/Input";
+import Select from "../../common/components/ui/forms/Select";
 
 export default function CreateTransferForm({
   formId,
@@ -77,201 +80,185 @@ export default function CreateTransferForm({
   }, [transferData.jar_from_id, transferData.jar_to_id]);
 
   return (
-    <Form id={formId} onSubmit={submit}>
-      <Row>
-        <Col>
-          <Form.Group>
-            <Form.Label>Date</Form.Label>
-            <Form.Control
-              type="date"
-              placeholder="Date"
-              value={transferData.date}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setTransferData({
-                  ...transferData,
-                  date: e.target.value,
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Rate</Form.Label>
-            <Form.Control
-              disabled
-              type="number"
-              placeholder="Rate"
-              value={transferData.rate}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setTransferData({
-                  ...transferData,
-                  rate: Number(e.target.value),
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Repeat</Form.Label>
-            <Form.Select
-              value={transferData.repeat}
-              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-                setTransferData({
-                  ...transferData,
-                  repeat: e.target.value,
-                });
-              }}
-            >
-              <option value="none">none</option>
-              <option value="weekly">weekly</option>
-              <option value="monthly">monthly</option>
-              <option value="quarterly">quarterly</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Label>Jar from</Form.Label>
-            <Form.Select
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                setTransferData({
-                  ...transferData,
-                  jar_from_id: Number(e.target.value),
-                });
-              }}
-            >
-              <option>Please select...</option>
-              {accounts.map((account) =>
-                account.jars.map((jar) => (
-                  <option value={jar.id} key={jar.id}>
-                    {account.name} ({jar.default ? "default" : jar.name}) —{" "}
-                    {account.currency}
-                  </option>
-                ))
-              )}
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Jar to</Form.Label>
-            <Form.Select
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                setTransferData({
-                  ...transferData,
-                  jar_to_id: Number(e.target.value),
-                });
-              }}
-            >
-              <option>Please select...</option>
-              {accounts.map((account) =>
-                account.jars.map((jar) => (
-                  <option value={jar.id} key={jar.id}>
-                    {account.name} ({jar.default ? "default" : jar.name}) —{" "}
-                    {account.currency}
-                  </option>
-                ))
-              )}
-            </Form.Select>
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Label>Amount From</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Amount From"
-              value={Math.round(transferData.amount * 100) / 100}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setTransferData({
-                  ...transferData,
-                  amount: Number(e.target.value),
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Amount To</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Amount To"
-              value={
-                Math.round(transferData.amount * transferData.rate * 100) / 100
-              }
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setTransferData({
-                  ...transferData,
-                  amount: Number(e.target.value) / transferData.rate,
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Fix currency</Form.Label>
-            <Form.Select
-              disabled={
-                !accountFrom ||
-                !accountTo ||
-                accountFrom?.currency === accountTo?.currency
-              }
-              value={transferData.currency}
-              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-                setTransferData({
-                  ...transferData,
-                  currency: e.target.value,
-                });
-              }}
-            >
-              {accountFrom && (
-                <option value={accountFrom.currency}>
-                  {accountFrom.currency}
+    <form id={formId} onSubmit={submit}>
+      <div className="tw-grid tw-grid-cols-6 tw-gap-4">
+        <div className="tw-col-span-2">
+          <Label>Date</Label>
+          <Input
+            type="date"
+            placeholder="Date"
+            value={transferData.date}
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setTransferData({
+                ...transferData,
+                date: e.target.value,
+              });
+            }}
+          />
+        </div>
+
+        <div className="tw-col-span-2">
+          <Label>Rate</Label>
+          <Input
+            disabled
+            type="number"
+            placeholder="Rate"
+            value={transferData.rate}
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setTransferData({
+                ...transferData,
+                rate: Number(e.target.value),
+              });
+            }}
+          />
+        </div>
+
+        <div className="tw-col-span-2">
+          <Label>Repeat</Label>
+          <Select
+            value={transferData.repeat}
+            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+              setTransferData({
+                ...transferData,
+                repeat: e.target.value,
+              });
+            }}
+          >
+            <option value="none">none</option>
+            <option value="weekly">weekly</option>
+            <option value="monthly">monthly</option>
+            <option value="quarterly">quarterly</option>
+          </Select>
+        </div>
+
+        <div className="tw-col-span-3">
+          <Label>Jar from</Label>
+          <Select
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+              setTransferData({
+                ...transferData,
+                jar_from_id: Number(e.target.value),
+              });
+            }}
+          >
+            <option>Please select...</option>
+            {accounts.map((account) =>
+              account.jars.map((jar) => (
+                <option value={jar.id} key={jar.id}>
+                  {account.name} ({jar.default ? "default" : jar.name}) —{" "}
+                  {account.currency}
                 </option>
-              )}
-              {accountTo && (
-                <option value={accountTo.currency}>{accountTo.currency}</option>
-              )}
-            </Form.Select>
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Description"
-              value={transferData.description}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setTransferData({
-                  ...transferData,
-                  description: e.target.value,
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-    </Form>
+              ))
+            )}
+          </Select>
+        </div>
+
+        <div className="tw-col-span-3">
+          <Label>Jar to</Label>
+          <Select
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+              setTransferData({
+                ...transferData,
+                jar_to_id: Number(e.target.value),
+              });
+            }}
+          >
+            <option>Please select...</option>
+            {accounts.map((account) =>
+              account.jars.map((jar) => (
+                <option value={jar.id} key={jar.id}>
+                  {account.name} ({jar.default ? "default" : jar.name}) —{" "}
+                  {account.currency}
+                </option>
+              ))
+            )}
+          </Select>
+        </div>
+
+        <div className="tw-col-span-2">
+          <Label>Amount From</Label>
+          <Input
+            type="number"
+            placeholder="Amount From"
+            value={Math.round(transferData.amount * 100) / 100}
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setTransferData({
+                ...transferData,
+                amount: Number(e.target.value),
+              });
+            }}
+          />
+        </div>
+
+        <div className="tw-col-span-2">
+          <Label>Amount To</Label>
+          <Input
+            type="number"
+            placeholder="Amount To"
+            value={
+              Math.round(transferData.amount * transferData.rate * 100) / 100
+            }
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setTransferData({
+                ...transferData,
+                amount: Number(e.target.value) / transferData.rate,
+              });
+            }}
+          />
+        </div>
+
+        <div className="tw-col-span-2">
+          <Label>Fix currency</Label>
+          <Select
+            disabled={
+              !accountFrom ||
+              !accountTo ||
+              accountFrom?.currency === accountTo?.currency
+            }
+            value={transferData.currency}
+            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+              setTransferData({
+                ...transferData,
+                currency: e.target.value,
+              });
+            }}
+          >
+            {accountFrom && (
+              <option value={accountFrom.currency}>
+                {accountFrom.currency}
+              </option>
+            )}
+            {accountTo && (
+              <option value={accountTo.currency}>{accountTo.currency}</option>
+            )}
+          </Select>
+        </div>
+
+        <div className="tw-col-span-6">
+          <Label>Description</Label>
+          <Input
+            type="text"
+            placeholder="Description"
+            value={transferData.description}
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setTransferData({
+                ...transferData,
+                description: e.target.value,
+              });
+            }}
+          />
+        </div>
+      </div>
+    </form>
   );
 }

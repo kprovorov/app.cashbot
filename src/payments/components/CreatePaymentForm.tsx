@@ -5,11 +5,14 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { createPayment } from "../../api/accounts";
 import CreatePaymentData from "../../interfaces/CreatePaymentData";
 import moment from "moment";
 import AccountsContext from "../../context/AccountsContext";
+import Input from "../../common/components/ui/forms/Input";
+import Select from "../../common/components/ui/forms/Select";
+import Label from "../../common/components/ui/forms/Label";
 
 export default function CreatePaymentForm({
   formId,
@@ -47,167 +50,147 @@ export default function CreatePaymentForm({
   };
 
   return (
-    <Form id={formId} onSubmit={submit}>
-      <Row>
-        <Col>
-          <Form.Group>
-            <Form.Label>Date</Form.Label>
-            <Form.Control
-              type="date"
-              value={moment(paymentData.date).format("YYYY-MM-DD")}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setPaymentData({
-                  ...paymentData,
-                  date: e.target.value,
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Ends</Form.Label>
-            <Form.Control
-              type="date"
-              value={moment(paymentData.ends_on).format("YYYY-MM-DD")}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setPaymentData({
-                  ...paymentData,
-                  ends_on: e.target.value,
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Repeat</Form.Label>
-            <Form.Select
-              value={paymentData.repeat}
-              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-                setPaymentData({
-                  ...paymentData,
-                  repeat: e.target.value,
-                });
-              }}
-            >
-              <option value="none">none</option>
-              <option value="weekly">weekly</option>
-              <option value="monthly">monthly</option>
-              <option value="quarterly">quarterly</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Label>Account</Form.Label>
-            <Form.Select
-              value={paymentData.jar_id}
-              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-                setPaymentData({
-                  ...paymentData,
-                  currency:
-                    accounts.find((account) => {
-                      return account.jars.find((jar) => {
-                        return jar.id === Number(e.target.value);
-                      });
-                    })?.currency || "UAH",
-                  jar_id: Number(e.target.value),
-                });
-              }}
-            >
-              <option>Please select...</option>
-              {accounts.map((account) =>
-                account.jars.map((jar) => (
-                  <option key={jar.id} value={jar.id}>
-                    {account.name} ({account.currency}) - {jar.name}
-                  </option>
-                ))
-              )}
-            </Form.Select>
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Label>Amount</Form.Label>
-            <Form.Control
-              type="text"
-              value={paymentData.amount}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setPaymentData({
-                  ...paymentData,
-                  amount: Number(e.target.value),
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Currency</Form.Label>
-            <Form.Select
-              value={paymentData.currency}
-              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-                setPaymentData({
-                  ...paymentData,
-                  currency: e.target.value,
-                });
-              }}
-            >
-              <option value="UAH">UAH</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col>
-          <Form.Group>
-            <Form.Label>Direction</Form.Label>
-            <Form.Select
-              value={paymentData.direction}
-              onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
-                setPaymentData({
-                  ...paymentData,
-                  direction: e.target.value as "expense" | "income",
-                });
-              }}
-            >
-              <option value="expense">expense</option>
-              <option value="income">income</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-      </Row>
+    <form id={formId} onSubmit={submit}>
+      <div className="tw-grid tw-grid-cols-3 tw-gap-4">
+        <div>
+          <Label>Date</Label>
+          <Input
+            type="date"
+            value={moment(paymentData.date).format("YYYY-MM-DD")}
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setPaymentData({
+                ...paymentData,
+                date: e.target.value,
+              });
+            }}
+          />
+        </div>
+        <div>
+          <Label>Ends</Label>
+          <Input
+            type="date"
+            value={moment(paymentData.ends_on).format("YYYY-MM-DD")}
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setPaymentData({
+                ...paymentData,
+                ends_on: e.target.value,
+              });
+            }}
+          />
+        </div>
+        <div>
+          <Label>Repeat</Label>
+          <Select
+            value={paymentData.repeat}
+            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+              setPaymentData({
+                ...paymentData,
+                repeat: e.target.value,
+              });
+            }}
+          >
+            <option value="none">none</option>
+            <option value="weekly">weekly</option>
+            <option value="monthly">monthly</option>
+            <option value="quarterly">quarterly</option>
+          </Select>
+        </div>
 
-      <Row className="mt-3">
-        <Col>
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              type="text"
-              value={paymentData.description}
-              onChange={(
-                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ): void => {
-                setPaymentData({
-                  ...paymentData,
-                  description: e.target.value,
-                });
-              }}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-    </Form>
+        <div className="tw-col-span-3">
+          <Label>Account</Label>
+          <Select
+            value={paymentData.jar_id}
+            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+              setPaymentData({
+                ...paymentData,
+                currency:
+                  accounts.find((account) => {
+                    return account.jars.find((jar) => {
+                      return jar.id === Number(e.target.value);
+                    });
+                  })?.currency || "UAH",
+                jar_id: Number(e.target.value),
+              });
+            }}
+          >
+            <option>Please select...</option>
+            {accounts.map((account) =>
+              account.jars.map((jar) => (
+                <option key={jar.id} value={jar.id}>
+                  {account.name} ({account.currency}) - {jar.name}
+                </option>
+              ))
+            )}
+          </Select>
+        </div>
+
+        <div>
+          <Label>Amount</Label>
+          <Input
+            type="text"
+            value={paymentData.amount}
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setPaymentData({
+                ...paymentData,
+                amount: Number(e.target.value),
+              });
+            }}
+          />
+        </div>
+        <div>
+          <Label>Currency</Label>
+          <Select
+            value={paymentData.currency}
+            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+              setPaymentData({
+                ...paymentData,
+                currency: e.target.value,
+              });
+            }}
+          >
+            <option value="UAH">UAH</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+          </Select>
+        </div>
+        <div>
+          <Label>Direction</Label>
+          <Select
+            value={paymentData.direction}
+            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+              setPaymentData({
+                ...paymentData,
+                direction: e.target.value as "expense" | "income",
+              });
+            }}
+          >
+            <option value="expense">expense</option>
+            <option value="income">income</option>
+          </Select>
+        </div>
+
+        <div className="tw-col-span-3">
+          <Label>Description</Label>
+          <Input
+            type="text"
+            value={paymentData.description}
+            onChange={(
+              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ): void => {
+              setPaymentData({
+                ...paymentData,
+                description: e.target.value,
+              });
+            }}
+          />
+        </div>
+      </div>
+    </form>
   );
 }
