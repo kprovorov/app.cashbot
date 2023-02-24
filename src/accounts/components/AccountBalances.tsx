@@ -27,7 +27,10 @@ export default function AccountBalances({
       </CardHeader>
       <div>
         {accounts.map((account) => (
-          <div key={account.id} className="grid grid-cols-4 py-2">
+          <div
+            key={account.id}
+            className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded"
+          >
             <div className="col-span-2 truncate font-semibold">
               {account.name}
             </div>
