@@ -82,7 +82,7 @@ function Dashboard() {
           </div>
           <div>
             <Button
-              className="hover:tw-bg-slate-900/10"
+              className="hover:tw-bg-slate-900/5"
               onClick={fetchDashboard}
             >
               {loading ? (
