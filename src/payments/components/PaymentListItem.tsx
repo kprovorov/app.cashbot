@@ -35,46 +35,65 @@ export default function PaymentListItem({
   const handleShowEdit = () => setShowEdit(true);
 
   return (
-    <div
-      className={`p-2 grid cursor-pointer items-center hover:bg-slate-50 rounded ${
-        payment.hidden ? "opacity-50" : ""
-      } ${showDeleteButton ? "grid-cols-9" : "grid-cols-8"} `}
-      onClick={() => {
-        payment.group_id && showGroupOnClick
-          ? handleShowGroup()
-          : handleShowEdit();
-      }}
-    >
-      <DatePill date={moment(payment.date)} />
-      <div className="col-span-3 truncate font-semibold">
-        {payment.description}
-      </div>
+    <>
       <div
-        className={`col-span-2 text-right ${
-          payment.amount_converted > 0
-            ? "text-positive font-semibold"
-            : "text-slate-600"
-        }`}
+        className={`p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded ${
+          payment.hidden ? "opacity-50" : ""
+        } `}
+        onClick={() => {
+          payment.group_id && showGroupOnClick
+            ? handleShowGroup()
+            : handleShowEdit();
+        }}
       >
-        {currencyFormat(payment.amount_converted, currency)}
-      </div>
-      <div
-        className={`col-span-2 text-right ${
-          payment.balance <= 0 ? "text-negative" : "text-slate-400"
-        }`}
-      >
-        {currencyFormat(payment.balance, currency)}
-      </div>
-      {showDeleteButton ? (
-        <div className="text-center">
-          <DeletePaymentButton
-            paymentId={payment.id}
-            onDeleted={onDeleted}
-            size="sm"
-          />
+        <DatePill date={moment(payment.date)} />
+        {showDescription && (
+          <div className="col-span-3 truncate font-semibold">
+            {payment.description}
+          </div>
+        )}
+        {showAccountName && (
+          <div className="col-span-3 truncate flex items-center gap-1">
+            <span className="font-semibold ">{payment.jar.account.name}</span>
+            <span className="text-gray-400">
+              {payment.jar.account.currency}
+            </span>
+            {!payment.jar.default && (
+              <span className="text-sm font-semibold text-gray-400">
+                ({payment.jar.name})
+              </span>
+            )}
+          </div>
+        )}
+        <div
+          className={`col-span-2 text-right ${
+            payment.amount_converted > 0
+              ? "text-positive font-semibold"
+              : "text-slate-600"
+          }`}
+        >
+          {currencyFormat(payment.amount_converted, currency)}
         </div>
-      ) : null}
+        {payment.balance ? (
+          <div
+            className={`col-span-2 text-right ${
+              payment.balance <= 0 ? "text-negative" : "text-slate-400"
+            }`}
+          >
+            {currencyFormat(payment.balance, currency)}
+          </div>
+        ) : null}
 
+        {showDeleteButton ? (
+          <div className="flex justify-end">
+            <DeletePaymentButton
+              paymentId={payment.id}
+              onDeleted={onDeleted}
+              size="sm"
+            />
+          </div>
+        ) : null}
+      </div>
       {payment.group_id && showGroupOnClick ? (
         <GroupDetailModal
           show={showGroup}
@@ -94,6 +113,6 @@ export default function PaymentListItem({
           onClose={handleCloseEdit}
         />
       )}
-    </div>
+    </>
   );
 }

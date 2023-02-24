@@ -97,19 +97,24 @@ function Dashboard() {
             cssMode={true}
             mousewheel={true}
             keyboard={true}
-            slidesPerView={2}
             breakpoints={{
-              "@0.00": {
-                slidesPerView: 1,
-              },
-              "@0.75": {
+              // "320": {
+              //   slidesPerView: 1,
+              // },
+              "560": {
                 slidesPerView: 2,
               },
-              "@1.00": {
+              "840": {
                 slidesPerView: 3,
               },
-              "@1.50": {
+              "1120": {
+                slidesPerView: 4,
+              },
+              "1400": {
                 slidesPerView: 5,
+              },
+              "1680": {
+                slidesPerView: 6,
               },
             }}
             modules={[Mousewheel, Keyboard]}
