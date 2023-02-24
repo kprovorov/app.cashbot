@@ -4,8 +4,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Button, Modal, Spinner } from "react-bootstrap";
 import { getGroup } from "../../api/groups";
+import Spinner from "../../common/components/Spinner";
+import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
+import Modal from "../../common/components/ui/modal/Modal";
+import ModalFooter from "../../common/components/ui/modal/ModalFooter";
 import Group from "../../interfaces/Group";
 import PaymentListItem from "../../payments/components/PaymentListItem";
 import DeleteGroupButton from "./DeleteGroupButton";
@@ -41,19 +44,16 @@ export default function GroupDetailModal({
   }, [fetchGroup]);
 
   return (
-    <Modal centered show={show} onHide={onClose} size="lg">
-      <Modal.Header closeButton>
-        <div className="text-uppercase fw-bold">{group?.name}</div>
-      </Modal.Header>
+    <Modal show={show} onClose={onClose} title={group?.name || ""}>
       {loading ? (
         <div
-          className="d-flex w-100 justify-content-center align-items-center"
+          className="tw-flex tw-justify-center tw-items-center"
           style={{ minHeight: "200px" }}
         >
-          <Spinner animation="border" role="status" variant="primary" />
+          <Spinner />
         </div>
       ) : (
-        <div className="payment-list">
+        <div>
           {group?.payments.map((payment) => (
             <PaymentListItem
               key={payment.id}
@@ -77,12 +77,10 @@ export default function GroupDetailModal({
       )}
 
       {loading ? null : (
-        <Modal.Footer>
+        <ModalFooter>
           <DeleteGroupButton groupId={groupId} onDeleted={onDeleted} />
-          <Button variant="secondary" onClick={onClose}>
-            Close
-          </Button>
-        </Modal.Footer>
+          <SecondaryButton onClick={onClose}>Close</SecondaryButton>
+        </ModalFooter>
       )}
     </Modal>
   );
