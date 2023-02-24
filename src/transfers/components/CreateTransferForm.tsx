@@ -6,7 +6,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Col, Form, Row } from "react-bootstrap";
 import Account from "../../interfaces/Account";
 import CreateTransferData from "../../interfaces/CreateTransferData";
 import { createTransfer, getRate } from "../../api/accounts";

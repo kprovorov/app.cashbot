@@ -5,7 +5,6 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { Form } from "react-bootstrap";
 import { createPayment } from "../../api/accounts";
 import CreatePaymentData from "../../interfaces/CreatePaymentData";
 import moment from "moment";

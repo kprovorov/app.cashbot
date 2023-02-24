@@ -1,11 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Account from "../interfaces/Account";
 import AccountCard from "../accounts/components/AccountCard";
-import { Col, Row, Spinner } from "react-bootstrap";
 import AccountBalances from "../accounts/components/AccountBalances";
-import Form from "react-bootstrap/Form";
 import TheHeader from "../common/components/TheHeader";
-import Container from "react-bootstrap/Container";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Mousewheel } from "swiper";
 import PaymentsCard from "../payments/components/PaymentsCard";

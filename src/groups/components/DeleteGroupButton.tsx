@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from "react";
-import { Button } from "react-bootstrap";
 import { deleteGroup } from "../../api/accounts";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import DeletePaymentButton from "../../payments/components/DeletePaymentButton";
