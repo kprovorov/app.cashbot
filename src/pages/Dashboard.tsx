@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Account from "../interfaces/Account";
 import AccountCard from "../accounts/components/AccountCard";
-import { Button, Col, Row, Spinner } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import AccountBalances from "../accounts/components/AccountBalances";
 import Form from "react-bootstrap/Form";
 import TheHeader from "../common/components/TheHeader";
@@ -11,6 +11,8 @@ import { Keyboard, Mousewheel } from "swiper";
 import PaymentsCard from "../payments/components/PaymentsCard";
 import moment from "moment";
 import { getDashboard } from "../api/dashboard";
+import { Switch } from "@headlessui/react";
+import Button from "../common/components/ui/buttons/Button";
 
 function Dashboard() {
   const [loading, setLoading] = useState(false);
@@ -33,28 +35,54 @@ function Dashboard() {
   return (
     <>
       <TheHeader onCreated={fetchDashboard} />
-      <div className="tw-flex tw-flex-col tw-gap-4">
-        <div className="tw-flex tw-items-center tw-justify-between">
-          <div className="tw-flex tw-items-center">
-            <Form.Check
-              className="me-3"
-              onChange={(e) => setShowEmptyAccounts(e.target.checked)}
-              type="switch"
-              id="custom-switch"
-              label="Empty"
-            />
-            <Form.Check
-              onChange={(e) => setShowHiddenPayments(e.target.checked)}
-              type="switch"
-              id="custom-switch"
-              label="Hidden"
-            />
+      <div className="tw-flex tw-flex-col">
+        <div className="tw-flex tw-items-center tw-justify-between tw-px-4 tw-py-6">
+          <div className="tw-flex tw-items-center tw-gap-4">
+            <Switch.Group>
+              <div className="tw-flex tw-items-center tw-gap-2">
+                <Switch
+                  checked={showEmptyAccounts}
+                  onChange={setShowEmptyAccounts}
+                  className={`${
+                    showEmptyAccounts ? "tw-bg-primary" : "tw-bg-slate-300"
+                  } tw-relative tw-inline-flex tw-h-6 tw-w-11 tw-items-center tw-rounded-full`}
+                >
+                  <span
+                    className={`${
+                      showEmptyAccounts
+                        ? "tw-translate-x-6"
+                        : "tw-translate-x-1"
+                    } tw-inline-block tw-h-4 tw-w-4 tw-transform tw-rounded-full tw-bg-white tw-transition`}
+                  />
+                </Switch>
+                <Switch.Label>Empty</Switch.Label>
+              </div>
+            </Switch.Group>
+
+            <Switch.Group>
+              <div className="tw-flex tw-items-center tw-gap-2">
+                <Switch
+                  checked={showHiddenPayments}
+                  onChange={setShowHiddenPayments}
+                  className={`${
+                    showHiddenPayments ? "tw-bg-primary" : "tw-bg-slate-300"
+                  } tw-relative tw-inline-flex tw-h-6 tw-w-11 tw-items-center tw-rounded-full`}
+                >
+                  <span
+                    className={`${
+                      showHiddenPayments
+                        ? "tw-translate-x-6"
+                        : "tw-translate-x-1"
+                    } tw-inline-block tw-h-4 tw-w-4 tw-transform tw-rounded-full tw-bg-white tw-transition`}
+                  />
+                </Switch>
+                <Switch.Label>Hidden</Switch.Label>
+              </div>
+            </Switch.Group>
           </div>
           <div>
             <Button
-              style={{ width: "80px" }}
-              size="sm"
-              variant="outline-secondary"
+              className="hover:tw-bg-slate-900/10"
               onClick={fetchDashboard}
             >
               {loading ? (
@@ -94,7 +122,7 @@ function Dashboard() {
             modules={[Mousewheel, Keyboard]}
           >
             <SwiperSlide>
-              <div className="tw-flex tw-flex-col tw-gap-4 tw-p-4 tw-pb-8">
+              <div className="tw-flex tw-flex-col tw-gap-4 tw-px-4 tw-pb-8">
                 {accounts.length ? (
                   <>
                     <AccountBalances onUpdated={fetchDashboard} />
@@ -152,7 +180,7 @@ function Dashboard() {
               )
               .map((account, index) => (
                 <SwiperSlide key={account.id}>
-                  <div className="tw-p-4 tw-pb-8">
+                  <div className="tw-px-4 tw-pb-8">
                     <AccountCard
                       account={account}
                       onDeleted={fetchDashboard}
