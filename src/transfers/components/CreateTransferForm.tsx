@@ -12,7 +12,6 @@ import { createTransfer, getRate } from "../../api/accounts";
 import AccountsContext from "../../context/AccountsContext";
 import Label from "../../common/components/ui/forms/Label";
 import Input from "../../common/components/ui/forms/Input";
-import Select from "../../common/components/ui/forms/Select";
 
 export default function CreateTransferForm({
   formId,
@@ -87,9 +86,7 @@ export default function CreateTransferForm({
             type="date"
             placeholder="Date"
             value={transferData.date}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setTransferData({
                 ...transferData,
                 date: e.target.value,
@@ -105,9 +102,7 @@ export default function CreateTransferForm({
             type="number"
             placeholder="Rate"
             value={transferData.rate}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setTransferData({
                 ...transferData,
                 rate: Number(e.target.value),
@@ -118,9 +113,10 @@ export default function CreateTransferForm({
 
         <div className="tw-col-span-2">
           <Label>Repeat</Label>
-          <Select
+          <Input
+            $as="select"
             value={transferData.repeat}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setTransferData({
                 ...transferData,
                 repeat: e.target.value,
@@ -131,13 +127,14 @@ export default function CreateTransferForm({
             <option value="weekly">weekly</option>
             <option value="monthly">monthly</option>
             <option value="quarterly">quarterly</option>
-          </Select>
+          </Input>
         </div>
 
         <div className="tw-col-span-3">
           <Label>Jar from</Label>
-          <Select
-            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+          <Input
+            $as="select"
+            onChange={(e) => {
               setTransferData({
                 ...transferData,
                 jar_from_id: Number(e.target.value),
@@ -153,13 +150,14 @@ export default function CreateTransferForm({
                 </option>
               ))
             )}
-          </Select>
+          </Input>
         </div>
 
         <div className="tw-col-span-3">
           <Label>Jar to</Label>
-          <Select
-            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+          <Input
+            $as="select"
+            onChange={(e) => {
               setTransferData({
                 ...transferData,
                 jar_to_id: Number(e.target.value),
@@ -175,7 +173,7 @@ export default function CreateTransferForm({
                 </option>
               ))
             )}
-          </Select>
+          </Input>
         </div>
 
         <div className="tw-col-span-2">
@@ -184,9 +182,7 @@ export default function CreateTransferForm({
             type="number"
             placeholder="Amount From"
             value={Math.round(transferData.amount * 100) / 100}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setTransferData({
                 ...transferData,
                 amount: Number(e.target.value),
@@ -203,9 +199,7 @@ export default function CreateTransferForm({
             value={
               Math.round(transferData.amount * transferData.rate * 100) / 100
             }
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setTransferData({
                 ...transferData,
                 amount: Number(e.target.value) / transferData.rate,
@@ -216,14 +210,15 @@ export default function CreateTransferForm({
 
         <div className="tw-col-span-2">
           <Label>Fix currency</Label>
-          <Select
+          <Input
+            $as="select"
             disabled={
               !accountFrom ||
               !accountTo ||
               accountFrom?.currency === accountTo?.currency
             }
             value={transferData.currency}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setTransferData({
                 ...transferData,
                 currency: e.target.value,
@@ -238,7 +233,7 @@ export default function CreateTransferForm({
             {accountTo && (
               <option value={accountTo.currency}>{accountTo.currency}</option>
             )}
-          </Select>
+          </Input>
         </div>
 
         <div className="tw-col-span-6">
@@ -247,9 +242,7 @@ export default function CreateTransferForm({
             type="text"
             placeholder="Description"
             value={transferData.description}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setTransferData({
                 ...transferData,
                 description: e.target.value,

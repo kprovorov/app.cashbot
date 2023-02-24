@@ -12,7 +12,6 @@ import moment from "moment";
 import AccountsContext from "../../context/AccountsContext";
 import Label from "../../common/components/ui/forms/Label";
 import Input from "../../common/components/ui/forms/Input";
-import Select from "../../common/components/ui/forms/Select";
 
 export default function EditPaymentForm({
   payment,
@@ -58,9 +57,7 @@ export default function EditPaymentForm({
           <Input
             type="date"
             value={moment(paymentData.date).format("YYYY-MM-DD")}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 date: e.target.value,
@@ -78,9 +75,7 @@ export default function EditPaymentForm({
                 ? moment(paymentData.ends_on).format("YYYY-MM-DD")
                 : ""
             }
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 ends_on: e.target.value,
@@ -90,9 +85,10 @@ export default function EditPaymentForm({
         </div>
         <div className="tw-col-span-3">
           <Label>Account</Label>
-          <Select
+          <Input
+            $as="select"
             value={paymentData.jar_id}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 jar_id: Number(e.target.value),
@@ -107,7 +103,7 @@ export default function EditPaymentForm({
                 </option>
               ))
             )}
-          </Select>
+          </Input>
         </div>
 
         <div>
@@ -115,9 +111,7 @@ export default function EditPaymentForm({
           <Input
             type="text"
             value={paymentData.amount}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 amount: Number(e.target.value),
@@ -128,9 +122,10 @@ export default function EditPaymentForm({
 
         <div>
           <Label>Currency</Label>
-          <Select
+          <Input
+            $as="select"
             value={paymentData.currency}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 currency: e.target.value,
@@ -140,14 +135,15 @@ export default function EditPaymentForm({
             <option value="UAH">UAH</option>
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
-          </Select>
+          </Input>
         </div>
 
         <div>
           <Label>Direction</Label>
-          <Select
+          <Input
+            $as="select"
             value={paymentData.direction}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 direction: e.target.value as "expense" | "income",
@@ -156,7 +152,7 @@ export default function EditPaymentForm({
           >
             <option value="expense">expense</option>
             <option value="income">income</option>
-          </Select>
+          </Input>
         </div>
 
         <div className="tw-col-span-3">
@@ -164,9 +160,7 @@ export default function EditPaymentForm({
           <Input
             type="text"
             value={paymentData.description}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 description: e.target.value,

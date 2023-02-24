@@ -10,7 +10,6 @@ import CreatePaymentData from "../../interfaces/CreatePaymentData";
 import moment from "moment";
 import AccountsContext from "../../context/AccountsContext";
 import Input from "../../common/components/ui/forms/Input";
-import Select from "../../common/components/ui/forms/Select";
 import Label from "../../common/components/ui/forms/Label";
 
 export default function CreatePaymentForm({
@@ -56,9 +55,7 @@ export default function CreatePaymentForm({
           <Input
             type="date"
             value={moment(paymentData.date).format("YYYY-MM-DD")}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 date: e.target.value,
@@ -71,9 +68,7 @@ export default function CreatePaymentForm({
           <Input
             type="date"
             value={moment(paymentData.ends_on).format("YYYY-MM-DD")}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 ends_on: e.target.value,
@@ -83,9 +78,10 @@ export default function CreatePaymentForm({
         </div>
         <div>
           <Label>Repeat</Label>
-          <Select
+          <Input
+            $as="select"
             value={paymentData.repeat}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 repeat: e.target.value,
@@ -96,14 +92,15 @@ export default function CreatePaymentForm({
             <option value="weekly">weekly</option>
             <option value="monthly">monthly</option>
             <option value="quarterly">quarterly</option>
-          </Select>
+          </Input>
         </div>
 
         <div className="tw-col-span-3">
           <Label>Account</Label>
-          <Select
+          <Input
+            $as="select"
             value={paymentData.jar_id}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 currency:
@@ -124,7 +121,7 @@ export default function CreatePaymentForm({
                 </option>
               ))
             )}
-          </Select>
+          </Input>
         </div>
 
         <div>
@@ -132,9 +129,7 @@ export default function CreatePaymentForm({
           <Input
             type="text"
             value={paymentData.amount}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 amount: Number(e.target.value),
@@ -144,9 +139,10 @@ export default function CreatePaymentForm({
         </div>
         <div>
           <Label>Currency</Label>
-          <Select
+          <Input
+            $as="select"
             value={paymentData.currency}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 currency: e.target.value,
@@ -156,13 +152,14 @@ export default function CreatePaymentForm({
             <option value="UAH">UAH</option>
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
-          </Select>
+          </Input>
         </div>
         <div>
           <Label>Direction</Label>
-          <Select
+          <Input
+            $as="select"
             value={paymentData.direction}
-            onChange={(e: ChangeEvent<HTMLSelectElement>): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 direction: e.target.value as "expense" | "income",
@@ -171,7 +168,7 @@ export default function CreatePaymentForm({
           >
             <option value="expense">expense</option>
             <option value="income">income</option>
-          </Select>
+          </Input>
         </div>
 
         <div className="tw-col-span-3">
@@ -179,9 +176,7 @@ export default function CreatePaymentForm({
           <Input
             type="text"
             value={paymentData.description}
-            onChange={(
-              e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-            ): void => {
+            onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 description: e.target.value,

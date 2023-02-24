@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import CreateTransferButton from "../../transfers/components/CreateTransferButton";
 import CreatePaymentButton from "../../payments/components/CreatePaymentButton";
-import HeaderLink from "./HeaderLink";
+import HeaderButton from "./HeaderButton";
 
 export default function TheHeader({
   onCreated,
@@ -15,9 +15,9 @@ export default function TheHeader({
         <CreateTransferButton onCreated={onCreated} />
         <CreatePaymentButton onCreated={onCreated} />
       </div>
-      <HeaderLink href={`${import.meta.env.VITE_ID_APP_URL}/login`}>
+      <HeaderButton $as="a" href={`${import.meta.env.VITE_ID_APP_URL}/login`}>
         Login
-      </HeaderLink>
+      </HeaderButton>
     </div>
   );
 }
