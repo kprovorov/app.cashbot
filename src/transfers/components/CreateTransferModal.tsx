@@ -1,5 +1,7 @@
-import React, { PropsWithChildren } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { PropsWithChildren } from "react";
+import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
+import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
+import Modal from "../../common/components/ui/modal/Modal";
 import CreateTransferForm from "./CreateTransferForm";
 
 export default function CreateTransferModal({
@@ -12,24 +14,14 @@ export default function CreateTransferModal({
   onCreated: () => void;
 }>) {
   return (
-    <Modal centered show={show} onHide={onClose} size="lg">
-      <Modal.Header closeButton>
-        <div className="text-uppercase fw-bold">Add Transfer</div>
-      </Modal.Header>
-      <Modal.Body>
-        <CreateTransferForm
-          formId="create-transfer-form"
-          onCreated={onCreated}
-        />
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          Close
-        </Button>
-        <Button variant="primary" form="create-transfer-form" type="submit">
+    <Modal show={show} onClose={onClose} title="Add Transfer">
+      <CreateTransferForm formId="create-transfer-form" onCreated={onCreated} />
+      <div className="tw-flex tw-gap-3 tw-justify-end">
+        <SecondaryButton onClick={onClose}>Close</SecondaryButton>
+        <PrimaryButton form="create-transfer-form" type="submit">
           Save Changes
-        </Button>
-      </Modal.Footer>
+        </PrimaryButton>
+      </div>
     </Modal>
   );
 }
