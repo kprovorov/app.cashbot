@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useState } from "react";
 import { Button } from "react-bootstrap";
+import HeaderButton from "../../common/components/HeaderButton";
 import CreateTransferModal from "../../transfers/components/CreateTransferModal";
 
 export default function CreateTransferButton({
@@ -17,9 +18,7 @@ export default function CreateTransferButton({
 
   return (
     <>
-      <Button onClick={handleShow} className="ms-2" size="sm" variant="dark">
-        Add Transfer
-      </Button>
+      <HeaderButton onClick={handleShow}>Add Transfer</HeaderButton>
       <CreateTransferModal
         show={show}
         onClose={handleClose}

@@ -1,32 +1,23 @@
-import React, { PropsWithChildren } from "react";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import { PropsWithChildren } from "react";
 import CreateTransferButton from "../../transfers/components/CreateTransferButton";
 import CreatePaymentButton from "../../payments/components/CreatePaymentButton";
-import { Button } from "react-bootstrap";
+import HeaderLink from "./HeaderLink";
 
 export default function TheHeader({
   onCreated,
 }: PropsWithChildren<{ onCreated: () => void }>) {
   return (
-    <Navbar bg="dark" expand={true} fixed="top" variant="dark">
-      <Container fluid className="d-flex align-items-center">
-        <div className="tw-flex">
-          <Navbar.Brand href="/">
-            <img className="tw-h-5" src="logo.svg" alt="cashbot" />
-          </Navbar.Brand>
-          <CreateTransferButton onCreated={onCreated} />
-          <CreatePaymentButton onCreated={onCreated} />
-        </div>
-        <Button
-          size="sm"
-          as="a"
-          href={`${import.meta.env.VITE_ID_APP_URL}/login`}
-          variant="dark"
-        >
-          Login
-        </Button>
-      </Container>
-    </Navbar>
+    <div className="tw-flex tw-bg-slate-800 tw-p-3 tw-text-white tw-justify-between tw-items-center">
+      <div className="tw-flex tw-gap-3 tw-items-center">
+        <a href="/" className="tw-px-3">
+          <img className="tw-h-6" src="logo.svg" alt="cashbot" />
+        </a>
+        <CreateTransferButton onCreated={onCreated} />
+        <CreatePaymentButton onCreated={onCreated} />
+      </div>
+      <HeaderLink href={`${import.meta.env.VITE_ID_APP_URL}/login`}>
+        Login
+      </HeaderLink>
+    </div>
   );
 }

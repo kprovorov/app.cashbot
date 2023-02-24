@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useState } from "react";
 import { Button } from "react-bootstrap";
+import HeaderButton from "../../common/components/HeaderButton";
 import CreatePaymentModal from "./CreatePaymentModal";
 
 export default function CreatePaymentButton({
@@ -17,9 +18,7 @@ export default function CreatePaymentButton({
 
   return (
     <>
-      <Button onClick={handleShow} className="ms-2" size="sm" variant="dark">
-        Add Payment
-      </Button>
+      <HeaderButton onClick={handleShow}>Add Payment</HeaderButton>
       <CreatePaymentModal
         show={show}
         onClose={handleClose}
