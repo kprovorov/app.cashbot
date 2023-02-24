@@ -11,8 +11,8 @@ module.exports = {
         xs: "450px",
       },
       colors: {
-        primary: colors.blue[600],
-        "primary-darken": colors.blue[700],
+        primary: colors.indigo[700],
+        "primary-darken": colors.indigo[800],
         positive: colors.lime[500],
         negative: colors.red[500],
       },
@@ -37,6 +37,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
   prefix: "tw-",
 };
