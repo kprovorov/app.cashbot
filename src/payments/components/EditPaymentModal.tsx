@@ -1,9 +1,12 @@
 import React, { PropsWithChildren } from "react";
-import { Button, Modal } from "react-bootstrap";
 import EditPaymentForm from "./EditPaymentForm";
 import Payment from "../../interfaces/Payment";
 import DeletePaymentButton from "./DeletePaymentButton";
 import HidePaymentButton from "./HidePaymentButton";
+import ModalFooter from "../../common/components/ui/modal/ModalFooter";
+import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
+import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
+import Modal from "../../common/components/ui/modal/Modal";
 
 export default function EditPaymentModal({
   payment,
@@ -17,32 +20,20 @@ export default function EditPaymentModal({
   onUpdated: () => void;
 }>) {
   return (
-    <Modal centered show={show} onHide={onClose} size="lg">
-      <Modal.Header closeButton>
-        <div className="text-uppercase fw-bold">Edit Payment</div>
-      </Modal.Header>
-      <Modal.Body>
-        <EditPaymentForm
-          payment={payment}
-          formId={`edit-payment-form-${payment.id}`}
-          onUpdated={onUpdated}
-        />
-      </Modal.Body>
-      <Modal.Footer>
+    <Modal show={show} onClose={onClose} title="Edit payment">
+      <EditPaymentForm
+        payment={payment}
+        formId={`edit-payment-form-${payment.id}`}
+        onUpdated={onUpdated}
+      />
+      <ModalFooter>
         <HidePaymentButton payment={payment} onUpdated={onUpdated} />
-
         <DeletePaymentButton paymentId={payment.id} onDeleted={onUpdated} />
-        <Button variant="secondary" onClick={onClose}>
-          Close
-        </Button>
-        <Button
-          variant="primary"
-          form={`edit-payment-form-${payment.id}`}
-          type="submit"
-        >
+        <SecondaryButton onClick={onClose}>Close</SecondaryButton>
+        <PrimaryButton form={`edit-payment-form-${payment.id}`} type="submit">
           Save Changes
-        </Button>
-      </Modal.Footer>
+        </PrimaryButton>
+      </ModalFooter>
     </Modal>
   );
 }
