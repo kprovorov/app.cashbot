@@ -49,7 +49,7 @@ export default function CreatePaymentForm({
 
   return (
     <form id={formId} onSubmit={submit}>
-      <div className="tw-grid tw-grid-cols-3 tw-gap-4">
+      <div className="grid grid-cols-3 gap-4">
         <div>
           <Label>Date</Label>
           <Input
@@ -95,7 +95,7 @@ export default function CreatePaymentForm({
           </Input>
         </div>
 
-        <div className="tw-col-span-3">
+        <div className="col-span-3">
           <Label>Account</Label>
           <Input
             $as="select"
@@ -171,7 +171,7 @@ export default function CreatePaymentForm({
           </Input>
         </div>
 
-        <div className="tw-col-span-3">
+        <div className="col-span-3">
           <Label>Description</Label>
           <Input
             type="text"

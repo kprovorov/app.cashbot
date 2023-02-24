@@ -44,7 +44,7 @@ export default function HidePaymentButton({
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          className="tw-w-4 tw-h-4"
+          className="w-4 h-4"
         >
           <path
             stroke-linecap="round"
@@ -64,7 +64,7 @@ export default function HidePaymentButton({
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          className="tw-w-4 tw-h-4"
+          className="w-4 h-4"
         >
           <path
             stroke-linecap="round"

@@ -3,4 +3,4 @@ import Button from "./Button";
 
 export default tw(
   Button
-)`tw-border tw-bg-transparent tw-box-border tw-border-slate-300 hover:tw-border-slate-400 tw-text-slate-500`;
+)`border bg-transparent box-border border-slate-300 hover:border-slate-400 text-slate-500`;

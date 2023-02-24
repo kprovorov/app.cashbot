@@ -47,7 +47,7 @@ export default function GroupDetailModal({
     <Modal show={show} onClose={onClose} title={group?.name || ""}>
       {loading ? (
         <div
-          className="tw-flex tw-justify-center tw-items-center"
+          className="flex justify-center items-center"
           style={{ minHeight: "200px" }}
         >
           <Spinner />

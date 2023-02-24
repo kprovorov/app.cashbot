@@ -79,8 +79,8 @@ export default function CreateTransferForm({
 
   return (
     <form id={formId} onSubmit={submit}>
-      <div className="tw-grid tw-grid-cols-6 tw-gap-4">
-        <div className="tw-col-span-2">
+      <div className="grid grid-cols-6 gap-4">
+        <div className="col-span-2">
           <Label>Date</Label>
           <Input
             type="date"
@@ -95,7 +95,7 @@ export default function CreateTransferForm({
           />
         </div>
 
-        <div className="tw-col-span-2">
+        <div className="col-span-2">
           <Label>Rate</Label>
           <Input
             disabled
@@ -111,7 +111,7 @@ export default function CreateTransferForm({
           />
         </div>
 
-        <div className="tw-col-span-2">
+        <div className="col-span-2">
           <Label>Repeat</Label>
           <Input
             $as="select"
@@ -130,7 +130,7 @@ export default function CreateTransferForm({
           </Input>
         </div>
 
-        <div className="tw-col-span-3">
+        <div className="col-span-3">
           <Label>Jar from</Label>
           <Input
             $as="select"
@@ -153,7 +153,7 @@ export default function CreateTransferForm({
           </Input>
         </div>
 
-        <div className="tw-col-span-3">
+        <div className="col-span-3">
           <Label>Jar to</Label>
           <Input
             $as="select"
@@ -176,7 +176,7 @@ export default function CreateTransferForm({
           </Input>
         </div>
 
-        <div className="tw-col-span-2">
+        <div className="col-span-2">
           <Label>Amount From</Label>
           <Input
             type="number"
@@ -191,7 +191,7 @@ export default function CreateTransferForm({
           />
         </div>
 
-        <div className="tw-col-span-2">
+        <div className="col-span-2">
           <Label>Amount To</Label>
           <Input
             type="number"
@@ -208,7 +208,7 @@ export default function CreateTransferForm({
           />
         </div>
 
-        <div className="tw-col-span-2">
+        <div className="col-span-2">
           <Label>Fix currency</Label>
           <Input
             $as="select"
@@ -236,7 +236,7 @@ export default function CreateTransferForm({
           </Input>
         </div>
 
-        <div className="tw-col-span-6">
+        <div className="col-span-6">
           <Label>Description</Label>
           <Input
             type="text"

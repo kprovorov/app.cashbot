@@ -15,7 +15,7 @@ export default function AccountBalances({
     <Card>
       <CardHeader>
         <CardTitle>Balances</CardTitle>
-        <div className="tw-font-bold">
+        <div className="font-bold">
           {currencyFormat(
             accounts.reduce(
               (partialSum, account) => partialSum + (account.uah_balance || 0),
@@ -27,16 +27,16 @@ export default function AccountBalances({
       </CardHeader>
       <div>
         {accounts.map((account) => (
-          <div key={account.id} className="tw-grid tw-grid-cols-4 tw-py-2">
-            <div className="tw-col-span-2 tw-truncate tw-font-semibold">
+          <div key={account.id} className="grid grid-cols-4 py-2">
+            <div className="col-span-2 truncate font-semibold">
               {account.name}
             </div>
 
-            <div className="tw-text-end tw-text-slate-400">
+            <div className="text-end text-slate-400">
               <AccountBalance account={account} onUpdated={onUpdated} />
             </div>
             {account.uah_balance !== undefined && (
-              <div className="tw-text-end">
+              <div className="text-end">
                 {currencyFormat(account.uah_balance, "UAH")}
               </div>
             )}

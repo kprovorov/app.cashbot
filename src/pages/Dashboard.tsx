@@ -32,24 +32,22 @@ function Dashboard() {
   return (
     <>
       <TheHeader onCreated={fetchDashboard} />
-      <div className="tw-flex tw-flex-col">
-        <div className="tw-flex tw-items-center tw-justify-between tw-px-4 tw-py-6">
-          <div className="tw-flex tw-items-center tw-gap-4">
+      <div className="flex flex-col">
+        <div className="flex items-center justify-between px-4 py-6">
+          <div className="flex items-center gap-4">
             <Switch.Group>
-              <div className="tw-flex tw-items-center tw-gap-2">
+              <div className="flex items-center gap-2">
                 <Switch
                   checked={showEmptyAccounts}
                   onChange={setShowEmptyAccounts}
                   className={`${
-                    showEmptyAccounts ? "tw-bg-primary" : "tw-bg-slate-300"
-                  } tw-relative tw-inline-flex tw-h-6 tw-w-11 tw-items-center tw-rounded-full`}
+                    showEmptyAccounts ? "bg-primary" : "bg-slate-300"
+                  } relative inline-flex h-6 w-11 items-center rounded-full`}
                 >
                   <span
                     className={`${
-                      showEmptyAccounts
-                        ? "tw-translate-x-6"
-                        : "tw-translate-x-1"
-                    } tw-inline-block tw-h-4 tw-w-4 tw-transform tw-rounded-full tw-bg-white tw-transition`}
+                      showEmptyAccounts ? "translate-x-6" : "translate-x-1"
+                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                   />
                 </Switch>
                 <Switch.Label>Empty</Switch.Label>
@@ -57,20 +55,18 @@ function Dashboard() {
             </Switch.Group>
 
             <Switch.Group>
-              <div className="tw-flex tw-items-center tw-gap-2">
+              <div className="flex items-center gap-2">
                 <Switch
                   checked={showHiddenPayments}
                   onChange={setShowHiddenPayments}
                   className={`${
-                    showHiddenPayments ? "tw-bg-primary" : "tw-bg-slate-300"
-                  } tw-relative tw-inline-flex tw-h-6 tw-w-11 tw-items-center tw-rounded-full`}
+                    showHiddenPayments ? "bg-primary" : "bg-slate-300"
+                  } relative inline-flex h-6 w-11 items-center rounded-full`}
                 >
                   <span
                     className={`${
-                      showHiddenPayments
-                        ? "tw-translate-x-6"
-                        : "tw-translate-x-1"
-                    } tw-inline-block tw-h-4 tw-w-4 tw-transform tw-rounded-full tw-bg-white tw-transition`}
+                      showHiddenPayments ? "translate-x-6" : "translate-x-1"
+                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                   />
                 </Switch>
                 <Switch.Label>Hidden</Switch.Label>
@@ -78,19 +74,14 @@ function Dashboard() {
             </Switch.Group>
           </div>
           <div>
-            <Button
-              className="hover:tw-bg-slate-900/5"
-              onClick={fetchDashboard}
-            >
+            <Button className="hover:bg-slate-900/5" onClick={fetchDashboard}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className={`tw-w-6 tw-h-6 ${
-                  loading ? "tw-animate-spin" : null
-                }`}
+                className={`w-6 h-6 ${loading ? "animate-spin" : null}`}
               >
                 <path
                   strokeLinecap="round"
@@ -124,7 +115,7 @@ function Dashboard() {
             modules={[Mousewheel, Keyboard]}
           >
             <SwiperSlide>
-              <div className="tw-flex tw-flex-col tw-gap-4 tw-px-4 tw-pb-8">
+              <div className="flex flex-col gap-4 px-4 pb-8">
                 {accounts.length ? (
                   <>
                     <AccountBalances onUpdated={fetchDashboard} />
@@ -182,7 +173,7 @@ function Dashboard() {
               )
               .map((account, index) => (
                 <SwiperSlide key={account.id}>
-                  <div className="tw-px-4 tw-pb-8">
+                  <div className="px-4 pb-8">
                     <AccountCard
                       account={account}
                       onDeleted={fetchDashboard}

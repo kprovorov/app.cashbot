@@ -7,10 +7,10 @@ export default function TheHeader({
   onCreated,
 }: PropsWithChildren<{ onCreated: () => void }>) {
   return (
-    <div className="tw-flex tw-bg-slate-800 tw-p-3 tw-text-white tw-justify-between tw-items-center">
-      <div className="tw-flex tw-gap-3 tw-items-center">
-        <a href="/" className="tw-px-3">
-          <img className="tw-h-6" src="logo.svg" alt="cashbot" />
+    <div className="flex bg-slate-800 p-3 text-white justify-between items-center">
+      <div className="flex gap-3 items-center">
+        <a href="/" className="px-3">
+          <img className="h-6" src="logo.svg" alt="cashbot" />
         </a>
         <CreateTransferButton onCreated={onCreated} />
         <CreatePaymentButton onCreated={onCreated} />

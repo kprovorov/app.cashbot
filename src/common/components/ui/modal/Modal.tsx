@@ -12,13 +12,13 @@ export default function Modal({
   onClose: () => void;
 }>) {
   return (
-    <Dialog open={show} onClose={onClose} className="tw-relative tw-z-10">
-      <div className="tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-25" />
-      <div className="tw-fixed tw-inset-0 tw-overflow-y-auto">
-        <div className="tw-flex tw-min-h-full tw-items-center tw-justify-center tw-p-4 tw-text-center">
-          <Dialog.Panel className="tw-flex tw-flex-col tw-gap-4 tw-w-full tw-max-w-3xl tw-transform tw-overflow-hidden tw-rounded-2xl tw-bg-white tw-p-6 tw-text-left tw-align-middle tw-shadow-xl tw-transition-all">
-            <Dialog.Title className="tw-uppercase tw-font-bold tw-flex">
-              <span className="tw-flex-grow">{title}</span>
+    <Dialog open={show} onClose={onClose} className="relative z-10">
+      <div className="fixed inset-0 bg-black bg-opacity-25" />
+      <div className="fixed inset-0 overflow-y-auto">
+        <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <Dialog.Panel className="flex flex-col gap-4 w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+            <Dialog.Title className="uppercase font-bold flex">
+              <span className="flex-grow">{title}</span>
               <button onClick={onClose}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ export default function Modal({
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="tw-w-6 tw-h-6 tw-text-slate-400 hover:tw-text-slate-500"
+                  className="w-6 h-6 text-slate-400 hover:text-slate-500"
                 >
                   <path
                     strokeLinecap="round"

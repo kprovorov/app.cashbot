@@ -4,14 +4,14 @@ import React from "react";
 export function DatePill({ date }: { date: Moment }) {
   return (
     <div
-      className={`tw-h-8 tw-w-8 tw-flex tw-flex-col tw-rounded-full tw-items-center tw-justify-center tw-leading-tight ${
+      className={`h-8 w-8 flex flex-col rounded-full items-center justify-center leading-tight ${
         date.isSameOrBefore()
-          ? "tw-bg-primary tw-text-white"
-          : "tw-bg-slate-100 tw-text-slate-500"
+          ? "bg-primary text-white"
+          : "bg-slate-100 text-slate-500"
       }`}
     >
-      <div className="tw-text-sm tw-font-bold">{date.format("D")}</div>
-      <div className="tw-text-xs tw-uppercase">{date.format("MMM")}</div>
+      <div className="text-sm font-bold">{date.format("D")}</div>
+      <div className="text-xs uppercase">{date.format("MMM")}</div>
     </div>
   );
 }

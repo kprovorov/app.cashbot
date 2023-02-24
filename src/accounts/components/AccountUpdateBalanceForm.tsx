@@ -26,9 +26,9 @@ export default function AccountUpdateBalanceForm({
 
   return (
     <form onSubmit={submit}>
-      <div className="tw-flex">
+      <div className="flex">
         <input
-          className="tw-border tw-rounded tw-px-3 tw-w-24"
+          className="border rounded px-3 w-24"
           type="number"
           placeholder="Balance"
           value={balance / 10000}
@@ -46,7 +46,7 @@ export default function AccountUpdateBalanceForm({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="tw-w-4 tw-h-4"
+            className="w-4 h-4"
           >
             <path
               strokeLinecap="round"

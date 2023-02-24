@@ -36,9 +36,9 @@ export default function PaymentListItem({
 
   return (
     <div
-      className={`tw-p-2 tw-grid tw-cursor-pointer tw-items-center hover:tw-bg-slate-50 tw-rounded ${
-        payment.hidden ? "tw-opacity-50" : ""
-      } ${showDeleteButton ? "tw-grid-cols-9" : "tw-grid-cols-8"} `}
+      className={`p-2 grid cursor-pointer items-center hover:bg-slate-50 rounded ${
+        payment.hidden ? "opacity-50" : ""
+      } ${showDeleteButton ? "grid-cols-9" : "grid-cols-8"} `}
       onClick={() => {
         payment.group_id && showGroupOnClick
           ? handleShowGroup()
@@ -46,27 +46,27 @@ export default function PaymentListItem({
       }}
     >
       <DatePill date={moment(payment.date)} />
-      <div className="tw-col-span-3 tw-truncate tw-font-semibold">
+      <div className="col-span-3 truncate font-semibold">
         {payment.description}
       </div>
       <div
-        className={`tw-col-span-2 tw-text-right ${
+        className={`col-span-2 text-right ${
           payment.amount_converted > 0
-            ? "tw-text-positive tw-font-semibold"
-            : "tw-text-slate-600"
+            ? "text-positive font-semibold"
+            : "text-slate-600"
         }`}
       >
         {currencyFormat(payment.amount_converted, currency)}
       </div>
       <div
-        className={`tw-col-span-2 tw-text-right ${
-          payment.balance <= 0 ? "tw-text-negative" : "tw-text-slate-400"
+        className={`col-span-2 text-right ${
+          payment.balance <= 0 ? "text-negative" : "text-slate-400"
         }`}
       >
         {currencyFormat(payment.balance, currency)}
       </div>
       {showDeleteButton ? (
-        <div className="tw-text-center">
+        <div className="text-center">
           <DeletePaymentButton
             paymentId={payment.id}
             onDeleted={onDeleted}

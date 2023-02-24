@@ -25,7 +25,7 @@ export default function DeletePaymentButton({
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="tw-w-4 tw-h-4"
+        className="w-4 h-4"
       >
         <path
           strokeLinecap="round"

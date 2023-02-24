@@ -1,3 +1,3 @@
 import tw from "tailwind-styled-components";
 
-export default tw.div`tw-p-2 tw-flex tw-flex-col tw-rounded tw-shadow-xl tw-shadow-slate-500/10 tw-bg-white`;
+export default tw.div`p-2 flex flex-col rounded shadow-xl shadow-slate-500/10 bg-white`;

@@ -1,3 +1,3 @@
 import tw from "tailwind-styled-components";
 
-export default tw.div`tw-uppercase tw-font-bold`;
+export default tw.div`uppercase font-bold`;

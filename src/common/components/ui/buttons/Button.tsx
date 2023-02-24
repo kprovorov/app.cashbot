@@ -1,3 +1,3 @@
 import tw from "tailwind-styled-components";
 
-export default tw.button`tw-px-4 tw-py-2 tw-rounded tw-transition tw-duration-200 tw-ease-in-out tw-capitalize tw-flex tw-gap-2 tw-items-center`;
+export default tw.button`px-4 py-2 rounded transition duration-200 ease-in-out capitalize flex gap-2 items-center`;
