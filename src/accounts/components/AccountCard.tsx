@@ -19,8 +19,11 @@ export default function AccountCard({
 }>) {
   return (
     <Card>
-      <CardHeader className="font-bold">
-        <CardTitle className="flex-grow">{account.name}</CardTitle>
+      <CardHeader>
+        <CardTitle className="flex-grow flex gap-1">
+          <span>{account.name}</span>
+          <span className="text-gray-400 font-normal">{account.currency}</span>
+        </CardTitle>
         <AccountBalance account={account} onUpdated={onUpdated} />
       </CardHeader>
       <PaymentsList
