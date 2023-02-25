@@ -41,7 +41,7 @@ export default function PaymentListItem({
           payment.hidden ? "opacity-50" : ""
         } `}
         onClick={() => {
-          payment.group_id && showGroupOnClick
+          payment.group && showGroupOnClick
             ? handleShowGroup()
             : handleShowEdit();
         }}
@@ -94,14 +94,16 @@ export default function PaymentListItem({
           </div>
         ) : null}
       </div>
-      {payment.group_id && showGroupOnClick ? (
-        <GroupDetailModal
-          show={showGroup}
-          groupId={payment.group_id}
-          onClose={handleCloseGroup}
-          onUpdated={onUpdated}
-          onDeleted={onDeleted}
-        />
+      {payment.group && showGroupOnClick ? (
+        showGroup && (
+          <GroupDetailModal
+            show={showGroup}
+            group={payment.group}
+            onClose={handleCloseGroup}
+            onUpdated={onUpdated}
+            onDeleted={onDeleted}
+          />
+        )
       ) : (
         <EditPaymentModal
           show={showEdit}

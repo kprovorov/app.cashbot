@@ -6,3 +6,13 @@ export async function getPayment(paymentId: number): Promise<Payment> {
 
   return data;
 }
+
+export async function getPaymentsByGroup(group: string): Promise<Payment[]> {
+  const { data } = await api.get("payments", {
+    params: {
+      group,
+    },
+  });
+
+  return data;
+}

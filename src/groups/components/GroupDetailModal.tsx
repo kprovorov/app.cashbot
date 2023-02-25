@@ -4,57 +4,54 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { getGroup } from "../../api/groups";
+import { getPaymentsByGroup } from "../../api/payments";
 import Spinner from "../../common/components/Spinner";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import Modal from "../../common/components/ui/modal/Modal";
 import ModalFooter from "../../common/components/ui/modal/ModalFooter";
-import Group from "../../interfaces/Group";
+import Payment from "../../interfaces/Payment";
 import PaymentListItem from "../../payments/components/PaymentListItem";
 import DeleteGroupButton from "./DeleteGroupButton";
 
 export default function GroupDetailModal({
-  groupId,
+  group,
   show,
   onUpdated,
   onDeleted,
   onClose,
 }: PropsWithChildren<{
-  groupId: number;
+  group: string;
   show: boolean;
   onUpdated: () => void;
   onDeleted: () => void;
   onClose: () => void;
 }>) {
   const [loading, setLoading] = useState(false);
-  const [group, setGroup] = React.useState<Group | null>(null);
+  const [payments, setPayments] = React.useState<Payment[]>([]);
 
-  const fetchGroup = useCallback(async () => {
+  const fetchPayments = async () => {
     if (show) {
       setLoading(true);
-      const group = await getGroup(groupId);
+      const res = await getPaymentsByGroup(group);
 
-      setGroup(group);
+      setPayments(res);
       setLoading(false);
     }
-  }, [show, groupId]);
+  };
 
   useEffect(() => {
-    fetchGroup();
-  }, [fetchGroup]);
+    fetchPayments();
+  }, []);
 
   return (
-    <Modal show={show} onClose={onClose} title={group?.name || ""}>
+    <Modal show={show} onClose={onClose} title={payments[0]?.description || ""}>
       {loading ? (
-        <div
-          className="flex justify-center items-center"
-          style={{ minHeight: "200px" }}
-        >
+        <div className="flex justify-center items-center h-96">
           <Spinner />
         </div>
       ) : (
         <div>
-          {group?.payments.map((payment) => (
+          {payments.map((payment) => (
             <PaymentListItem
               key={payment.id}
               payment={payment}
@@ -64,11 +61,11 @@ export default function GroupDetailModal({
               showDeleteButton={true}
               showGroupOnClick={false}
               onUpdated={async () => {
-                await fetchGroup();
+                await fetchPayments();
                 onUpdated();
               }}
               onDeleted={async () => {
-                await fetchGroup();
+                await fetchPayments();
                 onDeleted();
               }}
             />
@@ -78,7 +75,7 @@ export default function GroupDetailModal({
 
       {loading ? null : (
         <ModalFooter>
-          <DeleteGroupButton groupId={groupId} onDeleted={onDeleted} />
+          {/* <DeleteGroupButton groupId={groupId} onDeleted={onDeleted} /> */}
           <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         </ModalFooter>
       )}
