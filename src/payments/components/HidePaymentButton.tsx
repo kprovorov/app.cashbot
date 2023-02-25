@@ -18,10 +18,10 @@ export default function HidePaymentButton({
   const submit = async () => {
     setLoading(true);
 
-    const { jar_id, description, date, currency } = payment;
+    const { account_id, description, date, currency } = payment;
 
     await updatePayment(payment.id, {
-      jar_id,
+      account_id,
       description,
       amount: payment.amount / 10000,
       date,

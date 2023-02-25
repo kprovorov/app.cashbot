@@ -1,4 +1,4 @@
-import Jar from "./Jar";
+import Account from "./Account";
 import Transfer from "./Transfer";
 
 export default interface Payment {
@@ -11,11 +11,8 @@ export default interface Payment {
   currency: string;
   date: string;
   balance: number;
-  default_jar?: boolean;
-  jar_balance?: number;
-  jar_savings_balance?: number;
-  jar_id: number;
-  jar: Jar;
+  account_id: number;
+  account: Account;
   group: string;
   hidden: boolean;
   ends_on?: string;

@@ -23,7 +23,7 @@ export default function EditPaymentForm({
   onUpdated: () => void;
 }>) {
   const [paymentData, setPaymentData] = useState<UpdatePaymentData>({
-    jar_id: payment.jar_id,
+    account_id: payment.account_id,
     description: payment.description,
     amount: Math.abs(payment.amount / 10000),
     date: payment.date,
@@ -87,22 +87,20 @@ export default function EditPaymentForm({
           <Label>Account</Label>
           <Input
             $as="select"
-            value={paymentData.jar_id}
+            value={paymentData.account_id}
             onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
-                jar_id: Number(e.target.value),
+                account_id: Number(e.target.value),
               });
             }}
           >
             <option>Please select...</option>
-            {accounts.map((account) =>
-              account.jars.map((jar) => (
-                <option key={jar.id} value={jar.id}>
-                  {account.name} ({account.currency}) - {jar.name}
-                </option>
-              ))
-            )}
+            {accounts.map((account) => (
+              <option key={account.id} value={account.id}>
+                {account.name} ({account.currency})
+              </option>
+            ))}
           </Input>
         </div>
 

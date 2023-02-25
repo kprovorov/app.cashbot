@@ -54,15 +54,8 @@ export default function PaymentListItem({
         )}
         {showAccountName && (
           <div className="col-span-3 truncate flex items-center gap-1">
-            <span className="font-semibold">{payment.jar.account.name}</span>
-            <span className="text-gray-400">
-              {payment.jar.account.currency}
-            </span>
-            {!payment.jar.default && (
-              <span className="text-sm font-semibold text-gray-400">
-                ({payment.jar.name})
-              </span>
-            )}
+            <span className="font-semibold">{payment.account.name}</span>
+            <span className="text-gray-400">{payment.account.currency}</span>
           </div>
         )}
         <div

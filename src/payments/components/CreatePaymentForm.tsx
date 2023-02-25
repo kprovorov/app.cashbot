@@ -20,7 +20,7 @@ export default function CreatePaymentForm({
   onCreated: () => void;
 }>) {
   const [paymentData, setPaymentData] = useState<CreatePaymentData>({
-    jar_id: 0,
+    account_id: 0,
     description: "",
     amount: 0,
     date: "",
@@ -99,28 +99,23 @@ export default function CreatePaymentForm({
           <Label>Account</Label>
           <Input
             $as="select"
-            value={paymentData.jar_id}
+            value={paymentData.account_id}
             onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
                 currency:
-                  accounts.find((account) => {
-                    return account.jars.find((jar) => {
-                      return jar.id === Number(e.target.value);
-                    });
-                  })?.currency || "UAH",
-                jar_id: Number(e.target.value),
+                  accounts.find((a) => a.id === Number(e.target.value))
+                    ?.currency || "UAH",
+                account_id: Number(e.target.value),
               });
             }}
           >
             <option>Please select...</option>
-            {accounts.map((account) =>
-              account.jars.map((jar) => (
-                <option key={jar.id} value={jar.id}>
-                  {account.name} ({account.currency}) - {jar.name}
-                </option>
-              ))
-            )}
+            {accounts.map((account) => (
+              <option key={account.id} value={account.id}>
+                {account.name} ({account.currency})
+              </option>
+            ))}
           </Input>
         </div>
 

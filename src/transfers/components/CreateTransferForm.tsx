@@ -27,8 +27,8 @@ export default function CreateTransferForm({
     date: "",
     amount: 0,
     rate: 0,
-    jar_from_id: 0,
-    jar_to_id: 0,
+    account_from_id: 0,
+    account_to_id: 0,
     repeat: "none",
     currency: "",
     description: "",
@@ -65,17 +65,13 @@ export default function CreateTransferForm({
 
   useEffect(() => {
     setAccountFrom(
-      accounts.find((account) =>
-        account.jars.map((jar) => jar.id).includes(transferData.jar_from_id)
-      )
+      accounts.find((account) => account.id === transferData.account_from_id)
     );
     setAccountTo(
-      accounts.find((account) =>
-        account.jars.map((jar) => jar.id).includes(transferData.jar_to_id)
-      )
+      accounts.find((account) => account.id === transferData.account_to_id)
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transferData.jar_from_id, transferData.jar_to_id]);
+  }, [transferData.account_from_id, transferData.account_to_id]);
 
   return (
     <form id={formId} onSubmit={submit}>
@@ -131,48 +127,42 @@ export default function CreateTransferForm({
         </div>
 
         <div className="col-span-3">
-          <Label>Jar from</Label>
+          <Label>Account from</Label>
           <Input
             $as="select"
             onChange={(e) => {
               setTransferData({
                 ...transferData,
-                jar_from_id: Number(e.target.value),
+                account_from_id: Number(e.target.value),
               });
             }}
           >
             <option>Please select...</option>
-            {accounts.map((account) =>
-              account.jars.map((jar) => (
-                <option value={jar.id} key={jar.id}>
-                  {account.name} ({jar.default ? "default" : jar.name}) —{" "}
-                  {account.currency}
-                </option>
-              ))
-            )}
+            {accounts.map((account) => (
+              <option key={account.id} value={account.id}>
+                {account.name} ({account.currency})
+              </option>
+            ))}
           </Input>
         </div>
 
         <div className="col-span-3">
-          <Label>Jar to</Label>
+          <Label>Account to</Label>
           <Input
             $as="select"
             onChange={(e) => {
               setTransferData({
                 ...transferData,
-                jar_to_id: Number(e.target.value),
+                account_to_id: Number(e.target.value),
               });
             }}
           >
             <option>Please select...</option>
-            {accounts.map((account) =>
-              account.jars.map((jar) => (
-                <option value={jar.id} key={jar.id}>
-                  {account.name} ({jar.default ? "default" : jar.name}) —{" "}
-                  {account.currency}
-                </option>
-              ))
-            )}
+            {accounts.map((account) => (
+              <option key={account.id} value={account.id}>
+                {account.name} ({account.currency})
+              </option>
+            ))}
           </Input>
         </div>
 
