@@ -32,6 +32,8 @@ export default function CreateTransferForm({
     repeat: "none",
     currency: "",
     description: "",
+    hidden: false,
+    auto_apply: false,
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {

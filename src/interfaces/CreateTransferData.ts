@@ -7,4 +7,6 @@ export default interface CreateTransferData {
   account_to_id: number;
   repeat: string;
   currency: string;
+  hidden: boolean;
+  auto_apply: boolean;
 }

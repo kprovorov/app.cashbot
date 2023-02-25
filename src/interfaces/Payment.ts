@@ -16,4 +16,5 @@ export default interface Payment {
   group: string;
   hidden: boolean;
   ends_on?: string;
+  auto_apply: boolean;
 }

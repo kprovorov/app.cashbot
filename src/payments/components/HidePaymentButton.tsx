@@ -28,6 +28,7 @@ export default function HidePaymentButton({
       currency,
       direction: payment.amount > 0 ? "income" : "expense",
       hidden: !payment.hidden,
+      auto_apply: payment.auto_apply,
     });
     setLoading(false);
     onUpdated();

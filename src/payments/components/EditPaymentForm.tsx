@@ -30,6 +30,7 @@ export default function EditPaymentForm({
     direction: payment.amount > 0 ? "income" : "expense",
     currency: payment.currency,
     hidden: payment.hidden,
+    auto_apply: payment.auto_apply,
     ends_on: payment.ends_on,
   });
 

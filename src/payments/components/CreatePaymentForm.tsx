@@ -28,6 +28,7 @@ export default function CreatePaymentForm({
     direction: "expense",
     currency: "UAH",
     hidden: false,
+    auto_apply: false,
     ends_on: "",
   });
 
