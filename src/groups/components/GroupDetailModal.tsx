@@ -75,7 +75,7 @@ export default function GroupDetailModal({
 
       {loading ? null : (
         <ModalFooter>
-          {/* <DeleteGroupButton groupId={groupId} onDeleted={onDeleted} /> */}
+          <DeleteGroupButton group={group} onDeleted={onDeleted} />
           <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         </ModalFooter>
       )}

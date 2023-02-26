@@ -54,8 +54,8 @@ export async function deletePayment(paymentId: number): Promise<void> {
   await api.delete(`payments/${paymentId}`);
 }
 
-export async function deleteGroup(groupId: number): Promise<void> {
-  await api.delete(`groups/${groupId}`);
+export async function deleteGroup(group: string): Promise<void> {
+  await api.delete(`payments/groups/${group}`);
 }
 
 export async function getRate(from: string, to: string): Promise<Rate> {

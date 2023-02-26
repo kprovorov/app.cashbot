@@ -4,17 +4,17 @@ import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton"
 import DeletePaymentButton from "../../payments/components/DeletePaymentButton";
 
 export default function DeleteGroupButton({
-  groupId,
+  group,
   onDeleted,
   size,
 }: PropsWithChildren<{
-  groupId: number;
+  group: string;
   onDeleted: () => void;
   size?: "sm" | "lg";
 }>) {
   const submit = async () => {
     DeletePaymentButton;
-    await deleteGroup(groupId);
+    await deleteGroup(group);
 
     onDeleted();
   };
