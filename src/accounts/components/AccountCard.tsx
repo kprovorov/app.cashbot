@@ -42,9 +42,9 @@ export default function AccountCard({
                   <Popover.Button
                     className={`${
                       savingsBalance > account.balance
-                        ? "bg-orange-100 border-orange-300 hover:border-orange-400 text-warning"
-                        : "bg-slate-100 border-slate-200 hover:border-slate-300 text-slate-400"
-                    }  rounded-full py-1 px-2 text-sm flex items-center font-bold gap-1 border   outline-none`}
+                        ? "bg-orange-100 border-orange-300 hover:border-orange-400 aria-expanded:border-orange-400 text-warning aria-expanded:shadow-orange-900/10"
+                        : "bg-slate-100 border-slate-200 hover:border-slate-300 aria-expanded:border-slate-300 text-slate-400 aria-expanded:shadow-slate-900/10"
+                    }  rounded-full py-1 px-2 text-sm flex items-center font-bold gap-1 border  outline-none aria-expanded:shadow-md`}
                   >
                     {savingsBalance > account.balance ? (
                       <svg
@@ -74,8 +74,8 @@ export default function AccountCard({
                   </Popover.Button>
 
                   <Popover.Panel className="absolute z-10 w-48 left-1/2 -translate-x-1/2">
-                    <div className="p-1 rounded bg-slate-100 mb-2 flex flex-col relative top-4 shadow-lg">
-                      <div className="savings after:bg-slate-100">
+                    <div className="p-1 rounded bg-slate-100 mb-2 flex flex-col relative top-2 shadow-lg shadow-slate-900/10 border border-slate-300">
+                      <div className="savings after:bg-slate-300">
                         {account.jars?.map((jar) => (
                           <div className="grid grid-cols-2 p-1">
                             <div className="font-semibold truncate">

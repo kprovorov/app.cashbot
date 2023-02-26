@@ -1,10 +1,10 @@
 .savings:after {
   position: absolute;
-  top: -9px;
-  right: calc(50% - 10px);
+  top: -6px;
+  right: calc(50% - 6px);
   display: block;
-  width: 20px;
-  height: 10px;
+  width: 12px;
+  height: 6px;
   pointer-events: none;
   content: " ";
   clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
