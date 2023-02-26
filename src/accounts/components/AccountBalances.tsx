@@ -17,34 +17,39 @@ export default function AccountBalances({
         <CardTitle>Balances</CardTitle>
         <div className="font-bold">
           {currencyFormat(
-            accounts.reduce(
-              (partialSum, account) => partialSum + (account.uah_balance || 0),
-              0
-            ),
+            accounts
+              .filter((a) => a.parent_id === null)
+              .reduce(
+                (partialSum, account) =>
+                  partialSum + (account.uah_balance || 0),
+                0
+              ),
             "UAH"
           )}
         </div>
       </CardHeader>
       <div>
-        {accounts.map((account) => (
-          <div
-            key={account.id}
-            className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded"
-          >
-            <div className="col-span-2 truncate font-semibold">
-              {account.name}
-            </div>
-
-            <div className="text-end text-slate-400">
-              <AccountBalance account={account} onUpdated={onUpdated} />
-            </div>
-            {account.uah_balance !== undefined && (
-              <div className="text-end">
-                {currencyFormat(account.uah_balance, "UAH")}
+        {accounts
+          .filter((a) => a.parent_id === null)
+          .map((account) => (
+            <div
+              key={account.id}
+              className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded"
+            >
+              <div className="col-span-2 truncate font-semibold">
+                {account.name}
               </div>
-            )}
-          </div>
-        ))}
+
+              <div className="text-end text-slate-400">
+                <AccountBalance account={account} onUpdated={onUpdated} />
+              </div>
+              {account.uah_balance !== undefined && (
+                <div className="text-end">
+                  {currencyFormat(account.uah_balance, "UAH")}
+                </div>
+              )}
+            </div>
+          ))}
       </div>
     </Card>
   );

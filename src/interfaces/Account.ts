@@ -7,4 +7,5 @@ export default interface Account {
   balance: number;
   payments: Payment[];
   uah_balance?: number;
+  parent_id?: number;
 }
