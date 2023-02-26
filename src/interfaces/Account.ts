@@ -8,4 +8,6 @@ export default interface Account {
   payments: Payment[];
   uah_balance?: number;
   parent_id?: number;
+  parent?: Account;
+  jars?: Account[];
 }
