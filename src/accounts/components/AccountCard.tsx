@@ -36,7 +36,7 @@ export default function AccountCard({
             </span>
           </CardTitle>
           <div className="font-bold flex items-center gap-2">
-            {savingsBalance && (
+            {!!savingsBalance && (
               <div>
                 <Popover className="relative">
                   <Popover.Button
@@ -44,7 +44,7 @@ export default function AccountCard({
                       savingsBalance > account.balance
                         ? "bg-orange-100 border-orange-300 hover:border-orange-400 aria-expanded:border-orange-400 text-warning aria-expanded:shadow-orange-900/10"
                         : "bg-slate-100 border-slate-200 hover:border-slate-300 aria-expanded:border-slate-300 text-slate-400 aria-expanded:shadow-slate-900/10"
-                    }  rounded-full py-1 px-2 text-sm flex items-center font-bold gap-1 border  outline-none aria-expanded:shadow-md`}
+                    }  rounded-full py-1 px-2 text-sm flex items-center font-bold gap-1 border  outline-none aria-expanded:shadow`}
                   >
                     {savingsBalance > account.balance ? (
                       <svg
