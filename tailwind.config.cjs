@@ -15,6 +15,7 @@ module.exports = {
         "primary-darken": colors.indigo[800],
         positive: colors.lime[500],
         negative: colors.red[500],
+        warning: colors.orange[400],
       },
       fontSize: {
         xs: "0.5rem",
