@@ -1,10 +1,5 @@
 import moment from "moment";
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { getPaymentsByGroup } from "../../api/payments";
 import Spinner from "../../common/components/Spinner";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
@@ -12,7 +7,6 @@ import Modal from "../../common/components/ui/modal/Modal";
 import ModalFooter from "../../common/components/ui/modal/ModalFooter";
 import Payment from "../../interfaces/Payment";
 import PaymentListItem from "../../payments/components/PaymentListItem";
-import { getRepeatNumber } from "../../payments/components/PaymentsList";
 import DeleteGroupButton from "./DeleteGroupButton";
 
 export default function GroupDetailModal({
@@ -58,22 +52,33 @@ export default function GroupDetailModal({
               ...payment,
               date: moment(payment.date).unix(),
             }))
-            .map((payment) =>
-              payment.repeat_unit === "none"
-                ? [payment]
-                : [...Array(getRepeatNumber(payment.repeat_unit)).keys()].map(
-                    (r) => ({
-                      ...payment,
-                      date:
-                        payment.repeat_unit !== "none"
-                          ? moment
-                              .unix(payment.date)
-                              .add(r, payment.repeat_unit)
-                              .unix()
-                          : payment.date,
-                    })
-                  )
-            )
+            .map((payment) => {
+              if (payment.repeat_unit === "none") {
+                return [payment];
+              }
+
+              const res = [];
+
+              let date = payment.date;
+
+              const dateTill = payment.repeat_ends_on
+                ? moment(payment.repeat_ends_on).unix()
+                : moment().add(1, "year").unix();
+
+              while (date < dateTill) {
+                res.push({
+                  ...payment,
+                  date,
+                });
+
+                date = moment
+                  .unix(date)
+                  .add(payment.repeat_interval, payment.repeat_unit)
+                  .unix();
+              }
+
+              return res;
+            })
             .flat()
             .sort((a, b) => a.date - b.date)
             .map((payment) => ({
@@ -82,7 +87,7 @@ export default function GroupDetailModal({
             }))
             .map((payment) => (
               <PaymentListItem
-                key={payment.id}
+                key={`${payment.id}_${moment(payment.date).unix()}`}
                 payment={payment}
                 currency={payment.account.currency}
                 showDescription={false}

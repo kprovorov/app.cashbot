@@ -1,24 +1,7 @@
-import moment, { DurationInputArg2 } from "moment";
-import React, { PropsWithChildren } from "react";
+import moment from "moment";
+import { PropsWithChildren } from "react";
 import Account from "../../interfaces/Account";
-import { currencyFormat } from "../../services/formatters";
 import PaymentListItem from "./PaymentListItem";
-
-export const getRepeatNumber = (repeat: string) => {
-  if (repeat === "day") {
-    return 365;
-  } else if (repeat === "week") {
-    return 52;
-  } else if (repeat === "month") {
-    return 12;
-  } else if (repeat === "quarter") {
-    return 4;
-  } else if (repeat === "year") {
-    return 1;
-  } else {
-    return 1;
-  }
-};
 
 export default function PaymentsList({
   account,
@@ -36,22 +19,33 @@ export default function PaymentsList({
       {account.payments
         .filter((payment) => showHidden || !payment.hidden)
         .map((payment) => ({ ...payment, date: moment(payment.date).unix() }))
-        .map((payment) =>
-          payment.repeat_unit === "none"
-            ? [payment]
-            : [...Array(getRepeatNumber(payment.repeat_unit)).keys()].map(
-                (r) => ({
-                  ...payment,
-                  date:
-                    payment.repeat_unit !== "none"
-                      ? moment
-                          .unix(payment.date)
-                          .add(r * payment.repeat_interval, payment.repeat_unit)
-                          .unix()
-                      : payment.date,
-                })
-              )
-        )
+        .map((payment) => {
+          if (payment.repeat_unit === "none") {
+            return [payment];
+          }
+
+          const res = [];
+
+          let date = payment.date;
+
+          const dateTill = payment.repeat_ends_on
+            ? moment(payment.repeat_ends_on).unix()
+            : moment().add(1, "year").unix();
+
+          while (date < dateTill) {
+            res.push({
+              ...payment,
+              date,
+            });
+
+            date = moment
+              .unix(date)
+              .add(payment.repeat_interval, payment.repeat_unit)
+              .unix();
+          }
+
+          return res;
+        })
         .flat()
         .sort((a, b) => a.date - b.date)
         .map((payment, index, array) => ({
