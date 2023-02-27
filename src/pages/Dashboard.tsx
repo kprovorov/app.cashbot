@@ -50,7 +50,9 @@ function Dashboard() {
                     } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                   />
                 </Switch>
-                <Switch.Label>Empty</Switch.Label>
+                <Switch.Label className="uppercase font-bold text-base">
+                  Empty
+                </Switch.Label>
               </div>
             </Switch.Group>
 
@@ -69,7 +71,9 @@ function Dashboard() {
                     } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                   />
                 </Switch>
-                <Switch.Label>Hidden</Switch.Label>
+                <Switch.Label className="uppercase font-bold text-base">
+                  Hidden
+                </Switch.Label>
               </div>
             </Switch.Group>
           </div>
