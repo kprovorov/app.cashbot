@@ -25,6 +25,8 @@ export default function CreatePaymentForm({
     amount: 0,
     date: "",
     repeat_unit: "none",
+    repeat_interval: 1,
+    repeat_ends_on: "",
     direction: "expense",
     currency: "UAH",
     hidden: false,
@@ -50,8 +52,8 @@ export default function CreatePaymentForm({
 
   return (
     <form id={formId} onSubmit={submit}>
-      <div className="grid grid-cols-3 gap-4">
-        <div>
+      <div className="grid grid-cols-6 gap-4">
+        <div className="col-span-3">
           <Label>Date</Label>
           <Input
             type="date"
@@ -64,7 +66,7 @@ export default function CreatePaymentForm({
             }}
           />
         </div>
-        <div>
+        <div className="col-span-3">
           <Label>Ends</Label>
           <Input
             type="date"
@@ -77,8 +79,8 @@ export default function CreatePaymentForm({
             }}
           />
         </div>
-        <div>
-          <Label>Repeat</Label>
+        <div className="col-span-2">
+          <Label>Repeat Unit</Label>
           <Input
             $as="select"
             value={paymentData.repeat_unit}
@@ -98,7 +100,37 @@ export default function CreatePaymentForm({
           </Input>
         </div>
 
-        <div className="col-span-3">
+        <div className="col-span-2">
+          <Label>Repeat interval</Label>
+          <Input
+            disabled={paymentData.repeat_unit === "none"}
+            type="number"
+            value={paymentData.repeat_interval}
+            onChange={(e): void => {
+              setPaymentData({
+                ...paymentData,
+                repeat_interval: Number(e.target.value),
+              });
+            }}
+          />
+        </div>
+
+        <div className="col-span-2">
+          <Label>Repeat Ends</Label>
+          <Input
+            disabled={paymentData.repeat_unit === "none"}
+            type="date"
+            value={moment(paymentData.repeat_ends_on).format("YYYY-MM-DD")}
+            onChange={(e): void => {
+              setPaymentData({
+                ...paymentData,
+                repeat_ends_on: e.target.value,
+              });
+            }}
+          />
+        </div>
+
+        <div className="col-span-6">
           <Label>Account</Label>
           <Input
             $as="select"
@@ -122,7 +154,7 @@ export default function CreatePaymentForm({
           </Input>
         </div>
 
-        <div>
+        <div className="col-span-2">
           <Label>Amount</Label>
           <Input
             type="text"
@@ -135,7 +167,7 @@ export default function CreatePaymentForm({
             }}
           />
         </div>
-        <div>
+        <div className="col-span-2">
           <Label>Currency</Label>
           <Input
             $as="select"
@@ -152,7 +184,7 @@ export default function CreatePaymentForm({
             <option value="EUR">EUR</option>
           </Input>
         </div>
-        <div>
+        <div className="col-span-2">
           <Label>Direction</Label>
           <Input
             $as="select"
@@ -169,7 +201,7 @@ export default function CreatePaymentForm({
           </Input>
         </div>
 
-        <div className="col-span-3">
+        <div className="col-span-6">
           <Label>Description</Label>
           <Input
             type="text"

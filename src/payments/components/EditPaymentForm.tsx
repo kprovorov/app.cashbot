@@ -33,6 +33,8 @@ export default function EditPaymentForm({
     auto_apply: payment.auto_apply,
     ends_on: payment.ends_on,
     repeat_unit: payment.repeat_unit,
+    repeat_interval: payment.repeat_interval,
+    repeat_ends_on: payment.repeat_ends_on,
   });
 
   const { accounts } = useContext(AccountsContext);
@@ -53,8 +55,8 @@ export default function EditPaymentForm({
 
   return (
     <form id={formId} onSubmit={submit}>
-      <div className="grid grid-cols-3 gap-4">
-        <div>
+      <div className="grid grid-cols-6 gap-4">
+        <div className="col-span-3">
           <Label>Date</Label>
           <Input
             type="date"
@@ -68,7 +70,7 @@ export default function EditPaymentForm({
           />
         </div>
 
-        <div>
+        <div className="col-span-3">
           <Label>Ends</Label>
           <Input
             type="date"
@@ -85,8 +87,8 @@ export default function EditPaymentForm({
             }}
           />
         </div>
-        <div>
-          <Label>Repeat</Label>
+        <div className="col-span-2">
+          <Label>Repeat Unit</Label>
           <Input
             $as="select"
             value={paymentData.repeat_unit}
@@ -105,7 +107,37 @@ export default function EditPaymentForm({
             <option value="year">yearly</option>
           </Input>
         </div>
-        <div className="col-span-3">
+
+        <div className="col-span-2">
+          <Label>Repeat interval</Label>
+          <Input
+            disabled={paymentData.repeat_unit === "none"}
+            type="number"
+            value={paymentData.repeat_interval}
+            onChange={(e): void => {
+              setPaymentData({
+                ...paymentData,
+                repeat_interval: Number(e.target.value),
+              });
+            }}
+          />
+        </div>
+
+        <div className="col-span-2">
+          <Label>Repeat Ends</Label>
+          <Input
+            disabled={paymentData.repeat_unit === "none"}
+            type="date"
+            value={moment(paymentData.repeat_ends_on).format("YYYY-MM-DD")}
+            onChange={(e): void => {
+              setPaymentData({
+                ...paymentData,
+                repeat_ends_on: e.target.value,
+              });
+            }}
+          />
+        </div>
+        <div className="col-span-6">
           <Label>Account</Label>
           <Input
             $as="select"
@@ -126,7 +158,7 @@ export default function EditPaymentForm({
           </Input>
         </div>
 
-        <div>
+        <div className="col-span-2">
           <Label>Amount</Label>
           <Input
             type="text"
@@ -140,7 +172,7 @@ export default function EditPaymentForm({
           />
         </div>
 
-        <div>
+        <div className="col-span-2">
           <Label>Currency</Label>
           <Input
             $as="select"
@@ -158,7 +190,7 @@ export default function EditPaymentForm({
           </Input>
         </div>
 
-        <div>
+        <div className="col-span-2">
           <Label>Direction</Label>
           <Input
             $as="select"
@@ -175,7 +207,7 @@ export default function EditPaymentForm({
           </Input>
         </div>
 
-        <div className="col-span-3">
+        <div className="col-span-6">
           <Label>Description</Label>
           <Input
             type="text"

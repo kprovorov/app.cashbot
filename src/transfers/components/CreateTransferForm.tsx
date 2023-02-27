@@ -12,6 +12,7 @@ import { createTransfer, getRate } from "../../api/accounts";
 import AccountsContext from "../../context/AccountsContext";
 import Label from "../../common/components/ui/forms/Label";
 import Input from "../../common/components/ui/forms/Input";
+import moment from "moment";
 
 export default function CreateTransferForm({
   formId,
@@ -21,12 +22,12 @@ export default function CreateTransferForm({
   onCreated: () => void;
 }>) {
   const { accounts } = useContext(AccountsContext);
+  const [rate, setRate] = useState(0);
   const [accountFrom, setAccountFrom] = useState<Account | undefined>();
   const [accountTo, setAccountTo] = useState<Account | undefined>();
   const [transferData, setTransferData] = useState<CreateTransferData>({
     date: "",
     amount: 0,
-    rate: 0,
     account_from_id: 0,
     account_to_id: 0,
     repeat_unit: "none",
@@ -34,6 +35,8 @@ export default function CreateTransferForm({
     description: "",
     hidden: false,
     auto_apply: false,
+    repeat_interval: 1,
+    repeat_ends_on: "",
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -55,9 +58,10 @@ export default function CreateTransferForm({
       if (accountFrom && accountTo) {
         const res = await getRate(accountFrom.currency, accountTo.currency);
 
+        setRate(res.rate);
+
         setTransferData({
           ...transferData,
-          rate: res.rate,
           currency: accountFrom.currency,
         });
       }
@@ -78,7 +82,7 @@ export default function CreateTransferForm({
   return (
     <form id={formId} onSubmit={submit}>
       <div className="grid grid-cols-6 gap-4">
-        <div className="col-span-2">
+        <div className="col-span-3">
           <Label>Date</Label>
           <Input
             type="date"
@@ -93,24 +97,19 @@ export default function CreateTransferForm({
           />
         </div>
 
-        <div className="col-span-2">
+        <div className="col-span-3">
           <Label>Rate</Label>
           <Input
             disabled
             type="number"
             placeholder="Rate"
-            value={transferData.rate}
-            onChange={(e): void => {
-              setTransferData({
-                ...transferData,
-                rate: Number(e.target.value),
-              });
-            }}
+            value={rate}
+            onChange={(e) => setRate(Number(e.target.value))}
           />
         </div>
 
         <div className="col-span-2">
-          <Label>Repeat</Label>
+          <Label>Repeat unit</Label>
           <Input
             $as="select"
             value={transferData.repeat_unit}
@@ -129,6 +128,36 @@ export default function CreateTransferForm({
             <option value="quarter">quarterly</option>
             <option value="year">yearly</option>
           </Input>
+        </div>
+
+        <div className="col-span-2">
+          <Label>Repeat interval</Label>
+          <Input
+            disabled={transferData.repeat_unit === "none"}
+            type="number"
+            value={transferData.repeat_interval}
+            onChange={(e): void => {
+              setTransferData({
+                ...transferData,
+                repeat_interval: Number(e.target.value),
+              });
+            }}
+          />
+        </div>
+
+        <div className="col-span-2">
+          <Label>Repeat Ends</Label>
+          <Input
+            disabled={transferData.repeat_unit === "none"}
+            type="date"
+            value={moment(transferData.repeat_ends_on).format("YYYY-MM-DD")}
+            onChange={(e): void => {
+              setTransferData({
+                ...transferData,
+                repeat_ends_on: e.target.value,
+              });
+            }}
+          />
         </div>
 
         <div className="col-span-3">
@@ -191,13 +220,11 @@ export default function CreateTransferForm({
           <Input
             type="number"
             placeholder="Amount To"
-            value={
-              Math.round(transferData.amount * transferData.rate * 100) / 100
-            }
+            value={Math.round(transferData.amount * rate * 100) / 100}
             onChange={(e): void => {
               setTransferData({
                 ...transferData,
-                amount: Number(e.target.value) / transferData.rate,
+                amount: Number(e.target.value) / rate,
               });
             }}
           />

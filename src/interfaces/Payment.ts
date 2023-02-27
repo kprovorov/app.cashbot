@@ -18,6 +18,6 @@ export default interface Payment {
   ends_on?: string;
   auto_apply: boolean;
   repeat_unit: "none" | "year" | "quarter" | "month" | "week" | "day";
-  repeat_interval?: number;
+  repeat_interval: number;
   repeat_ends_on?: string;
 }
