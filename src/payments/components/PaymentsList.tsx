@@ -46,7 +46,7 @@ export default function PaymentsList({
                     payment.repeat_unit !== "none"
                       ? moment
                           .unix(payment.date)
-                          .add(r, payment.repeat_unit)
+                          .add(r * payment.repeat_interval, payment.repeat_unit)
                           .unix()
                       : payment.date,
                 })
