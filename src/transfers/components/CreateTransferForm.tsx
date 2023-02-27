@@ -29,7 +29,7 @@ export default function CreateTransferForm({
     rate: 0,
     account_from_id: 0,
     account_to_id: 0,
-    repeat: "none",
+    repeat_unit: "none",
     currency: "",
     description: "",
     hidden: false,
@@ -113,18 +113,21 @@ export default function CreateTransferForm({
           <Label>Repeat</Label>
           <Input
             $as="select"
-            value={transferData.repeat}
+            value={transferData.repeat_unit}
             onChange={(e): void => {
               setTransferData({
                 ...transferData,
-                repeat: e.target.value,
+                repeat_unit: e.target
+                  .value as CreateTransferData["repeat_unit"],
               });
             }}
           >
-            <option value="none">none</option>
-            <option value="weekly">weekly</option>
-            <option value="monthly">monthly</option>
-            <option value="quarterly">quarterly</option>
+            <option value="none">never</option>
+            <option value="day">daily</option>
+            <option value="week">weekly</option>
+            <option value="month">monthly</option>
+            <option value="quarter">quarterly</option>
+            <option value="year">yearly</option>
           </Input>
         </div>
 

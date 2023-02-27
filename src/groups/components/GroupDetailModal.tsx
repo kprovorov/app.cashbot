@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, {
   PropsWithChildren,
   useCallback,
@@ -11,6 +12,7 @@ import Modal from "../../common/components/ui/modal/Modal";
 import ModalFooter from "../../common/components/ui/modal/ModalFooter";
 import Payment from "../../interfaces/Payment";
 import PaymentListItem from "../../payments/components/PaymentListItem";
+import { getRepeatNumber } from "../../payments/components/PaymentsList";
 import DeleteGroupButton from "./DeleteGroupButton";
 
 export default function GroupDetailModal({
@@ -51,25 +53,52 @@ export default function GroupDetailModal({
         </div>
       ) : (
         <div>
-          {payments.map((payment) => (
-            <PaymentListItem
-              key={payment.id}
-              payment={payment}
-              currency={payment.account.currency}
-              showDescription={false}
-              showAccountName={true}
-              showDeleteButton={true}
-              showGroupOnClick={false}
-              onUpdated={async () => {
-                await fetchPayments();
-                onUpdated();
-              }}
-              onDeleted={async () => {
-                await fetchPayments();
-                onDeleted();
-              }}
-            />
-          ))}
+          {payments
+            .map((payment) => ({
+              ...payment,
+              date: moment(payment.date).unix(),
+            }))
+            .map((payment) =>
+              payment.repeat_unit === "none"
+                ? [payment]
+                : [...Array(getRepeatNumber(payment.repeat_unit)).keys()].map(
+                    (r) => ({
+                      ...payment,
+                      date:
+                        payment.repeat_unit !== "none"
+                          ? moment
+                              .unix(payment.date)
+                              .add(r, payment.repeat_unit)
+                              .unix()
+                          : payment.date,
+                    })
+                  )
+            )
+            .flat()
+            .sort((a, b) => a.date - b.date)
+            .map((payment) => ({
+              ...payment,
+              date: moment.unix(payment.date).toISOString(),
+            }))
+            .map((payment) => (
+              <PaymentListItem
+                key={payment.id}
+                payment={payment}
+                currency={payment.account.currency}
+                showDescription={false}
+                showAccountName={true}
+                showDeleteButton={true}
+                showGroupOnClick={false}
+                onUpdated={async () => {
+                  await fetchPayments();
+                  onUpdated();
+                }}
+                onDeleted={async () => {
+                  await fetchPayments();
+                  onDeleted();
+                }}
+              />
+            ))}
         </div>
       )}
 

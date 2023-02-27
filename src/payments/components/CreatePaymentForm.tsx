@@ -24,7 +24,7 @@ export default function CreatePaymentForm({
     description: "",
     amount: 0,
     date: "",
-    repeat: "none",
+    repeat_unit: "none",
     direction: "expense",
     currency: "UAH",
     hidden: false,
@@ -81,18 +81,20 @@ export default function CreatePaymentForm({
           <Label>Repeat</Label>
           <Input
             $as="select"
-            value={paymentData.repeat}
+            value={paymentData.repeat_unit}
             onChange={(e): void => {
               setPaymentData({
                 ...paymentData,
-                repeat: e.target.value,
+                repeat_unit: e.target.value as CreatePaymentData["repeat_unit"],
               });
             }}
           >
-            <option value="none">none</option>
-            <option value="weekly">weekly</option>
-            <option value="monthly">monthly</option>
-            <option value="quarterly">quarterly</option>
+            <option value="none">never</option>
+            <option value="day">daily</option>
+            <option value="week">weekly</option>
+            <option value="month">monthly</option>
+            <option value="quarter">quarterly</option>
+            <option value="year">yearly</option>
           </Input>
         </div>
 

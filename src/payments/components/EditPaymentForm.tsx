@@ -32,6 +32,7 @@ export default function EditPaymentForm({
     hidden: payment.hidden,
     auto_apply: payment.auto_apply,
     ends_on: payment.ends_on,
+    repeat_unit: payment.repeat_unit,
   });
 
   const { accounts } = useContext(AccountsContext);
@@ -83,6 +84,26 @@ export default function EditPaymentForm({
               });
             }}
           />
+        </div>
+        <div>
+          <Label>Repeat</Label>
+          <Input
+            $as="select"
+            value={paymentData.repeat_unit}
+            onChange={(e): void => {
+              setPaymentData({
+                ...paymentData,
+                repeat_unit: e.target.value as UpdatePaymentData["repeat_unit"],
+              });
+            }}
+          >
+            <option value="none">never</option>
+            <option value="day">daily</option>
+            <option value="week">weekly</option>
+            <option value="month">monthly</option>
+            <option value="quarter">quarterly</option>
+            <option value="year">yearly</option>
+          </Input>
         </div>
         <div className="col-span-3">
           <Label>Account</Label>
