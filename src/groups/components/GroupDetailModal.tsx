@@ -65,7 +65,7 @@ export default function GroupDetailModal({
                 ? moment(payment.repeat_ends_on).unix()
                 : moment().add(1, "year").unix();
 
-              while (date < dateTill) {
+              while (date <= dateTill) {
                 res.push({
                   ...payment,
                   date,

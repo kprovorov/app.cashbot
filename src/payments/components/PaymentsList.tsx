@@ -18,7 +18,10 @@ export default function PaymentsList({
     <div>
       {account.payments
         .filter((payment) => showHidden || !payment.hidden)
-        .map((payment) => ({ ...payment, date: moment(payment.date).unix() }))
+        .map((payment) => ({
+          ...payment,
+          date: moment(payment.date).unix(),
+        }))
         .map((payment) => {
           if (payment.repeat_unit === "none") {
             return [payment];
@@ -32,7 +35,7 @@ export default function PaymentsList({
             ? moment(payment.repeat_ends_on).unix()
             : moment().add(1, "year").unix();
 
-          while (date < dateTill) {
+          while (date <= dateTill) {
             res.push({
               ...payment,
               date,
