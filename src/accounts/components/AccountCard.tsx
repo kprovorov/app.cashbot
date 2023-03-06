@@ -96,7 +96,7 @@ export default function AccountCard({
               </div>
             )}
             <div>
-              <AccountBalance account={account} onUpdated={onUpdated} />
+              <AccountBalance account={account} />
             </div>
           </div>
         </CardHeader>

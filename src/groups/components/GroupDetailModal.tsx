@@ -1,12 +1,14 @@
 import moment from "moment";
 import React, { PropsWithChildren, useEffect, useState } from "react";
-import { getPaymentsByGroup } from "../../api/payments";
+import { useQuery } from "react-query";
+import { usePayments } from "../../api/payments";
 import Spinner from "../../common/components/Spinner";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import Modal from "../../common/components/ui/modal/Modal";
 import ModalFooter from "../../common/components/ui/modal/ModalFooter";
 import Payment from "../../interfaces/Payment";
 import PaymentListItem from "../../payments/components/PaymentListItem";
+import api from "../../services/api";
 import DeleteGroupButton from "./DeleteGroupButton";
 
 export default function GroupDetailModal({
@@ -22,33 +24,18 @@ export default function GroupDetailModal({
   onDeleted: () => void;
   onClose: () => void;
 }>) {
-  const [loading, setLoading] = useState(false);
-  const [payments, setPayments] = React.useState<Payment[]>([]);
-
-  const fetchPayments = async () => {
-    if (show) {
-      setLoading(true);
-      const res = await getPaymentsByGroup(group);
-
-      setPayments(res);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchPayments();
-  }, []);
+  const { data: payments, isLoading, refetch } = usePayments(group);
 
   return (
-    <Modal show={show} onClose={onClose} title={payments[0]?.description || ""}>
-      {loading ? (
+    <Modal show={show} onClose={onClose} title="Payments">
+      {isLoading && !payments ? (
         <div className="flex justify-center items-center h-96">
           <Spinner />
         </div>
       ) : (
         <div>
           {payments
-            .map((payment) => ({
+            ?.map((payment) => ({
               ...payment,
               date: moment(payment.date).unix(),
             }))
@@ -95,11 +82,11 @@ export default function GroupDetailModal({
                 showDeleteButton={true}
                 showGroupOnClick={false}
                 onUpdated={async () => {
-                  await fetchPayments();
+                  await refetch();
                   onUpdated();
                 }}
                 onDeleted={async () => {
-                  await fetchPayments();
+                  await refetch();
                   onDeleted();
                 }}
               />
@@ -107,7 +94,7 @@ export default function GroupDetailModal({
         </div>
       )}
 
-      {loading ? null : (
+      {isLoading ? null : (
         <ModalFooter>
           <DeleteGroupButton group={group} onDeleted={onDeleted} />
           <SecondaryButton onClick={onClose}>Close</SecondaryButton>

@@ -5,22 +5,28 @@ import Rate from "../interfaces/Rate";
 import CreatePaymentData from "../interfaces/CreatePaymentData";
 import UpdatePaymentData from "../interfaces/UpdatePaymentData";
 import UpdateAccountData from "../interfaces/UpdateAccountData";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
-export async function getAccounts(): Promise<Account[]> {
-  const { data } = await api.get("accounts");
-
-  return data;
+export function useAccounts() {
+  return useQuery<Account[]>(
+    "accounts",
+    async () => (await api.get("accounts")).data
+  );
 }
 
-export async function updateBalances(): Promise<void> {
-  await api.post("accounts/update-balances");
-}
+export function useUpdateAccount(accountId: number) {
+  const queryClient = useQueryClient();
 
-export async function updateAccount(
-  accountId: number,
-  accountData: UpdateAccountData
-): Promise<void> {
-  await api.put(`accounts/${accountId}`, accountData);
+  return useMutation(
+    async (data: UpdateAccountData) =>
+      await api.put(`accounts/${accountId}`, data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("dashboard");
+        queryClient.invalidateQueries("accounts");
+      },
+    }
+  );
 }
 
 export async function createPayment(

@@ -1,3 +1,10 @@
 import tw from "tailwind-styled-components";
 
-export default tw.input`w-full border border-gray-300 rounded py-2 px-3 text-gray-900 leading-tight disabled:opacity-50 `;
+interface InputProps {
+  $invalid?: boolean;
+}
+
+export default tw.input<InputProps>`${(p) =>
+  p.$invalid
+    ? "border-error text-error"
+    : "border-gray-300 text-gray-900"} border w-full rounded py-2 px-3 leading-tight disabled:opacity-50`;

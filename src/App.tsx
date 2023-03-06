@@ -1,25 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
 import Dashboard from "./pages/Dashboard";
-import AccountsContext from "./context/AccountsContext";
-import { getAccounts } from "./api/accounts";
-import Account from "./interfaces/Account";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+// Create a client
+const queryClient = new QueryClient();
 
 function App() {
-  const [accounts, setAccounts] = useState<Account[]>([]);
-
-  const fetchAccounts = useCallback(async () => {
-    const res = await getAccounts();
-    setAccounts(res);
-  }, []);
-
-  useEffect(() => {
-    fetchAccounts();
-  }, [fetchAccounts]);
-
   return (
-    <AccountsContext.Provider value={{ accounts }}>
+    <QueryClientProvider client={queryClient}>
       <Dashboard />
-    </AccountsContext.Provider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

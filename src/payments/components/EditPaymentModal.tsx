@@ -19,18 +19,20 @@ export default function EditPaymentModal({
   onClose: () => void;
   onUpdated: () => void;
 }>) {
+  const formId = `edit-payment-form-${payment.id}`;
+
   return (
     <Modal show={show} onClose={onClose} title="Edit payment">
       <EditPaymentForm
         payment={payment}
         formId={`edit-payment-form-${payment.id}`}
-        onUpdated={onUpdated}
+        onUpdated={onClose}
       />
       <ModalFooter>
         <HidePaymentButton payment={payment} onUpdated={onUpdated} />
         <DeletePaymentButton paymentId={payment.id} onDeleted={onUpdated} />
         <SecondaryButton onClick={onClose}>Close</SecondaryButton>
-        <PrimaryButton form={`edit-payment-form-${payment.id}`} type="submit">
+        <PrimaryButton form={formId} type="submit">
           Save Changes
         </PrimaryButton>
       </ModalFooter>
