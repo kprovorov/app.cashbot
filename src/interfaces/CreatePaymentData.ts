@@ -4,6 +4,4 @@ export default interface CreatePaymentData
   extends Omit<
     Payment,
     "id" | "account" | "balance" | "amount_converted" | "group"
-  > {
-  direction: "expense" | "income";
-}
+  > {}

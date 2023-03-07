@@ -6,10 +6,15 @@ import CreatePaymentData from "../interfaces/CreatePaymentData";
 import UpdatePaymentData from "../interfaces/UpdatePaymentData";
 import UpdateAccountData from "../interfaces/UpdateAccountData";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { AxiosError } from "axios";
+import { BackendErrorResponse } from "../hooks/common";
+import { DASHBOARD_QUERY } from "./dashboard";
+
+export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
 export function useAccounts() {
-  return useQuery<Account[]>(
-    "accounts",
+  return useQuery<Account[], AxiosError<BackendErrorResponse>>(
+    ACCOUNTS_QUERY,
     async () => (await api.get("accounts")).data
   );
 }
@@ -17,13 +22,13 @@ export function useAccounts() {
 export function useUpdateAccount(accountId: number) {
   const queryClient = useQueryClient();
 
-  return useMutation(
+  return useMutation<void, AxiosError<BackendErrorResponse>, UpdateAccountData>(
     async (data: UpdateAccountData) =>
       await api.put(`accounts/${accountId}`, data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("dashboard");
-        queryClient.invalidateQueries("accounts");
+        queryClient.invalidateQueries(DASHBOARD_QUERY);
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
       },
     }
   );

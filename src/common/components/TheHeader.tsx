@@ -13,7 +13,7 @@ export default function TheHeader({
           <img className="h-6" src="logo.svg" alt="cashbot" />
         </a>
         <CreateTransferButton onCreated={onCreated} />
-        <CreatePaymentButton onCreated={onCreated} />
+        <CreatePaymentButton />
       </div>
       <HeaderButton $as="a" href={`${import.meta.env.VITE_ID_APP_URL}/login`}>
         Login

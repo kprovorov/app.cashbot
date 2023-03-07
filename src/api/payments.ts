@@ -1,29 +1,17 @@
 import api from "../services/api";
 import Payment from "../interfaces/Payment";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import UpdatePaymentData from "../interfaces/UpdatePaymentData";
 import { UpdatePaymentGeneralData } from "../interfaces/UpdatePaymentGeneralData";
 import { AxiosError } from "axios";
+import { BackendErrorResponse } from "../hooks/common";
+import { DASHBOARD_QUERY } from "./dashboard";
+import CreatePaymentData from "../interfaces/CreatePaymentData";
 
-export async function getPayment(paymentId: number): Promise<Payment> {
-  const { data } = await api.get(`payments/${paymentId}`);
-
-  return data;
-}
-
-export async function getPaymentsByGroup(group: string): Promise<Payment[]> {
-  const { data } = await api.get("payments", {
-    params: {
-      group,
-    },
-  });
-
-  return data;
-}
+export const PAYMENTS_QUERY = "PAYMENTS_QUERY";
 
 export function usePayments(group?: string) {
-  return useQuery<Payment[]>(
-    "payments",
+  return useQuery<Payment[], AxiosError<BackendErrorResponse>>(
+    PAYMENTS_QUERY,
     async () =>
       (
         await api.get("payments", {
@@ -35,14 +23,25 @@ export function usePayments(group?: string) {
   );
 }
 
-type ErrorBag = {
-  [key: string]: string[];
-};
+export function useCreatePayment() {
+  const queryClient = useQueryClient();
 
-type BackendErrorResponse = {
-  message: string;
-  errors: ErrorBag;
-};
+  return useMutation<
+    Payment,
+    AxiosError<BackendErrorResponse>,
+    CreatePaymentData
+  >(
+    async (data: CreatePaymentData): Promise<Payment> => {
+      return (await api.post<Payment>("payments", data)).data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(PAYMENTS_QUERY);
+        queryClient.invalidateQueries(DASHBOARD_QUERY);
+      },
+    }
+  );
+}
 
 export function useUpdatePaymentGeneralData(paymentId: number) {
   const queryClient = useQueryClient();
@@ -57,8 +56,8 @@ export function useUpdatePaymentGeneralData(paymentId: number) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("payments");
-        queryClient.invalidateQueries("dashboard");
+        queryClient.invalidateQueries(PAYMENTS_QUERY);
+        queryClient.invalidateQueries(DASHBOARD_QUERY);
       },
     }
   );

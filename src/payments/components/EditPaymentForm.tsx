@@ -46,12 +46,10 @@ export default function EditPaymentForm({
             (direction === "income" ? values.amount : -values.amount) * 10000,
         },
         {
-          onSuccess: () => {
-            onUpdated();
-          },
+          onSuccess: onUpdated,
           onError: (error) => {
             if (error.response?.status === 422) {
-              handleValidationErrors(error.response.data.errors, formik);
+              handleValidationErrors(error, formik);
             }
           },
         }

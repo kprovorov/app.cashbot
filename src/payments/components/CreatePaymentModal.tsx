@@ -10,15 +10,13 @@ import CreatePaymentForm from "./CreatePaymentForm";
 export default function CreatePaymentModal({
   show,
   onClose,
-  onCreated,
 }: PropsWithChildren<{
   show: boolean;
   onClose: () => void;
-  onCreated: () => void;
 }>) {
   return (
     <Modal show={show} onClose={onClose} title="Add payment">
-      <CreatePaymentForm formId="create-payment-form" onCreated={onCreated} />
+      <CreatePaymentForm formId="create-payment-form" onCreated={onClose} />
       <ModalFooter>
         <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         <PrimaryButton form="create-payment-form" type="submit">
