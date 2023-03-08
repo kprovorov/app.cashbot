@@ -51,8 +51,12 @@ export default function EditPaymentModal({
         onUpdated={onClose}
       />
       <ModalFooter>
-        <HidePaymentButton payment={payment} onUpdated={onUpdated} />
-        <DeletePaymentButton paymentId={payment.id} onDeleted={onUpdated} />
+        {/* <HidePaymentButton payment={payment} onUpdated={onUpdated} /> */}
+        <DeletePaymentButton
+          paymentId={payment.id}
+          paymentDate={payment.date}
+          onDeleted={onClose}
+        />
         <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         <PrimaryButton form={formId} type="submit">
           Save Changes

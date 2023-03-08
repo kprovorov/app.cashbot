@@ -8,8 +8,7 @@ import React, {
 } from "react";
 import Account from "../../interfaces/Account";
 import CreateTransferData from "../../interfaces/CreateTransferData";
-import { createTransfer, getRate, useAccounts } from "../../api/accounts";
-import AccountsContext from "../../context/AccountsContext";
+import { getRate, useAccounts } from "../../api/accounts";
 import Label from "../../common/components/ui/forms/Label";
 import Input from "../../common/components/ui/forms/Input";
 import moment from "moment";

@@ -1,7 +1,6 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { deleteGroup } from "../../api/accounts";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
-import DeletePaymentButton from "../../payments/components/DeletePaymentButton";
 
 export default function DeleteGroupButton({
   group,
@@ -13,7 +12,6 @@ export default function DeleteGroupButton({
   size?: "sm" | "lg";
 }>) {
   const submit = async () => {
-    DeletePaymentButton;
     await deleteGroup(group);
 
     onDeleted();

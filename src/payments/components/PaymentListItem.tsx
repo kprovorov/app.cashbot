@@ -81,8 +81,7 @@ export default function PaymentListItem({
           <div className="flex justify-end">
             <DeletePaymentButton
               paymentId={payment.id}
-              onDeleted={onDeleted}
-              size="sm"
+              paymentDate={payment.date}
             />
           </div>
         ) : null}

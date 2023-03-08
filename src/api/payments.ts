@@ -83,3 +83,19 @@ export function useUpdatePaymentGeneralData(paymentId: number) {
     }
   );
 }
+
+export function useDeletePaymentMutation(paymentId: number) {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, AxiosError<BackendErrorResponse>, { date: string }>(
+    ({ date }: { date: string }) => {
+      return api.delete(`/payments/${paymentId}`, { params: { date } });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(PAYMENTS_QUERY);
+        queryClient.invalidateQueries(DASHBOARD_QUERY);
+      },
+    }
+  );
+}

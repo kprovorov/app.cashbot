@@ -48,18 +48,6 @@ export async function updatePayment(
   });
 }
 
-export async function createTransfer(data: CreateTransferData): Promise<void> {
-  await api.post("transfers", {
-    ...data,
-    amount: data.amount * 10000,
-    rate: data.rate * 10000,
-  });
-}
-
-export async function deletePayment(paymentId: number): Promise<void> {
-  await api.delete(`payments/${paymentId}`);
-}
-
 export async function deleteGroup(group: string): Promise<void> {
   await api.delete(`payments/groups/${group}`);
 }
