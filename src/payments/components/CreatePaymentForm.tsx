@@ -5,7 +5,7 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { createPayment, useAccounts } from "../../api/accounts";
+import { useAccounts } from "../../api/accounts";
 import CreatePaymentData from "../../interfaces/CreatePaymentData";
 import moment from "moment";
 import AccountsContext from "../../context/AccountsContext";
@@ -66,7 +66,7 @@ export default function CreatePaymentForm({
     <form id={formId} onSubmit={formik.handleSubmit}>
       <div className="grid grid-cols-6 gap-4">
         <div className="col-span-3">
-          <Label>Date</Label>
+          <Label htmlFor="date">Date</Label>
           <Input
             type="date"
             id="date"
@@ -78,7 +78,7 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.date}</InputError>
         </div>
         <div className="col-span-3">
-          <Label>Ends</Label>
+          <Label htmlFor="ends_on">Ends</Label>
           <Input
             type="date"
             id="ends_on"
@@ -90,7 +90,7 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.ends_on}</InputError>
         </div>
         <div className="col-span-2">
-          <Label>Repeat Unit</Label>
+          <Label htmlFor="repeat_unit">Repeat Unit</Label>
           <Input
             $as="select"
             id="repeat_unit"
@@ -110,7 +110,7 @@ export default function CreatePaymentForm({
         </div>
 
         <div className="col-span-2">
-          <Label>Repeat interval</Label>
+          <Label htmlFor="repeat_interval">Repeat interval</Label>
           <Input
             disabled={formik.values.repeat_unit === "none"}
             type="number"
@@ -124,7 +124,7 @@ export default function CreatePaymentForm({
         </div>
 
         <div className="col-span-2">
-          <Label>Repeat Ends</Label>
+          <Label htmlFor="repeat_ends_on">Repeat Ends</Label>
           <Input
             disabled={formik.values.repeat_unit === "none"}
             type="date"
@@ -138,7 +138,7 @@ export default function CreatePaymentForm({
         </div>
 
         <div className="col-span-6">
-          <Label>Account</Label>
+          <Label htmlFor="account_id">Account</Label>
           <Input
             $as="select"
             id="account_id"
@@ -158,7 +158,7 @@ export default function CreatePaymentForm({
         </div>
 
         <div className="col-span-2">
-          <Label>Amount</Label>
+          <Label htmlFor="amount">Amount</Label>
           <Input
             type="text"
             id="amount"
@@ -170,7 +170,7 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.amount}</InputError>
         </div>
         <div className="col-span-2">
-          <Label>Currency</Label>
+          <Label htmlFor="currency">Currency</Label>
           <Input
             $as="select"
             id="currency"
@@ -186,7 +186,7 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.currency}</InputError>
         </div>
         <div className="col-span-2">
-          <Label>Direction</Label>
+          <Label htmlFor="direction">Direction</Label>
           <Input
             $as="select"
             id="direction"
@@ -202,7 +202,7 @@ export default function CreatePaymentForm({
         </div>
 
         <div className="col-span-6">
-          <Label>Description</Label>
+          <Label htmlFor="description">Description</Label>
           <Input
             type="text"
             id="description"
