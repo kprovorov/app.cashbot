@@ -9,6 +9,10 @@ export const DASHBOARD_QUERY = "DASHBOARD_QUERY";
 export function useDashboard() {
   return useQuery<Account[], AxiosError<BackendErrorResponse>>(
     DASHBOARD_QUERY,
-    async () => (await api.get("dashboard")).data
+    async () => (await api.get("dashboard")).data,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
   );
 }

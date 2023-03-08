@@ -8,11 +8,12 @@ import React, {
 } from "react";
 import Account from "../../interfaces/Account";
 import CreateTransferData from "../../interfaces/CreateTransferData";
-import { createTransfer, getRate } from "../../api/accounts";
+import { createTransfer, getRate, useAccounts } from "../../api/accounts";
 import AccountsContext from "../../context/AccountsContext";
 import Label from "../../common/components/ui/forms/Label";
 import Input from "../../common/components/ui/forms/Input";
 import moment from "moment";
+import { useCreateTransferMutation } from "../../api/payments";
 
 export default function CreateTransferForm({
   formId,
@@ -21,7 +22,8 @@ export default function CreateTransferForm({
   formId: string;
   onCreated: () => void;
 }>) {
-  const { accounts } = useContext(AccountsContext);
+  const { mutate } = useCreateTransferMutation();
+  const { data: accounts } = useAccounts();
   const [rate, setRate] = useState(0);
   const [accountFrom, setAccountFrom] = useState<Account | undefined>();
   const [accountTo, setAccountTo] = useState<Account | undefined>();
@@ -41,16 +43,18 @@ export default function CreateTransferForm({
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    await createTransfer({
-      ...transferData,
-      amount:
-        transferData.currency === accountFrom?.currency
-          ? Math.round(transferData.amount * 100) / 100
-          : Math.round(transferData.amount * transferData.rate * 100) / 100,
-    });
-
-    onCreated();
+    mutate(
+      {
+        ...transferData,
+        amount:
+          (transferData.currency === accountFrom?.currency
+            ? Math.round(transferData.amount)
+            : Math.round(transferData.amount * rate)) * 10000,
+      },
+      {
+        onSuccess: onCreated,
+      }
+    );
   };
 
   useEffect(() => {

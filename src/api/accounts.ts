@@ -15,7 +15,11 @@ export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 export function useAccounts() {
   return useQuery<Account[], AxiosError<BackendErrorResponse>>(
     ACCOUNTS_QUERY,
-    async () => (await api.get("accounts")).data
+    async () => (await api.get("accounts")).data,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
   );
 }
 
@@ -32,15 +36,6 @@ export function useUpdateAccount(accountId: number) {
       },
     }
   );
-}
-
-export async function createPayment(
-  paymentData: CreatePaymentData
-): Promise<void> {
-  await api.post("payments", {
-    ...paymentData,
-    amount: paymentData.amount * 10000,
-  });
 }
 
 export async function updatePayment(

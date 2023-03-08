@@ -18,7 +18,7 @@ function Dashboard() {
 
   return (
     <>
-      <TheHeader onCreated={refetch} />
+      <TheHeader />
       <div className="flex flex-col">
         <div className="flex items-center justify-between px-4 py-6">
           <div className="flex items-center gap-4">

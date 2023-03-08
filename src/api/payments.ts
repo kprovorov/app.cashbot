@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
 import { DASHBOARD_QUERY } from "./dashboard";
 import CreatePaymentData from "../interfaces/CreatePaymentData";
+import CreateTransferData from "../interfaces/CreateTransferData";
 
 export const PAYMENTS_QUERY = "PAYMENTS_QUERY";
 
@@ -33,6 +34,26 @@ export function useCreatePayment() {
   >(
     async (data: CreatePaymentData): Promise<Payment> => {
       return (await api.post<Payment>("payments", data)).data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(PAYMENTS_QUERY);
+        queryClient.invalidateQueries(DASHBOARD_QUERY);
+      },
+    }
+  );
+}
+
+export function useCreateTransferMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    void,
+    AxiosError<BackendErrorResponse>,
+    CreateTransferData
+  >(
+    async (data: CreateTransferData): Promise<void> => {
+      return (await api.post<void>("transfers", data)).data;
     },
     {
       onSuccess: () => {

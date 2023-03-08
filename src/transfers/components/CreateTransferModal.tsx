@@ -8,15 +8,13 @@ import CreateTransferForm from "./CreateTransferForm";
 export default function CreateTransferModal({
   show,
   onClose,
-  onCreated,
 }: PropsWithChildren<{
   show: boolean;
   onClose: () => void;
-  onCreated: () => void;
 }>) {
   return (
     <Modal show={show} onClose={onClose} title="Add Transfer">
-      <CreateTransferForm formId="create-transfer-form" onCreated={onCreated} />
+      <CreateTransferForm formId="create-transfer-form" onCreated={onClose} />
       <ModalFooter>
         <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         <PrimaryButton form="create-transfer-form" type="submit">
