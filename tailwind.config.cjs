@@ -16,6 +16,7 @@ module.exports = {
         positive: colors.lime[500],
         negative: colors.red[500],
         warning: colors.orange[400],
+        error: colors.red[600],
       },
       fontSize: {
         xs: "0.5rem",

@@ -5,31 +5,37 @@ import Rate from "../interfaces/Rate";
 import CreatePaymentData from "../interfaces/CreatePaymentData";
 import UpdatePaymentData from "../interfaces/UpdatePaymentData";
 import UpdateAccountData from "../interfaces/UpdateAccountData";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { AxiosError } from "axios";
+import { BackendErrorResponse } from "../hooks/common";
+import { DASHBOARD_QUERY } from "./dashboard";
 
-export async function getAccounts(): Promise<Account[]> {
-  const { data } = await api.get("accounts");
+export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
-  return data;
+export function useAccounts() {
+  return useQuery<Account[], AxiosError<BackendErrorResponse>>(
+    ACCOUNTS_QUERY,
+    async () => (await api.get("accounts")).data,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
 }
 
-export async function updateBalances(): Promise<void> {
-  await api.post("accounts/update-balances");
-}
+export function useUpdateAccount(accountId: number) {
+  const queryClient = useQueryClient();
 
-export async function updateAccount(
-  accountId: number,
-  accountData: UpdateAccountData
-): Promise<void> {
-  await api.put(`accounts/${accountId}`, accountData);
-}
-
-export async function createPayment(
-  paymentData: CreatePaymentData
-): Promise<void> {
-  await api.post("payments", {
-    ...paymentData,
-    amount: paymentData.amount * 10000,
-  });
+  return useMutation<void, AxiosError<BackendErrorResponse>, UpdateAccountData>(
+    async (data: UpdateAccountData) =>
+      await api.put(`accounts/${accountId}`, data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(DASHBOARD_QUERY);
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+      },
+    }
+  );
 }
 
 export async function updatePayment(

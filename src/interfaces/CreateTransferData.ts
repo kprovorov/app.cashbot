@@ -1,12 +1,7 @@
-export default interface CreateTransferData {
-  description?: string;
-  date: string;
-  amount: number;
-  rate: number;
+import CreatePaymentData from "./CreatePaymentData";
+
+export default interface CreateTransferData
+  extends Omit<CreatePaymentData, "account_id" | "direction"> {
   account_from_id: number;
   account_to_id: number;
-  repeat: string;
-  currency: string;
-  hidden: boolean;
-  auto_apply: boolean;
 }

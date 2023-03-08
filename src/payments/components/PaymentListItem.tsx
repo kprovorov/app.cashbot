@@ -67,10 +67,10 @@ export default function PaymentListItem({
         >
           {currencyFormat(payment.amount_converted, currency)}
         </div>
-        {payment.balance ? (
+        {payment.balance !== undefined ? (
           <div
             className={`col-span-2 text-right ${
-              payment.balance <= 0 ? "text-negative" : "text-slate-400"
+              payment.balance < 0 ? "text-negative" : "text-slate-400"
             }`}
           >
             {currencyFormat(payment.balance, currency)}

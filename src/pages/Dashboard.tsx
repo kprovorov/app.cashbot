@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Account from "../interfaces/Account";
+import { useState } from "react";
 import AccountCard from "../accounts/components/AccountCard";
 import AccountBalances from "../accounts/components/AccountBalances";
 import TheHeader from "../common/components/TheHeader";
@@ -7,31 +6,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Mousewheel } from "swiper";
 import PaymentsCard from "../payments/components/PaymentsCard";
 import moment from "moment";
-import { getDashboard } from "../api/dashboard";
+import { useDashboard } from "../api/dashboard";
 import { Switch } from "@headlessui/react";
 import Button from "../common/components/ui/buttons/Button";
 
 function Dashboard() {
-  const [loading, setLoading] = useState(false);
-  const [accounts, setAccounts] = useState<Account[]>([]);
   const [showEmptyAccounts, setShowEmptyAccounts] = useState(false);
   const [showHiddenPayments, setShowHiddenPayments] = useState(false);
 
-  const fetchDashboard = useCallback(async () => {
-    setLoading(true);
-    const res = await getDashboard();
-
-    setAccounts(res);
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    fetchDashboard();
-  }, [fetchDashboard]);
+  const { data: accounts, isLoading, refetch } = useDashboard();
 
   return (
     <>
-      <TheHeader onCreated={fetchDashboard} />
+      <TheHeader />
       <div className="flex flex-col">
         <div className="flex items-center justify-between px-4 py-6">
           <div className="flex items-center gap-4">
@@ -50,7 +37,9 @@ function Dashboard() {
                     } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                   />
                 </Switch>
-                <Switch.Label>Empty</Switch.Label>
+                <Switch.Label className="uppercase font-bold text-base">
+                  Empty
+                </Switch.Label>
               </div>
             </Switch.Group>
 
@@ -69,19 +58,21 @@ function Dashboard() {
                     } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                   />
                 </Switch>
-                <Switch.Label>Hidden</Switch.Label>
+                <Switch.Label className="uppercase font-bold text-base">
+                  Hidden
+                </Switch.Label>
               </div>
             </Switch.Group>
           </div>
           <div>
-            <Button className="hover:bg-slate-900/5" onClick={fetchDashboard}>
+            <Button className="hover:bg-slate-900/5" onClick={() => refetch()}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className={`w-6 h-6 ${loading ? "animate-spin" : null}`}
+                className={`w-6 h-6 ${isLoading ? "animate-spin" : null}`}
               >
                 <path
                   strokeLinecap="round"
@@ -121,9 +112,9 @@ function Dashboard() {
           >
             <SwiperSlide>
               <div className="flex flex-col gap-4 px-4 pb-8">
-                {accounts.length ? (
+                {accounts?.length ? (
                   <>
-                    <AccountBalances onUpdated={fetchDashboard} />
+                    <AccountBalances />
                     {accounts
                       .map((account) => account.payments)
                       .flat()
@@ -137,8 +128,8 @@ function Dashboard() {
                           .map((account) => account.payments)
                           .flat()
                           .filter((payment) => payment.balance < 0)}
-                        onDeleted={fetchDashboard}
-                        onUpdated={fetchDashboard}
+                        onDeleted={refetch}
+                        onUpdated={refetch}
                         showHiddenPayments={showHiddenPayments}
                       />
                     ) : null}
@@ -159,8 +150,8 @@ function Dashboard() {
                           .filter(
                             (payment) => moment(payment.date).diff(moment()) < 0
                           )}
-                        onDeleted={fetchDashboard}
-                        onUpdated={fetchDashboard}
+                        onDeleted={refetch}
+                        onUpdated={refetch}
                         showHiddenPayments={showHiddenPayments}
                       />
                     ) : null}
@@ -169,7 +160,7 @@ function Dashboard() {
               </div>
             </SwiperSlide>
             {accounts
-              .filter(
+              ?.filter(
                 (account) =>
                   showEmptyAccounts ||
                   account.payments.filter(
@@ -181,8 +172,8 @@ function Dashboard() {
                   <div className="px-4 pb-8">
                     <AccountCard
                       account={account}
-                      onDeleted={fetchDashboard}
-                      onUpdated={fetchDashboard}
+                      onDeleted={refetch}
+                      onUpdated={refetch}
                       showHiddenPayments={showHiddenPayments}
                     />
                   </div>

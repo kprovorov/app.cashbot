@@ -77,7 +77,10 @@ export default function AccountCard({
                     <div className="p-1 rounded bg-slate-100 mb-2 flex flex-col relative top-2 shadow-lg shadow-slate-900/10 border border-slate-300">
                       <div className="savings after:bg-slate-300">
                         {account.jars?.map((jar) => (
-                          <div className="grid grid-cols-2 p-1">
+                          <div
+                            key={`jar_${jar.id}`}
+                            className="grid grid-cols-2 p-1"
+                          >
                             <div className="font-semibold truncate">
                               {jar.name}
                             </div>
@@ -93,7 +96,7 @@ export default function AccountCard({
               </div>
             )}
             <div>
-              <AccountBalance account={account} onUpdated={onUpdated} />
+              <AccountBalance account={account} />
             </div>
           </div>
         </CardHeader>

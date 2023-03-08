@@ -8,10 +8,12 @@ import React, {
 } from "react";
 import Account from "../../interfaces/Account";
 import CreateTransferData from "../../interfaces/CreateTransferData";
-import { createTransfer, getRate } from "../../api/accounts";
+import { createTransfer, getRate, useAccounts } from "../../api/accounts";
 import AccountsContext from "../../context/AccountsContext";
 import Label from "../../common/components/ui/forms/Label";
 import Input from "../../common/components/ui/forms/Input";
+import moment from "moment";
+import { useCreateTransferMutation } from "../../api/payments";
 
 export default function CreateTransferForm({
   formId,
@@ -20,34 +22,39 @@ export default function CreateTransferForm({
   formId: string;
   onCreated: () => void;
 }>) {
-  const { accounts } = useContext(AccountsContext);
+  const { mutate } = useCreateTransferMutation();
+  const { data: accounts } = useAccounts();
+  const [rate, setRate] = useState(0);
   const [accountFrom, setAccountFrom] = useState<Account | undefined>();
   const [accountTo, setAccountTo] = useState<Account | undefined>();
   const [transferData, setTransferData] = useState<CreateTransferData>({
     date: "",
     amount: 0,
-    rate: 0,
     account_from_id: 0,
     account_to_id: 0,
-    repeat: "none",
+    repeat_unit: "none",
     currency: "",
     description: "",
     hidden: false,
     auto_apply: false,
+    repeat_interval: 1,
+    repeat_ends_on: "",
   });
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    await createTransfer({
-      ...transferData,
-      amount:
-        transferData.currency === accountFrom?.currency
-          ? Math.round(transferData.amount * 100) / 100
-          : Math.round(transferData.amount * transferData.rate * 100) / 100,
-    });
-
-    onCreated();
+    mutate(
+      {
+        ...transferData,
+        amount:
+          (transferData.currency === accountFrom?.currency
+            ? Math.round(transferData.amount)
+            : Math.round(transferData.amount * rate)) * 10000,
+      },
+      {
+        onSuccess: onCreated,
+      }
+    );
   };
 
   useEffect(() => {
@@ -55,9 +62,10 @@ export default function CreateTransferForm({
       if (accountFrom && accountTo) {
         const res = await getRate(accountFrom.currency, accountTo.currency);
 
+        setRate(res.rate);
+
         setTransferData({
           ...transferData,
-          rate: res.rate,
           currency: accountFrom.currency,
         });
       }
@@ -78,7 +86,7 @@ export default function CreateTransferForm({
   return (
     <form id={formId} onSubmit={submit}>
       <div className="grid grid-cols-6 gap-4">
-        <div className="col-span-2">
+        <div className="col-span-3">
           <Label>Date</Label>
           <Input
             type="date"
@@ -93,39 +101,67 @@ export default function CreateTransferForm({
           />
         </div>
 
-        <div className="col-span-2">
+        <div className="col-span-3">
           <Label>Rate</Label>
           <Input
             disabled
             type="number"
             placeholder="Rate"
-            value={transferData.rate}
+            value={rate}
+            onChange={(e) => setRate(Number(e.target.value))}
+          />
+        </div>
+
+        <div className="col-span-2">
+          <Label>Repeat unit</Label>
+          <Input
+            $as="select"
+            value={transferData.repeat_unit}
             onChange={(e): void => {
               setTransferData({
                 ...transferData,
-                rate: Number(e.target.value),
+                repeat_unit: e.target
+                  .value as CreateTransferData["repeat_unit"],
+              });
+            }}
+          >
+            <option value="none">never</option>
+            <option value="day">daily</option>
+            <option value="week">weekly</option>
+            <option value="month">monthly</option>
+            <option value="quarter">quarterly</option>
+            <option value="year">yearly</option>
+          </Input>
+        </div>
+
+        <div className="col-span-2">
+          <Label>Repeat interval</Label>
+          <Input
+            disabled={transferData.repeat_unit === "none"}
+            type="number"
+            value={transferData.repeat_interval}
+            onChange={(e): void => {
+              setTransferData({
+                ...transferData,
+                repeat_interval: Number(e.target.value),
               });
             }}
           />
         </div>
 
         <div className="col-span-2">
-          <Label>Repeat</Label>
+          <Label>Repeat Ends</Label>
           <Input
-            $as="select"
-            value={transferData.repeat}
+            disabled={transferData.repeat_unit === "none"}
+            type="date"
+            value={moment(transferData.repeat_ends_on).format("YYYY-MM-DD")}
             onChange={(e): void => {
               setTransferData({
                 ...transferData,
-                repeat: e.target.value,
+                repeat_ends_on: e.target.value,
               });
             }}
-          >
-            <option value="none">none</option>
-            <option value="weekly">weekly</option>
-            <option value="monthly">monthly</option>
-            <option value="quarterly">quarterly</option>
-          </Input>
+          />
         </div>
 
         <div className="col-span-3">
@@ -188,13 +224,11 @@ export default function CreateTransferForm({
           <Input
             type="number"
             placeholder="Amount To"
-            value={
-              Math.round(transferData.amount * transferData.rate * 100) / 100
-            }
+            value={Math.round(transferData.amount * rate * 100) / 100}
             onChange={(e): void => {
               setTransferData({
                 ...transferData,
-                amount: Number(e.target.value) / transferData.rate,
+                amount: Number(e.target.value) / rate,
               });
             }}
           />
