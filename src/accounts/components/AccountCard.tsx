@@ -1,5 +1,4 @@
-import React, { PropsWithChildren } from "react";
-import Account from "../../interfaces/Account";
+import { PropsWithChildren } from "react";
 import PaymentsList from "../../payments/components/PaymentsList";
 import AccountBalance from "./AccountBalance";
 import Card from "../../common/components/ui/card/Card";
@@ -8,6 +7,7 @@ import CardTitle from "../../common/components/ui/card/CardTitle";
 import { currencyFormat } from "../../services/formatters";
 import "./AccountCard.css";
 import { Popover } from "@headlessui/react";
+import { Account } from "../../types/Models";
 
 export default function AccountCard({
   account,
@@ -31,7 +31,7 @@ export default function AccountCard({
         <CardHeader>
           <CardTitle className="flex-grow flex gap-1">
             <span>{account.name}</span>
-            <span className="text-gray-400 font-normal">
+            <span className="text-slate-400 font-normal">
               {account.currency}
             </span>
           </CardTitle>

@@ -1,23 +1,21 @@
-import moment from "moment";
 import { PropsWithChildren } from "react";
 import { useDeletePaymentMutation } from "../../api/payments";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
+import { Payment } from "../../types/Models";
 
 export default function DeletePaymentButton({
-  paymentId,
-  paymentDate,
+  payment,
   onDeleted = () => {},
 }: PropsWithChildren<{
-  paymentId: number;
-  paymentDate: string;
+  payment: Payment;
   onDeleted?: () => void;
 }>) {
-  const { mutate } = useDeletePaymentMutation(paymentId);
+  const { mutate } = useDeletePaymentMutation(payment.id);
 
   const submit = () => {
     mutate(
       {
-        date: moment(paymentDate).format("YYYY-MM-DD"),
+        date: payment.date.format("YYYY-MM-DD"),
       },
       {
         onSuccess: onDeleted,

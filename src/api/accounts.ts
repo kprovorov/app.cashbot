@@ -1,21 +1,78 @@
-import Account from "../interfaces/Account";
 import api from "../services/api";
-import CreateTransferData from "../interfaces/CreateTransferData";
 import Rate from "../interfaces/Rate";
-import CreatePaymentData from "../interfaces/CreatePaymentData";
 import UpdatePaymentData from "../interfaces/UpdatePaymentData";
 import UpdateAccountData from "../interfaces/UpdateAccountData";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
-import { DASHBOARD_QUERY } from "./dashboard";
+import { Account } from "../types/Models";
+import moment from "moment";
+import { AccountRaw } from "../types/ModelsRaw";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
 export function useAccounts() {
   return useQuery<Account[], AxiosError<BackendErrorResponse>>(
     ACCOUNTS_QUERY,
-    async () => (await api.get("accounts")).data,
+    async () => {
+      const res = await api.get("accounts");
+
+      return res.data.map((account: AccountRaw) => {
+        return {
+          ...account,
+          payments: [
+            ...(account.payments_to || []),
+            ...(account.payments_from || []),
+          ]
+            .map((payment) => ({
+              ...payment,
+              date: moment(payment.date),
+            }))
+            .map((payment) => {
+              if (payment.repeat_unit === "none") {
+                return [payment];
+              }
+
+              const res = [];
+
+              let date = payment.date;
+
+              const dateTill = payment.repeat_ends_on
+                ? moment(payment.repeat_ends_on)
+                : moment().add(1, "year");
+
+              while (date.isSameOrBefore(dateTill)) {
+                res.push({
+                  ...payment,
+                  date: date.clone(),
+                });
+
+                date.add(payment.repeat_interval, payment.repeat_unit);
+              }
+
+              return res;
+            })
+            .flat()
+            .sort((a, b) => a.date.unix() - b.date.unix())
+            .map((payment) => ({
+              ...payment,
+              amount_converted:
+                payment.account_from_id === account.id
+                  ? -(payment.amount_from_converted || 0)
+                  : payment.amount_to_converted || 0,
+            }))
+            .map((payment, index, array) => ({
+              ...payment,
+              balance: array
+                .slice(0, index + 1)
+                .reduce(
+                  (acc, payment) => acc + payment.amount_converted,
+                  account.balance
+                ),
+            })),
+        };
+      });
+    },
     {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
@@ -31,7 +88,6 @@ export function useUpdateAccount(accountId: number) {
       await api.put(`accounts/${accountId}`, data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(DASHBOARD_QUERY);
         queryClient.invalidateQueries(ACCOUNTS_QUERY);
       },
     }

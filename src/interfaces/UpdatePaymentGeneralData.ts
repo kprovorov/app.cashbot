@@ -1,7 +1,13 @@
-export type UpdatePaymentGeneralData = {
-  description: string;
-  amount: number;
-  currency: string;
-  account_id: number;
-  fromDate: string;
+import UpdatePaymentData from "./UpdatePaymentData";
+
+export type UpdatePaymentGeneralData = Omit<
+  UpdatePaymentData,
+  | "date"
+  | "hidden"
+  | "auto_apply"
+  | "repeat_unit"
+  | "repeat_interval"
+  | "repeat_ends_on"
+> & {
+  from_date: string;
 };

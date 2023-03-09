@@ -6,15 +6,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Mousewheel } from "swiper";
 import PaymentsCard from "../payments/components/PaymentsCard";
 import moment from "moment";
-import { useDashboard } from "../api/dashboard";
 import { Switch } from "@headlessui/react";
 import Button from "../common/components/ui/buttons/Button";
+import { useAccounts } from "../api/accounts";
 
 function Dashboard() {
   const [showEmptyAccounts, setShowEmptyAccounts] = useState(false);
   const [showHiddenPayments, setShowHiddenPayments] = useState(false);
 
-  const { data: accounts, isLoading, refetch } = useDashboard();
+  const { data: accounts, isLoading, refetch } = useAccounts();
 
   return (
     <>
@@ -167,7 +167,7 @@ function Dashboard() {
                     (payment) => showHiddenPayments || !payment.hidden
                   ).length
               )
-              .map((account, index) => (
+              ?.map((account, index) => (
                 <SwiperSlide key={account.id}>
                   <div className="px-4 pb-8">
                     <AccountCard

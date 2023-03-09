@@ -1,7 +1,14 @@
-import Payment from "./Payment";
+import { PaymentRaw } from "../types/ModelsRaw";
 
 export default interface CreatePaymentData
   extends Omit<
-    Payment,
-    "id" | "account" | "balance" | "amount_converted" | "group"
+    PaymentRaw,
+    | "id"
+    | "account_to"
+    | "account_from"
+    | "amount_to_converted"
+    | "amount_from_converted"
+    | "group"
+    | "applied_at"
+    | "balance"
   > {}

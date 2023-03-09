@@ -1,14 +1,7 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  PropsWithChildren,
-  useContext,
-  useState,
-} from "react";
+import { PropsWithChildren } from "react";
 import { useAccounts } from "../../api/accounts";
 import CreatePaymentData from "../../interfaces/CreatePaymentData";
 import moment from "moment";
-import AccountsContext from "../../context/AccountsContext";
 import Input from "../../common/components/ui/forms/Input";
 import Label from "../../common/components/ui/forms/Label";
 import { useFormik } from "formik";
@@ -25,28 +18,27 @@ export default function CreatePaymentForm({
 }>) {
   const handleValidationErrors = useHandleValidationErrors<CreatePaymentData>();
   const { mutate } = useCreatePayment();
-  const [direction, setDirection] = useState<"income" | "expense">("expense");
 
   const formik = useFormik<CreatePaymentData>({
     initialValues: {
-      account_id: 0,
+      account_to_id: undefined,
+      account_from_id: undefined,
       description: "",
       amount: 0,
+      currency: "UAH",
       date: "",
+      hidden: false,
+      ends_on: "",
+      auto_apply: false,
       repeat_unit: "none",
       repeat_interval: 1,
       repeat_ends_on: "",
-      currency: "UAH",
-      hidden: false,
-      auto_apply: false,
-      ends_on: "",
     },
     onSubmit: (values) => {
       mutate(
         {
           ...values,
-          amount:
-            (direction === "income" ? values.amount : -values.amount) * 10000,
+          amount: values.amount * 10000,
         },
         {
           onSuccess: onCreated,
@@ -137,15 +129,15 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.repeat_ends_on}</InputError>
         </div>
 
-        <div className="col-span-6">
-          <Label htmlFor="account_id">Account</Label>
+        <div className="col-span-3">
+          <Label htmlFor="account_from_id">Account From</Label>
           <Input
             $as="select"
-            id="account_id"
-            name="account_id"
-            value={formik.values.account_id}
+            id="account_from_id"
+            name="account_from_id"
+            value={formik.values.account_from_id}
             onChange={formik.handleChange}
-            $invalid={!!formik.errors.account_id}
+            $invalid={!!formik.errors.account_from_id}
           >
             <option value={""}>Please select...</option>
             {accounts?.map((account) => (
@@ -154,10 +146,29 @@ export default function CreatePaymentForm({
               </option>
             ))}
           </Input>
-          <InputError>{formik.errors.account_id}</InputError>
+          <InputError>{formik.errors.account_from_id}</InputError>
+        </div>
+        <div className="col-span-3">
+          <Label htmlFor="account_to_id">Account From</Label>
+          <Input
+            $as="select"
+            id="account_to_id"
+            name="account_to_id"
+            value={formik.values.account_to_id}
+            onChange={formik.handleChange}
+            $invalid={!!formik.errors.account_to_id}
+          >
+            <option value={""}>Please select...</option>
+            {accounts?.map((account) => (
+              <option key={account.id} value={account.id}>
+                {account.name} ({account.currency})
+              </option>
+            ))}
+          </Input>
+          <InputError>{formik.errors.account_to_id}</InputError>
         </div>
 
-        <div className="col-span-2">
+        <div className="col-span-3">
           <Label htmlFor="amount">Amount</Label>
           <Input
             type="text"
@@ -169,7 +180,7 @@ export default function CreatePaymentForm({
           />
           <InputError>{formik.errors.amount}</InputError>
         </div>
-        <div className="col-span-2">
+        <div className="col-span-3">
           <Label htmlFor="currency">Currency</Label>
           <Input
             $as="select"
@@ -184,21 +195,6 @@ export default function CreatePaymentForm({
             <option value="EUR">EUR</option>
           </Input>
           <InputError>{formik.errors.currency}</InputError>
-        </div>
-        <div className="col-span-2">
-          <Label htmlFor="direction">Direction</Label>
-          <Input
-            $as="select"
-            id="direction"
-            name="direction"
-            value={direction}
-            onChange={(e): void => {
-              setDirection(e.target.value as "expense" | "income");
-            }}
-          >
-            <option value="expense">expense</option>
-            <option value="income">income</option>
-          </Input>
         </div>
 
         <div className="col-span-6">

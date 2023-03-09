@@ -1,7 +1,5 @@
-import React, { PropsWithChildren, useContext } from "react";
 import AccountBalance from "./AccountBalance";
 import { currencyFormat } from "../../services/formatters";
-import AccountsContext from "../../context/AccountsContext";
 import Card from "../../common/components/ui/card/Card";
 import CardHeader from "../../common/components/ui/card/CardHeader";
 import CardTitle from "../../common/components/ui/card/CardTitle";

@@ -1,6 +1,5 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import EditPaymentForm from "./EditPaymentForm";
-import Payment from "../../interfaces/Payment";
 import DeletePaymentButton from "./DeletePaymentButton";
 import HidePaymentButton from "./HidePaymentButton";
 import ModalFooter from "../../common/components/ui/modal/ModalFooter";
@@ -8,6 +7,7 @@ import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton"
 import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
 import Modal from "../../common/components/ui/modal/Modal";
 import { dateFormat } from "../../services/formatters";
+import { Payment } from "../../types/Models";
 
 export default function EditPaymentModal({
   payment,
@@ -26,9 +26,8 @@ export default function EditPaymentModal({
     <Modal show={show} onClose={onClose} title="Edit payment">
       <div className="flex gap-2 items-baseline">
         <span className="font-semibold">{dateFormat(payment.date)}</span>
-
         {payment.repeat_unit !== "none" ? (
-          <div className="bg-gray-100 py-1 px-3 rounded">
+          <div className="bg-slate-100 py-1 px-3 rounded">
             Every{" "}
             {payment.repeat_interval === 1 ? "" : payment.repeat_interval + " "}
             {payment.repeat_unit}
@@ -52,11 +51,7 @@ export default function EditPaymentModal({
       />
       <ModalFooter>
         {/* <HidePaymentButton payment={payment} onUpdated={onUpdated} /> */}
-        <DeletePaymentButton
-          paymentId={payment.id}
-          paymentDate={payment.date}
-          onDeleted={onClose}
-        />
+        <DeletePaymentButton payment={payment} onDeleted={onClose} />
         <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         <PrimaryButton form={formId} type="submit">
           Save Changes

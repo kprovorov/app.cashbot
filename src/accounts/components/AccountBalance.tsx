@@ -6,8 +6,8 @@ import React, {
 } from "react";
 import { useUpdateAccount } from "../../api/accounts";
 import Input from "../../common/components/ui/forms/Input";
-import Account from "../../interfaces/Account";
 import { currencyFormat } from "../../services/formatters";
+import { Account } from "../../types/Models";
 
 export default function AccountBalance({
   account,
