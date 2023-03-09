@@ -16,8 +16,8 @@ export default function PaymentListItem({
   showDeleteButton = false,
   showGroupOnClick = true,
   showBalance = true,
-  onDeleted,
-  onUpdated,
+  onDeleted = () => {},
+  onUpdated = () => {},
   onClick = () => {},
 }: PropsWithChildren<{
   payment: Payment;
@@ -28,8 +28,8 @@ export default function PaymentListItem({
   showDeleteButton?: boolean;
   showGroupOnClick?: boolean;
   showBalance?: boolean;
-  onDeleted: () => void;
-  onUpdated: () => void;
+  onDeleted?: () => void;
+  onUpdated?: () => void;
   onClick?: () => void;
 }>) {
   const [showGroup, setShowGroup] = useState(false);

@@ -128,8 +128,6 @@ function Dashboard() {
                           .map((account) => account.payments || [])
                           .flat()
                           .filter((payment) => payment.balance < 0)}
-                        onDeleted={refetch}
-                        onUpdated={refetch}
                         showHiddenPayments={showHiddenPayments}
                       />
                     ) : null}
@@ -150,8 +148,6 @@ function Dashboard() {
                           .filter(
                             (payment) => moment(payment.date).diff(moment()) < 0
                           )}
-                        onDeleted={refetch}
-                        onUpdated={refetch}
                         showHiddenPayments={showHiddenPayments}
                       />
                     ) : null}
@@ -172,8 +168,6 @@ function Dashboard() {
                   <div className="px-4 pb-8">
                     <AccountCard
                       account={account}
-                      onDeleted={refetch}
-                      onUpdated={refetch}
                       showHiddenPayments={showHiddenPayments}
                     />
                   </div>

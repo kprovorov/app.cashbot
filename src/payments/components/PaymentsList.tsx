@@ -4,13 +4,9 @@ import PaymentListItem from "./PaymentListItem";
 
 export default function PaymentsList({
   account,
-  onDeleted,
-  onUpdated,
   showHidden = false,
 }: PropsWithChildren<{
   account: Account;
-  onDeleted: () => void;
-  onUpdated: () => void;
   showHidden?: boolean;
 }>) {
   return (
@@ -24,8 +20,6 @@ export default function PaymentsList({
             payment={payment}
             currency={account.currency}
             showGroupOnClick={true}
-            onDeleted={onDeleted}
-            onUpdated={onUpdated}
           />
         ))}
     </div>

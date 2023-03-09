@@ -8,14 +8,10 @@ import { Payment } from "../../types/Models";
 export default function PaymentsCard({
   title,
   payments,
-  onDeleted,
-  onUpdated,
   showHiddenPayments = false,
 }: PropsWithChildren<{
   title: string;
   payments: Payment[];
-  onDeleted: () => void;
-  onUpdated: () => void;
   showHiddenPayments?: boolean;
 }>) {
   return (
@@ -31,8 +27,6 @@ export default function PaymentsCard({
               key={`${payment.id}_${index}`}
               payment={payment}
               currency={payment.currency}
-              onDeleted={onDeleted}
-              onUpdated={onUpdated}
             />
           ))}
       </div>
