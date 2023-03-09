@@ -116,7 +116,7 @@ function Dashboard() {
                   <>
                     <AccountBalances />
                     {accounts
-                      .map((account) => account.payments)
+                      .map((account) => account.payments || [])
                       .flat()
                       .filter((payment) => payment.balance < 0)
                       .filter(
@@ -125,7 +125,7 @@ function Dashboard() {
                       <PaymentsCard
                         title="Alerts"
                         payments={accounts
-                          .map((account) => account.payments)
+                          .map((account) => account.payments || [])
                           .flat()
                           .filter((payment) => payment.balance < 0)}
                         onDeleted={refetch}
@@ -134,7 +134,7 @@ function Dashboard() {
                       />
                     ) : null}
                     {accounts
-                      .map((account) => account.payments)
+                      .map((account) => account.payments || [])
                       .flat()
                       .filter(
                         (payment) => moment(payment.date).diff(moment()) < 0
@@ -145,7 +145,7 @@ function Dashboard() {
                       <PaymentsCard
                         title="Upcoming"
                         payments={accounts
-                          .map((account) => account.payments)
+                          .map((account) => account.payments || [])
                           .flat()
                           .filter(
                             (payment) => moment(payment.date).diff(moment()) < 0
@@ -163,7 +163,7 @@ function Dashboard() {
               ?.filter(
                 (account) =>
                   showEmptyAccounts ||
-                  account.payments.filter(
+                  account.payments?.filter(
                     (payment) => showHiddenPayments || !payment.hidden
                   ).length
               )

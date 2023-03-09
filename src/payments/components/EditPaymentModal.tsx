@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react";
 import EditPaymentForm from "./EditPaymentForm";
 import DeletePaymentButton from "./DeletePaymentButton";
-import HidePaymentButton from "./HidePaymentButton";
 import ModalFooter from "../../common/components/ui/modal/ModalFooter";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
@@ -50,7 +49,6 @@ export default function EditPaymentModal({
         onUpdated={onClose}
       />
       <ModalFooter>
-        {/* <HidePaymentButton payment={payment} onUpdated={onUpdated} /> */}
         <DeletePaymentButton payment={payment} onDeleted={onClose} />
         <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         <PrimaryButton form={formId} type="submit">

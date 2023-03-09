@@ -1,9 +1,10 @@
 import api from "../services/api";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { UpdatePaymentGeneralData } from "../interfaces/UpdatePaymentGeneralData";
 import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
 import CreatePaymentData from "../interfaces/CreatePaymentData";
+import { PaymentRaw } from "../types/ModelsRaw";
 
 export const PAYMENTS_QUERY = "PAYMENTS_QUERY";
 
@@ -11,12 +12,12 @@ export function useCreatePayment() {
   const queryClient = useQueryClient();
 
   return useMutation<
-    Payment,
+    PaymentRaw,
     AxiosError<BackendErrorResponse>,
     CreatePaymentData
   >(
-    async (data: CreatePaymentData): Promise<Payment> => {
-      return (await api.post<Payment>("payments", data)).data;
+    async (data: CreatePaymentData): Promise<PaymentRaw> => {
+      return (await api.post<PaymentRaw>("payments", data)).data;
     },
     {
       onSuccess: () => {

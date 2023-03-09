@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { useCreatePayment } from "../../api/payments";
 import { useHandleValidationErrors } from "../../hooks/common";
 import InputError from "../../common/components/ui/forms/InputError";
+import { Currency, RepeatUnit } from "../../types/Enums";
 
 export default function CreatePaymentForm({
   formId,
@@ -25,12 +26,12 @@ export default function CreatePaymentForm({
       account_from_id: undefined,
       description: "",
       amount: 0,
-      currency: "UAH",
+      currency: Currency.UAH,
       date: "",
       hidden: false,
       ends_on: "",
       auto_apply: false,
-      repeat_unit: "none",
+      repeat_unit: RepeatUnit.NONE,
       repeat_interval: 1,
       repeat_ends_on: "",
     },
