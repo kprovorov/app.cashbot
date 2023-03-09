@@ -94,20 +94,6 @@ export function useUpdateAccount(accountId: number) {
   );
 }
 
-export async function updatePayment(
-  paymentId: number,
-  paymentData: UpdatePaymentData
-): Promise<void> {
-  await api.put(`payments/${paymentId}`, {
-    ...paymentData,
-    amount: paymentData.amount * 10000,
-  });
-}
-
-export async function deleteGroup(group: string): Promise<void> {
-  await api.delete(`payments/groups/${group}`);
-}
-
 export async function getRate(from: string, to: string): Promise<Rate> {
   const { data } = await api.get("rates", {
     params: {

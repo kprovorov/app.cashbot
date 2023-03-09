@@ -59,3 +59,16 @@ export function useDeletePaymentMutation(paymentId: number) {
     }
   );
 }
+
+export function useDeletePaymentsGroupMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, AxiosError<BackendErrorResponse>, string>(
+    (group: string) => api.delete(`payments/groups/${group}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+      },
+    }
+  );
+}
