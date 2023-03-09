@@ -5,8 +5,7 @@ import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
 import CreatePaymentData from "../interfaces/CreatePaymentData";
 import { PaymentRaw } from "../types/ModelsRaw";
-
-export const PAYMENTS_QUERY = "PAYMENTS_QUERY";
+import { ACCOUNTS_QUERY } from "./accounts";
 
 export function useCreatePayment() {
   const queryClient = useQueryClient();
@@ -21,7 +20,7 @@ export function useCreatePayment() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(PAYMENTS_QUERY);
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
       },
     }
   );
@@ -40,7 +39,7 @@ export function useUpdatePaymentGeneralData(paymentId: number) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(PAYMENTS_QUERY);
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
       },
     }
   );
@@ -55,7 +54,7 @@ export function useDeletePaymentMutation(paymentId: number) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(PAYMENTS_QUERY);
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
       },
     }
   );
