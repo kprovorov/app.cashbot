@@ -30,7 +30,7 @@ export default function EditPaymentForm({
       account_to_id: payment.account_to_id,
       account_from_id: payment.account_from_id,
       description: payment.description,
-      amount: Math.abs(payment.amount / 10000),
+      amount: Math.abs(payment.amount / 100),
       currency: payment.currency,
       from_date: payment.date.format("YYYY-MM-DD"),
     },
@@ -38,7 +38,7 @@ export default function EditPaymentForm({
       mutate(
         {
           ...values,
-          amount: values.amount * 10000,
+          amount: values.amount * 100,
         },
         {
           onSuccess: onUpdated,

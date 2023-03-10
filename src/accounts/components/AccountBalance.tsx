@@ -50,7 +50,7 @@ export default function AccountBalance({
         placeholder="Balance"
         value={currencyFormat(balance, account.currency)}
         onChange={(e): void => {
-          setBalance(Number(e.target.value.replace(/\D/g, "")) * 10000);
+          setBalance(Number(e.target.value.replace(/\D/g, "")) * 100);
         }}
         onBlur={update}
       />

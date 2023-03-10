@@ -21,7 +21,7 @@ export default function PaymentListItem({
   onClick = () => {},
 }: PropsWithChildren<{
   payment: Payment;
-  account: Account;
+  account?: Account;
   currency: string;
   showDescription?: boolean;
   showAccountName?: boolean;
@@ -127,18 +127,16 @@ export default function PaymentListItem({
           </div>
         ) : null}
       </div>
-      {payment.group && showGroupOnClick
-        ? showGroup && (
-            <GroupDetailModal
-              account={account}
-              show={showGroup}
-              group={payment.group}
-              onClose={handleCloseGroup}
-              onUpdated={onUpdated}
-              onDeleted={onDeleted}
-            />
-          )
-        : null}
+      {showGroupOnClick && !!account && showGroup && (
+        <GroupDetailModal
+          account={account}
+          show={showGroup}
+          group={payment.group}
+          onClose={handleCloseGroup}
+          onUpdated={onUpdated}
+          onDeleted={onDeleted}
+        />
+      )}
     </>
   );
 }

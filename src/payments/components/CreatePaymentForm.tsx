@@ -39,7 +39,7 @@ export default function CreatePaymentForm({
       mutate(
         {
           ...values,
-          amount: values.amount * 10000,
+          amount: values.amount * 100,
         },
         {
           onSuccess: onCreated,

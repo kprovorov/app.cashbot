@@ -40,14 +40,16 @@ export default function GroupDetailModal({
       ) : (
         <div>
           {accounts
-            ?.map((account) => account.payments || [])
+            ?.map((a) => a.payments || [])
             .flat()
-            .filter((payment) => payment.group === group)
+            .filter((p) => p.group === group)
             .sort((a, b) => a.date.unix() - b.date.unix())
             .map((payment) => (
               <PaymentListItem
                 account={account}
-                key={`${payment.id}_${payment.date.unix()}`}
+                key={`${payment.id}_${payment.date.unix()}_${
+                  payment.amount_converted
+                }`}
                 payment={payment}
                 currency={account.currency}
                 showDescription={false}
