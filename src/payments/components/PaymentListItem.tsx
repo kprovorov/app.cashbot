@@ -129,6 +129,7 @@ export default function PaymentListItem({
       </div>
       {showGroupOnClick && !!account && showGroup && (
         <GroupDetailModal
+          title={payment.description}
           account={account}
           show={showGroup}
           group={payment.group}

@@ -12,6 +12,7 @@ import DeleteGroupButton from "./DeleteGroupButton";
 
 export default function GroupDetailModal({
   group,
+  title,
   account,
   show,
   onUpdated,
@@ -19,6 +20,7 @@ export default function GroupDetailModal({
   onClose,
 }: PropsWithChildren<{
   group: string;
+  title?: string;
   account: Account;
   show: boolean;
   onUpdated: () => void;
@@ -30,7 +32,7 @@ export default function GroupDetailModal({
   const { data: accounts } = useAccounts();
 
   return (
-    <Modal show={show} onClose={onClose} title="Payments">
+    <Modal show={show} onClose={onClose} title={title || "Payments"}>
       {editPayment ? (
         <EditPaymentForm
           payment={editPayment}
