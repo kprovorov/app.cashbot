@@ -7,4 +7,4 @@ interface InputProps {
 export default tw.input<InputProps>`${(p) =>
   p.$invalid
     ? "border-error text-error"
-    : "border-slate-300 text-slate-900"} border w-full rounded py-2 px-3 leading-tight disabled:opacity-50`;
+    : "border-slate-300 text-slate-900"} border w-full rounded py-2 px-3 font-sans leading-tight disabled:opacity-50`;
