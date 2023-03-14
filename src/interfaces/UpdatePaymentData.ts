@@ -1,4 +1,3 @@
 import CreatePaymentData from "./CreatePaymentData";
 
-export default interface UpdatePaymentData
-  extends Omit<CreatePaymentData, "repeat"> {}
+export default interface UpdatePaymentData extends CreatePaymentData {}

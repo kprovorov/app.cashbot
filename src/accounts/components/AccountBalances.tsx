@@ -1,36 +1,35 @@
-import React, { PropsWithChildren, useContext } from "react";
 import AccountBalance from "./AccountBalance";
 import { currencyFormat } from "../../services/formatters";
-import AccountsContext from "../../context/AccountsContext";
 import Card from "../../common/components/ui/card/Card";
 import CardHeader from "../../common/components/ui/card/CardHeader";
 import CardTitle from "../../common/components/ui/card/CardTitle";
+import { useAccounts } from "../../api/accounts";
 
-export default function AccountBalances({
-  onUpdated,
-}: PropsWithChildren<{ onUpdated: () => void }>) {
-  const { accounts } = useContext(AccountsContext);
+export default function AccountBalances() {
+  const { data: accounts } = useAccounts();
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Balances</CardTitle>
         <div className="font-bold">
-          {currencyFormat(
-            accounts
-              .filter((a) => a.parent_id === null)
-              .reduce(
-                (partialSum, account) =>
-                  partialSum + (account.uah_balance || 0),
-                0
-              ),
-            "UAH"
-          )}
+          {accounts
+            ? currencyFormat(
+                accounts
+                  .filter((a) => a.parent_id === null)
+                  .reduce(
+                    (partialSum, account) =>
+                      partialSum + (account.uah_balance || 0),
+                    0
+                  ),
+                "UAH"
+              )
+            : null}
         </div>
       </CardHeader>
       <div>
         {accounts
-          .filter((a) => a.parent_id === null)
+          ?.filter((a) => a.parent_id === null)
           .map((account) => (
             <div
               key={account.id}
@@ -41,7 +40,7 @@ export default function AccountBalances({
               </div>
 
               <div className="text-end text-slate-400">
-                <AccountBalance account={account} onUpdated={onUpdated} />
+                <AccountBalance account={account} />
               </div>
               {account.uah_balance !== undefined && (
                 <div className="text-end">

@@ -1,5 +1,4 @@
-import React, { PropsWithChildren } from "react";
-import Account from "../../interfaces/Account";
+import { PropsWithChildren } from "react";
 import PaymentsList from "../../payments/components/PaymentsList";
 import AccountBalance from "./AccountBalance";
 import Card from "../../common/components/ui/card/Card";
@@ -8,16 +7,13 @@ import CardTitle from "../../common/components/ui/card/CardTitle";
 import { currencyFormat } from "../../services/formatters";
 import "./AccountCard.css";
 import { Popover } from "@headlessui/react";
+import { Account } from "../../types/Models";
 
 export default function AccountCard({
   account,
-  onDeleted,
-  onUpdated,
   showHiddenPayments = false,
 }: PropsWithChildren<{
   account: Account;
-  onDeleted: () => void;
-  onUpdated: () => void;
   showHiddenPayments?: boolean;
 }>) {
   const savingsBalance = account.jars?.reduce(
@@ -31,7 +27,7 @@ export default function AccountCard({
         <CardHeader>
           <CardTitle className="flex-grow flex gap-1">
             <span>{account.name}</span>
-            <span className="text-gray-400 font-normal">
+            <span className="text-slate-400 font-normal">
               {account.currency}
             </span>
           </CardTitle>
@@ -77,7 +73,10 @@ export default function AccountCard({
                     <div className="p-1 rounded bg-slate-100 mb-2 flex flex-col relative top-2 shadow-lg shadow-slate-900/10 border border-slate-300">
                       <div className="savings after:bg-slate-300">
                         {account.jars?.map((jar) => (
-                          <div className="grid grid-cols-2 p-1">
+                          <div
+                            key={`jar_${jar.id}`}
+                            className="grid grid-cols-2 p-1"
+                          >
                             <div className="font-semibold truncate">
                               {jar.name}
                             </div>
@@ -93,18 +92,13 @@ export default function AccountCard({
               </div>
             )}
             <div>
-              <AccountBalance account={account} onUpdated={onUpdated} />
+              <AccountBalance account={account} />
             </div>
           </div>
         </CardHeader>
       </div>
       <div>
-        <PaymentsList
-          account={account}
-          onDeleted={onDeleted}
-          onUpdated={onUpdated}
-          showHidden={showHiddenPayments}
-        />
+        <PaymentsList account={account} showHidden={showHiddenPayments} />
       </div>
     </Card>
   );

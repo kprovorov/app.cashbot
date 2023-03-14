@@ -1,29 +1,25 @@
-import React, { PropsWithChildren } from "react";
-import Account from "../../interfaces/Account";
+import { PropsWithChildren } from "react";
+import { Account } from "../../types/Models";
 import PaymentListItem from "./PaymentListItem";
 
 export default function PaymentsList({
   account,
-  onDeleted,
-  onUpdated,
   showHidden = false,
 }: PropsWithChildren<{
   account: Account;
-  onDeleted: () => void;
-  onUpdated: () => void;
   showHidden?: boolean;
 }>) {
   return (
     <div>
       {account.payments
-        .filter((payment) => showHidden || !payment.hidden)
+        ?.filter((payment) => showHidden || !payment.hidden)
         .map((payment) => (
           <PaymentListItem
-            key={payment.id}
+            account={account}
+            key={`${payment.id}_${payment.date.unix()}`}
             payment={payment}
             currency={account.currency}
-            onDeleted={onDeleted}
-            onUpdated={onUpdated}
+            showGroupOnClick={true}
           />
         ))}
     </div>

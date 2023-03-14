@@ -1,32 +1,32 @@
 import React, {
-  ChangeEvent,
   FormEvent,
   PropsWithChildren,
-  useRef,
+  useEffect,
   useState,
 } from "react";
-import { updateAccount } from "../../api/accounts";
+import { useUpdateAccount } from "../../api/accounts";
 import Input from "../../common/components/ui/forms/Input";
-import Account from "../../interfaces/Account";
 import { currencyFormat } from "../../services/formatters";
+import { Account } from "../../types/Models";
 
 export default function AccountBalance({
   account,
-  onUpdated,
 }: PropsWithChildren<{
   account: Account;
-  onUpdated: () => void;
 }>) {
-  const formRef = useRef<HTMLFormElement | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const [balance, setBalance] = useState<number>(account.balance);
+
+  const { mutate } = useUpdateAccount(account.id);
 
   const update = async () => {
     if (balance !== account.balance) {
-      await updateAccount(account.id, { ...account, balance });
-      onUpdated();
+      mutate({ ...account, balance });
     }
   };
+
+  useEffect(() => {
+    setBalance(account.balance);
+  }, [account.balance]);
 
   const reset = () => {
     setBalance(account.balance);
@@ -38,9 +38,8 @@ export default function AccountBalance({
   };
 
   return (
-    <form onSubmit={submit} ref={formRef}>
+    <form onSubmit={submit}>
       <Input
-        ref={inputRef}
         onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>): void => {
           if (e.key === "Escape") {
             reset();
@@ -51,7 +50,7 @@ export default function AccountBalance({
         placeholder="Balance"
         value={currencyFormat(balance, account.currency)}
         onChange={(e): void => {
-          setBalance(Number(e.target.value.replace(/\D/g, "")) * 10000);
+          setBalance(Number(e.target.value.replace(/\D/g, "")) * 100);
         }}
         onBlur={update}
       />

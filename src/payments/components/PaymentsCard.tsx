@@ -1,21 +1,17 @@
 import React, { PropsWithChildren } from "react";
 import PaymentListItem from "./PaymentListItem";
-import Payment from "../../interfaces/Payment";
 import Card from "../../common/components/ui/card/Card";
 import CardHeader from "../../common/components/ui/card/CardHeader";
 import CardTitle from "../../common/components/ui/card/CardTitle";
+import { Payment } from "../../types/Models";
 
 export default function PaymentsCard({
   title,
   payments,
-  onDeleted,
-  onUpdated,
   showHiddenPayments = false,
 }: PropsWithChildren<{
   title: string;
   payments: Payment[];
-  onDeleted: () => void;
-  onUpdated: () => void;
   showHiddenPayments?: boolean;
 }>) {
   return (
@@ -26,13 +22,11 @@ export default function PaymentsCard({
       <div>
         {payments
           .filter((payment) => showHiddenPayments || !payment.hidden)
-          .map((payment) => (
+          .map((payment, index) => (
             <PaymentListItem
-              key={payment.id}
+              key={`${payment.id}_${index}`}
               payment={payment}
               currency={payment.currency}
-              onDeleted={onDeleted}
-              onUpdated={onUpdated}
             />
           ))}
       </div>

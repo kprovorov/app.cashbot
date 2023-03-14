@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function currencyFormat(value: number, currency: string): string {
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -7,5 +9,9 @@ export function currencyFormat(value: number, currency: string): string {
     currencyDisplay: "narrowSymbol",
   });
 
-  return formatter.format(value / 10000);
+  return formatter.format(value / 100);
+}
+
+export function dateFormat(value: moment.MomentInput): string {
+  return moment(value).format("DD MMM YYYY");
 }

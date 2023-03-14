@@ -1,81 +1,105 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
-import { getPaymentsByGroup } from "../../api/payments";
-import Spinner from "../../common/components/Spinner";
+import { PropsWithChildren, useState } from "react";
+import { useAccounts } from "../../api/accounts";
+import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import Modal from "../../common/components/ui/modal/Modal";
 import ModalFooter from "../../common/components/ui/modal/ModalFooter";
-import Payment from "../../interfaces/Payment";
+import DeletePaymentButton from "../../payments/components/DeletePaymentButton";
+import EditPaymentForm from "../../payments/components/EditPaymentForm";
 import PaymentListItem from "../../payments/components/PaymentListItem";
+import { Account, Payment } from "../../types/Models";
 import DeleteGroupButton from "./DeleteGroupButton";
 
 export default function GroupDetailModal({
   group,
+  title,
+  account,
   show,
   onUpdated,
   onDeleted,
   onClose,
 }: PropsWithChildren<{
   group: string;
+  title?: string;
+  account: Account;
   show: boolean;
   onUpdated: () => void;
   onDeleted: () => void;
   onClose: () => void;
 }>) {
-  const [loading, setLoading] = useState(false);
-  const [payments, setPayments] = React.useState<Payment[]>([]);
+  const [editPayment, setEditPayment] = useState<Payment | null>(null);
 
-  const fetchPayments = async () => {
-    if (show) {
-      setLoading(true);
-      const res = await getPaymentsByGroup(group);
-
-      setPayments(res);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchPayments();
-  }, []);
+  const { data: accounts } = useAccounts();
 
   return (
-    <Modal show={show} onClose={onClose} title={payments[0]?.description || ""}>
-      {loading ? (
-        <div className="flex justify-center items-center h-96">
-          <Spinner />
-        </div>
+    <Modal show={show} onClose={onClose} title={title || "Payments"}>
+      {editPayment ? (
+        <EditPaymentForm
+          payment={editPayment}
+          formId={`edit-payment-form-${editPayment.id}`}
+          onUpdated={onClose}
+        />
       ) : (
         <div>
-          {payments.map((payment) => (
-            <PaymentListItem
-              key={payment.id}
-              payment={payment}
-              currency={payment.account.currency}
-              showDescription={false}
-              showAccountName={true}
-              showDeleteButton={true}
-              showGroupOnClick={false}
-              onUpdated={async () => {
-                await fetchPayments();
-                onUpdated();
-              }}
-              onDeleted={async () => {
-                await fetchPayments();
-                onDeleted();
-              }}
-            />
-          ))}
+          {accounts
+            ?.map((a) => a.payments || [])
+            .flat()
+            .filter((p) => p.group === group)
+            .sort((a, b) => a.date.unix() - b.date.unix())
+            .map((payment) => (
+              <PaymentListItem
+                account={account}
+                key={`${payment.id}_${payment.date.unix()}_${
+                  payment.amount_converted
+                }`}
+                payment={payment}
+                currency={account.currency}
+                showDescription={false}
+                showAccountName={true}
+                showDeleteButton={true}
+                showGroupOnClick={false}
+                showBalance={false}
+                onUpdated={onUpdated}
+                onDeleted={onDeleted}
+                onClick={() => {
+                  setEditPayment(payment);
+                }}
+              />
+            ))}
         </div>
       )}
 
-      {loading ? null : (
+      {editPayment ? (
         <ModalFooter>
-          <DeleteGroupButton group={group} onDeleted={onDeleted} />
+          <SecondaryButton onClick={() => setEditPayment(null)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-4 h-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
+            Back
+          </SecondaryButton>
+          <DeletePaymentButton payment={editPayment} onDeleted={onClose} />
+          <SecondaryButton onClick={onClose}>Close</SecondaryButton>
+          <PrimaryButton
+            form={`edit-payment-form-${editPayment.id}`}
+            type="submit"
+          >
+            Save Changes
+          </PrimaryButton>
+        </ModalFooter>
+      ) : (
+        <ModalFooter>
+          <DeleteGroupButton group={group} onDeleted={onClose} />
           <SecondaryButton onClick={onClose}>Close</SecondaryButton>
         </ModalFooter>
       )}

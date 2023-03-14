@@ -1,7 +1,6 @@
-import React, { PropsWithChildren } from "react";
-import { deleteGroup } from "../../api/accounts";
+import { PropsWithChildren } from "react";
+import { useDeletePaymentsGroupMutation } from "../../api/payments";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
-import DeletePaymentButton from "../../payments/components/DeletePaymentButton";
 
 export default function DeleteGroupButton({
   group,
@@ -12,11 +11,10 @@ export default function DeleteGroupButton({
   onDeleted: () => void;
   size?: "sm" | "lg";
 }>) {
-  const submit = async () => {
-    DeletePaymentButton;
-    await deleteGroup(group);
+  const { mutate } = useDeletePaymentsGroupMutation();
 
-    onDeleted();
+  const submit = async () => {
+    mutate(group, { onSuccess: onDeleted });
   };
 
   return (

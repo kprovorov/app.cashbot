@@ -1,4 +1,4 @@
-import Account from "./Account";
+import { AccountRaw } from "../types/ModelsRaw";
 
 export default interface CreateAccountData
-  extends Omit<Account, "id" | "payments"> {}
+  extends Omit<AccountRaw, "id" | "payments"> {}

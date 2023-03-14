@@ -1,20 +1,26 @@
-import React, { PropsWithChildren } from "react";
-import { deletePayment } from "../../api/accounts";
+import { PropsWithChildren } from "react";
+import { useDeletePaymentMutation } from "../../api/payments";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
+import { Payment } from "../../types/Models";
 
 export default function DeletePaymentButton({
-  paymentId,
-  onDeleted,
-  size,
+  payment,
+  onDeleted = () => {},
 }: PropsWithChildren<{
-  paymentId: number;
-  onDeleted: () => void;
-  size?: "sm" | "lg";
+  payment: Payment;
+  onDeleted?: () => void;
 }>) {
-  const submit = async () => {
-    await deletePayment(paymentId);
+  const { mutate } = useDeletePaymentMutation(payment.id);
 
-    onDeleted();
+  const submit = () => {
+    mutate(
+      {
+        date: payment.date.format("YYYY-MM-DD"),
+      },
+      {
+        onSuccess: onDeleted,
+      }
+    );
   };
 
   return (
