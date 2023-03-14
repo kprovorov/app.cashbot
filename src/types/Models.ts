@@ -1,6 +1,6 @@
 import { Moment } from "moment";
 import { Currency, RepeatUnit } from "./Enums";
-import { AccountRaw } from "./ModelsRaw";
+import { AccountRaw, UserRaw } from "./ModelsRaw";
 
 export type Account = Omit<AccountRaw, "payments_to" | "payments_from"> & {
   parent?: Account;
@@ -35,3 +35,5 @@ export type Payment = {
   repeat_ends_on?: Moment;
   balance: number;
 };
+
+export type User = UserRaw;
