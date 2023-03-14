@@ -150,7 +150,7 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.account_from_id}</InputError>
         </div>
         <div className="col-span-3">
-          <Label htmlFor="account_to_id">Account From</Label>
+          <Label htmlFor="account_to_id">Account To</Label>
           <Input
             $as="select"
             id="account_to_id"
