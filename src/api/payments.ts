@@ -16,7 +16,7 @@ export function useCreatePayment() {
     CreatePaymentData
   >(
     async (data: CreatePaymentData): Promise<PaymentRaw> => {
-      return (await api.post<PaymentRaw>("api/payments", data)).data;
+      return (await api.post<PaymentRaw>("payments", data)).data;
     },
     {
       onSuccess: () => {
@@ -35,7 +35,7 @@ export function useUpdatePaymentGeneralData(paymentId: number) {
     UpdatePaymentGeneralData
   >(
     (data: UpdatePaymentGeneralData) => {
-      return api.put(`api/payments/${paymentId}/general`, data);
+      return api.put(`payments/${paymentId}/general`, data);
     },
     {
       onSuccess: () => {
@@ -50,7 +50,7 @@ export function useDeletePaymentMutation(paymentId: number) {
 
   return useMutation<void, AxiosError<BackendErrorResponse>, { date: string }>(
     ({ date }: { date: string }) => {
-      return api.delete(`api/payments/${paymentId}`, { params: { date } });
+      return api.delete(`payments/${paymentId}`, { params: { date } });
     },
     {
       onSuccess: () => {
@@ -64,7 +64,7 @@ export function useDeletePaymentsGroupMutation() {
   const queryClient = useQueryClient();
 
   return useMutation<void, AxiosError<BackendErrorResponse>, string>(
-    (group: string) => api.delete(`api/payments/groups/${group}`),
+    (group: string) => api.delete(`payments/groups/${group}`),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(ACCOUNTS_QUERY);

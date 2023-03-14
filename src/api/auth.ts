@@ -44,7 +44,7 @@ export function useCurrentUser() {
   return useQuery<User, AxiosError<BackendErrorResponse>>(
     CURRENT_USER_QUERY,
     async () => {
-      const res = await api.get("api/user");
+      const res = await api.get("user");
 
       return res.data;
     },

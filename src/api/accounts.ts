@@ -15,7 +15,7 @@ export function useAccounts() {
   return useQuery<Account[], AxiosError<BackendErrorResponse>>(
     ACCOUNTS_QUERY,
     async () => {
-      const res = await api.get("api/accounts");
+      const res = await api.get("accounts");
 
       return res.data.map((account: AccountRaw) => {
         return {
@@ -86,7 +86,7 @@ export function useUpdateAccount(accountId: number) {
 
   return useMutation<void, AxiosError<BackendErrorResponse>, UpdateAccountData>(
     async (data: UpdateAccountData) =>
-      await api.put(`api/accounts/${accountId}`, data),
+      await api.put(`accounts/${accountId}`, data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(ACCOUNTS_QUERY);
@@ -96,7 +96,7 @@ export function useUpdateAccount(accountId: number) {
 }
 
 export async function getRate(from: string, to: string): Promise<Rate> {
-  const { data } = await api.get("api/rates", {
+  const { data } = await api.get("rates", {
     params: {
       from,
       to,
