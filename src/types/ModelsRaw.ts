@@ -38,3 +38,9 @@ export type PaymentRaw = {
   repeat_ends_on?: string;
   balance: number;
 };
+
+export type UserRaw = {
+  id: number;
+  name: string;
+  email: string;
+};
