@@ -4,8 +4,8 @@ import UpdatePaymentData from "./UpdatePaymentData";
 export type UpdatePaymentGeneralData = Omit<
   UpdatePaymentData,
   | "date"
-  | "hidden"
   | "auto_apply"
+  | "dynamic"
   | "repeat_unit"
   | "repeat_interval"
   | "repeat_ends_on"

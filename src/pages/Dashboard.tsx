@@ -14,7 +14,6 @@ import { useCurrentUser } from "../api/auth";
 
 function Dashboard() {
   const [showEmptyAccounts, setShowEmptyAccounts] = useState(false);
-  const [showHiddenPayments, setShowHiddenPayments] = useState(false);
 
   const { data: accounts, isLoading, refetch } = useAccounts();
   const { data: user } = useCurrentUser();
@@ -44,27 +43,6 @@ function Dashboard() {
                     </Switch>
                     <Switch.Label className="uppercase font-bold text-base">
                       Empty
-                    </Switch.Label>
-                  </div>
-                </Switch.Group>
-
-                <Switch.Group>
-                  <div className="flex items-center gap-2">
-                    <Switch
-                      checked={showHiddenPayments}
-                      onChange={setShowHiddenPayments}
-                      className={`${
-                        showHiddenPayments ? "bg-primary" : "bg-slate-300"
-                      } relative inline-flex h-6 w-11 items-center rounded-full`}
-                    >
-                      <span
-                        className={`${
-                          showHiddenPayments ? "translate-x-6" : "translate-x-1"
-                        } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-                      />
-                    </Switch>
-                    <Switch.Label className="uppercase font-bold text-base">
-                      Hidden
                     </Switch.Label>
                   </div>
                 </Switch.Group>
@@ -126,17 +104,13 @@ function Dashboard() {
                         {accounts
                           .map((account) => account.payments || [])
                           .flat()
-                          .filter((payment) => payment.balance < 0)
-                          .filter(
-                            (payment) => showHiddenPayments || !payment.hidden
-                          ).length ? (
+                          .filter((payment) => payment.balance < 0).length ? (
                           <PaymentsCard
                             title="Alerts"
                             payments={accounts
                               .map((account) => account.payments || [])
                               .flat()
                               .filter((payment) => payment.balance < 0)}
-                            showHiddenPayments={showHiddenPayments}
                           />
                         ) : null}
                         {accounts
@@ -144,9 +118,6 @@ function Dashboard() {
                           .flat()
                           .filter(
                             (payment) => moment(payment.date).diff(moment()) < 0
-                          )
-                          .filter(
-                            (payment) => showHiddenPayments || !payment.hidden
                           ).length ? (
                           <PaymentsCard
                             title="Upcoming"
@@ -157,31 +128,19 @@ function Dashboard() {
                                 (payment) =>
                                   moment(payment.date).diff(moment()) < 0
                               )}
-                            showHiddenPayments={showHiddenPayments}
                           />
                         ) : null}
                       </>
                     ) : null}
                   </div>
                 </SwiperSlide>
-                {accounts
-                  ?.filter(
-                    (account) =>
-                      showEmptyAccounts ||
-                      account.payments?.filter(
-                        (payment) => showHiddenPayments || !payment.hidden
-                      ).length
-                  )
-                  ?.map((account, index) => (
-                    <SwiperSlide key={account.id}>
-                      <div className="px-4 pb-8">
-                        <AccountCard
-                          account={account}
-                          showHiddenPayments={showHiddenPayments}
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
+                {accounts?.map((account) => (
+                  <SwiperSlide key={account.id}>
+                    <div className="px-4 pb-8">
+                      <AccountCard account={account} />
+                    </div>
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>

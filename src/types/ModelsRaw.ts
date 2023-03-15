@@ -3,16 +3,15 @@ import { Currency, RepeatUnit } from "./Enums";
 export type AccountRaw = {
   id: number;
   user_id: number;
+  user?: UserRaw;
   parent_id?: number;
   parent?: AccountRaw;
-
+  name: string;
+  balance: number;
+  currency: Currency;
   payments_to?: PaymentRaw[];
   payments_from?: PaymentRaw[];
   jars?: AccountRaw[];
-
-  name: string;
-  currency: Currency;
-  balance: number;
   uah_balance?: number;
 };
 
@@ -22,21 +21,19 @@ export type PaymentRaw = {
   account_from?: AccountRaw;
   account_to_id?: number;
   account_to?: AccountRaw;
+  group: string;
   description: string;
-  amount_to_converted?: number;
-  amount_from_converted?: number;
+  date: string;
   amount: number;
   currency: Currency;
-  date: string;
-  hidden: boolean;
-  ends_on?: string;
-  group: string;
+  amount_from_converted?: number;
+  amount_to_converted?: number;
   auto_apply: boolean;
   applied_at?: string;
+  dynamic: boolean;
   repeat_unit: RepeatUnit;
   repeat_interval: number;
   repeat_ends_on?: string;
-  balance: number;
 };
 
 export type UserRaw = {
