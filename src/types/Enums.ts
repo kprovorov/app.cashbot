@@ -12,3 +12,9 @@ export enum RepeatUnit {
   QUARTER = "quarter",
   YEAR = "year",
 }
+
+export enum PaymentUpdateMode {
+  SINGLE = "single",
+  FUTURE = "future",
+  ALL = "all",
+}
