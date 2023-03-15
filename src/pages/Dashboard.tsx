@@ -134,13 +134,17 @@ function Dashboard() {
                     ) : null}
                   </div>
                 </SwiperSlide>
-                {accounts?.map((account) => (
-                  <SwiperSlide key={account.id}>
-                    <div className="px-4 pb-8">
-                      <AccountCard account={account} />
-                    </div>
-                  </SwiperSlide>
-                ))}
+                {accounts
+                  ?.filter(
+                    (account) => showEmptyAccounts || account.payments?.length
+                  )
+                  .map((account) => (
+                    <SwiperSlide key={account.id}>
+                      <div className="px-4 pb-8">
+                        <AccountCard account={account} />
+                      </div>
+                    </SwiperSlide>
+                  ))}
               </Swiper>
             </div>
           </div>
