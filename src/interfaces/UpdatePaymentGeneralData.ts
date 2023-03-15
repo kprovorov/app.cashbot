@@ -1,3 +1,4 @@
+import { PaymentUpdateMode } from "../types/Enums";
 import UpdatePaymentData from "./UpdatePaymentData";
 
 export type UpdatePaymentGeneralData = Omit<
@@ -10,4 +11,5 @@ export type UpdatePaymentGeneralData = Omit<
   | "repeat_ends_on"
 > & {
   from_date: string;
+  mode?: PaymentUpdateMode;
 };

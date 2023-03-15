@@ -9,6 +9,7 @@ import InputError from "../../common/components/ui/forms/InputError";
 import { useHandleValidationErrors } from "../../hooks/common";
 import { Payment } from "../../types/Models";
 import { dateFormat } from "../../services/formatters";
+import { Currency, PaymentUpdateMode } from "../../types/Enums";
 
 export default function EditPaymentForm({
   payment,
@@ -33,6 +34,7 @@ export default function EditPaymentForm({
       amount: Math.abs(payment.amount / 100),
       currency: payment.currency,
       from_date: payment.date.format("YYYY-MM-DD"),
+      mode: PaymentUpdateMode.SINGLE,
     },
     onSubmit: (values) => {
       mutate(
@@ -139,9 +141,9 @@ export default function EditPaymentForm({
               onChange={formik.handleChange}
               $invalid={!!formik.errors.currency}
             >
-              <option value="UAH">UAH</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
+              {Object.keys(Currency).map((value) => (
+                <option value={value}>{value}</option>
+              ))}
             </Input>
             <InputError>{formik.errors.currency}</InputError>
           </div>
@@ -157,6 +159,23 @@ export default function EditPaymentForm({
               $invalid={!!formik.errors.description}
             />
             <InputError>{formik.errors.description}</InputError>
+          </div>
+
+          <div className="col-span-3">
+            <Label htmlFor="mode">Mode</Label>
+            <Input
+              $as="select"
+              id="mode"
+              name="mode"
+              value={formik.values.mode}
+              onChange={formik.handleChange}
+              $invalid={!!formik.errors.mode}
+            >
+              {Object.keys(PaymentUpdateMode).map((value) => (
+                <option value={value}>{value}</option>
+              ))}
+            </Input>
+            <InputError>{formik.errors.mode}</InputError>
           </div>
         </div>
       </div>
