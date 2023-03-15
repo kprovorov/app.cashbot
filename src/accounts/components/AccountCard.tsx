@@ -11,10 +11,8 @@ import { Account } from "../../types/Models";
 
 export default function AccountCard({
   account,
-  showHiddenPayments = false,
 }: PropsWithChildren<{
   account: Account;
-  showHiddenPayments?: boolean;
 }>) {
   const savingsBalance = account.jars?.reduce(
     (acc, jar) => acc + jar.balance,
@@ -98,7 +96,7 @@ export default function AccountCard({
         </CardHeader>
       </div>
       <div>
-        <PaymentsList account={account} showHidden={showHiddenPayments} />
+        <PaymentsList account={account} />
       </div>
     </Card>
   );

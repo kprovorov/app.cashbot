@@ -28,8 +28,7 @@ export default function CreatePaymentForm({
       amount: 0,
       currency: Currency.UAH,
       date: "",
-      hidden: false,
-      ends_on: "",
+      dynamic: false,
       auto_apply: false,
       repeat_unit: RepeatUnit.NONE,
       repeat_interval: 1,
@@ -69,18 +68,6 @@ export default function CreatePaymentForm({
             $invalid={!!formik.errors.date}
           />
           <InputError>{formik.errors.date}</InputError>
-        </div>
-        <div className="col-span-3">
-          <Label htmlFor="ends_on">Ends</Label>
-          <Input
-            type="date"
-            id="ends_on"
-            name="ends_on"
-            value={moment(formik.values.ends_on).format("YYYY-MM-DD")}
-            onChange={formik.handleChange}
-            $invalid={!!formik.errors.ends_on}
-          />
-          <InputError>{formik.errors.ends_on}</InputError>
         </div>
         <div className="col-span-2">
           <Label htmlFor="repeat_unit">Repeat Unit</Label>

@@ -43,9 +43,7 @@ export default function PaymentListItem({
   return (
     <>
       <div
-        className={`p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded ${
-          payment.hidden ? "opacity-50" : ""
-        } `}
+        className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded"
         onClick={() => {
           payment.group && showGroupOnClick
             ? handleShowGroup()

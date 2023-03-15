@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import PaymentListItem from "./PaymentListItem";
 import Card from "../../common/components/ui/card/Card";
 import CardHeader from "../../common/components/ui/card/CardHeader";
@@ -8,11 +8,9 @@ import { Payment } from "../../types/Models";
 export default function PaymentsCard({
   title,
   payments,
-  showHiddenPayments = false,
 }: PropsWithChildren<{
   title: string;
   payments: Payment[];
-  showHiddenPayments?: boolean;
 }>) {
   return (
     <Card>
@@ -20,15 +18,13 @@ export default function PaymentsCard({
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <div>
-        {payments
-          .filter((payment) => showHiddenPayments || !payment.hidden)
-          .map((payment, index) => (
-            <PaymentListItem
-              key={`${payment.id}_${index}`}
-              payment={payment}
-              currency={payment.currency}
-            />
-          ))}
+        {payments.map((payment, index) => (
+          <PaymentListItem
+            key={`${payment.id}_${index}`}
+            payment={payment}
+            currency={payment.currency}
+          />
+        ))}
       </div>
     </Card>
   );
