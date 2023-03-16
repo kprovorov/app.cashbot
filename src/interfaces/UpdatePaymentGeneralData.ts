@@ -5,7 +5,7 @@ export type UpdatePaymentGeneralData = Omit<
   UpdatePaymentData,
   | "date"
   | "auto_apply"
-  | "dynamic"
+  | "budget"
   | "repeat_unit"
   | "repeat_interval"
   | "repeat_ends_on"

@@ -30,7 +30,7 @@ export type PaymentRaw = {
   amount_to_converted?: number;
   auto_apply: boolean;
   applied_at?: string;
-  dynamic: boolean;
+  budget: boolean;
   repeat_unit: RepeatUnit;
   repeat_interval: number;
   repeat_ends_on?: string;

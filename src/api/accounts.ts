@@ -6,8 +6,9 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
 import { Account } from "../types/Models";
-import moment from "moment";
+import moment, { DurationInputArg2 } from "moment";
 import { AccountRaw } from "../types/ModelsRaw";
+import { RepeatUnit } from "../types/Enums";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
@@ -28,8 +29,8 @@ export function useAccounts() {
               ...payment,
               date: moment(payment.date),
             }))
-            .map((payment) => {
-              if (payment.repeat_unit === "none") {
+            .flatMap((payment) => {
+              if (payment.repeat_unit === RepeatUnit.NONE) {
                 return [payment];
               }
 
@@ -47,12 +48,14 @@ export function useAccounts() {
                   date: date.clone(),
                 });
 
-                date.add(payment.repeat_interval, payment.repeat_unit);
+                date.add(
+                  payment.repeat_interval,
+                  payment.repeat_unit.toLowerCase() as DurationInputArg2
+                );
               }
 
               return res;
             })
-            .flat()
             .sort((a, b) => a.date.unix() - b.date.unix())
             .map((payment) => ({
               ...payment,
@@ -61,6 +64,40 @@ export function useAccounts() {
                   ? -(payment.amount_from_converted || 0)
                   : payment.amount_to_converted || 0,
             }))
+            .map((payment) => {
+              let amount = payment.amount;
+              let amount_converted = payment.amount_converted;
+              const today = moment().startOf("day");
+
+              if (payment.budget && payment.date.isBefore(today)) {
+                const paymentEndsOn = moment(payment.date).add(
+                  payment.repeat_interval,
+                  payment.repeat_unit.toLowerCase() as DurationInputArg2
+                );
+                const totalDays = payment.date.diff(paymentEndsOn, "days");
+                const daysLeft = today.diff(paymentEndsOn, "days");
+
+                console.log({
+                  today,
+                  paymentEndsOn,
+                  totalDays,
+                  daysLeft,
+                });
+
+                amount = paymentEndsOn.isBefore(today)
+                  ? 0
+                  : (payment.amount / totalDays) * daysLeft;
+                amount_converted = paymentEndsOn.isBefore(today)
+                  ? 0
+                  : (payment.amount_converted / totalDays) * daysLeft;
+              }
+
+              return {
+                ...payment,
+                amount,
+                amount_converted,
+              };
+            })
             .map((payment, index, array) => ({
               ...payment,
               balance: array
