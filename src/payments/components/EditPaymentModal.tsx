@@ -7,6 +7,7 @@ import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
 import Modal from "../../common/components/ui/modal/Modal";
 import { dateFormat } from "../../services/formatters";
 import { Payment } from "../../types/Models";
+import { RepeatUnit } from "../../types/Enums";
 
 export default function EditPaymentModal({
   payment,
@@ -25,7 +26,7 @@ export default function EditPaymentModal({
     <Modal show={show} onClose={onClose} title="Edit payment">
       <div className="flex gap-2 items-baseline">
         <span className="font-semibold">{dateFormat(payment.date)}</span>
-        {payment.repeat_unit !== "none" ? (
+        {payment.repeat_unit !== RepeatUnit.NONE ? (
           <div className="bg-slate-100 py-1 px-3 rounded">
             Every{" "}
             {payment.repeat_interval === 1 ? "" : payment.repeat_interval + " "}

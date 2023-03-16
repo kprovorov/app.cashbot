@@ -9,7 +9,7 @@ import InputError from "../../common/components/ui/forms/InputError";
 import { useHandleValidationErrors } from "../../hooks/common";
 import { Payment } from "../../types/Models";
 import { dateFormat } from "../../services/formatters";
-import { Currency, PaymentUpdateMode } from "../../types/Enums";
+import { Currency, PaymentUpdateMode, RepeatUnit } from "../../types/Enums";
 
 export default function EditPaymentForm({
   payment,
@@ -59,7 +59,7 @@ export default function EditPaymentForm({
       <div className="flex flex-col gap-6">
         <div className="flex gap-3 items-baseline border-b border-slate-300 p-3 justify-between">
           <span className="font-semibold">{dateFormat(payment.date)}</span>
-          {payment.repeat_unit !== "none" ? (
+          {payment.repeat_unit !== RepeatUnit.NONE ? (
             <div className="bg-slate-100 py-1 px-3 rounded">
               Every{" "}
               {payment.repeat_interval === 1
