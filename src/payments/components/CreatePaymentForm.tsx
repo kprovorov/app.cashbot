@@ -9,6 +9,7 @@ import { useCreatePayment } from "../../api/payments";
 import { useHandleValidationErrors } from "../../hooks/common";
 import InputError from "../../common/components/ui/forms/InputError";
 import { Currency, RepeatUnit } from "../../types/Enums";
+import Checkbox from "../../common/components/ui/forms/Checkbox";
 
 export default function CreatePaymentForm({
   formId,
@@ -68,6 +69,18 @@ export default function CreatePaymentForm({
             $invalid={!!formik.errors.date}
           />
           <InputError>{formik.errors.date}</InputError>
+        </div>
+        <div className="col-span-3">
+          <Label htmlFor="budget">budget</Label>
+          <Checkbox
+            type="checkbox"
+            id="budget"
+            name="budget"
+            checked={formik.values.budget}
+            onChange={formik.handleChange}
+            $invalid={!!formik.errors.budget}
+          />
+          <InputError>{formik.errors.budget}</InputError>
         </div>
         <div className="col-span-2">
           <Label htmlFor="repeat_unit">Repeat Unit</Label>
