@@ -79,12 +79,11 @@ export default function CreatePaymentForm({
             onChange={formik.handleChange}
             $invalid={!!formik.errors.repeat_unit}
           >
-            <option value="none">never</option>
-            <option value="day">daily</option>
-            <option value="week">weekly</option>
-            <option value="month">monthly</option>
-            <option value="quarter">quarterly</option>
-            <option value="year">yearly</option>
+            {Object.keys(RepeatUnit).map((key) => (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            ))}
           </Input>
           <InputError>{formik.errors.repeat_unit}</InputError>
         </div>
@@ -92,7 +91,7 @@ export default function CreatePaymentForm({
         <div className="col-span-2">
           <Label htmlFor="repeat_interval">Repeat interval</Label>
           <Input
-            disabled={formik.values.repeat_unit === "none"}
+            disabled={formik.values.repeat_unit === RepeatUnit.NONE}
             type="number"
             id="repeat_interval"
             name="repeat_interval"
@@ -106,7 +105,7 @@ export default function CreatePaymentForm({
         <div className="col-span-2">
           <Label htmlFor="repeat_ends_on">Repeat Ends</Label>
           <Input
-            disabled={formik.values.repeat_unit === "none"}
+            disabled={formik.values.repeat_unit === RepeatUnit.NONE}
             type="date"
             id="repeat_ends_on"
             name="repeat_ends_on"
@@ -178,9 +177,11 @@ export default function CreatePaymentForm({
             onChange={formik.handleChange}
             $invalid={!!formik.errors.currency}
           >
-            <option value="UAH">UAH</option>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
+            {Object.keys(Currency).map((key) => (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            ))}
           </Input>
           <InputError>{formik.errors.currency}</InputError>
         </div>

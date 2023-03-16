@@ -141,8 +141,10 @@ export default function EditPaymentForm({
               onChange={formik.handleChange}
               $invalid={!!formik.errors.currency}
             >
-              {Object.keys(Currency).map((value) => (
-                <option value={value}>{value}</option>
+              {Object.keys(Currency).map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
               ))}
             </Input>
             <InputError>{formik.errors.currency}</InputError>
@@ -171,8 +173,10 @@ export default function EditPaymentForm({
               onChange={formik.handleChange}
               $invalid={!!formik.errors.mode}
             >
-              {Object.keys(PaymentUpdateMode).map((value) => (
-                <option value={value}>{value}</option>
+              {Object.keys(PaymentUpdateMode).map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
               ))}
             </Input>
             <InputError>{formik.errors.mode}</InputError>

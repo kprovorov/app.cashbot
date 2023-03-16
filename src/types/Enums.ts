@@ -5,16 +5,16 @@ export enum Currency {
 }
 
 export enum RepeatUnit {
-  NONE = "none",
-  DAY = "day",
-  WEEK = "week",
-  MONTH = "month",
-  QUARTER = "quarter",
-  YEAR = "year",
+  NONE = "NONE",
+  DAY = "DAY",
+  WEEK = "WEEK",
+  MONTH = "MONTH",
+  QUARTER = "QUARTER",
+  YEAR = "YEAR",
 }
 
 export enum PaymentUpdateMode {
-  SINGLE = "single",
-  FUTURE = "future",
-  ALL = "all",
+  SINGLE = "SINGLE",
+  FUTURE = "FUTURE",
+  ALL = "ALL",
 }
