@@ -28,7 +28,7 @@ export default function CreatePaymentForm({
       amount: 0,
       currency: Currency.UAH,
       date: "",
-      dynamic: false,
+      budget: false,
       auto_apply: false,
       repeat_unit: RepeatUnit.NONE,
       repeat_interval: 1,
