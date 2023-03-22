@@ -17,6 +17,7 @@ export type Payment = PaymentRaw & {
   account_to?: Account;
   date: Moment;
   amount_converted: number;
+  amount_original: number;
   applied_at?: Moment;
   balance: number;
 };
