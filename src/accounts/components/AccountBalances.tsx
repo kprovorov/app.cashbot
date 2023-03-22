@@ -5,12 +5,14 @@ import CardHeader from "../../common/components/ui/card/CardHeader";
 import CardTitle from "../../common/components/ui/card/CardTitle";
 import { useAccounts } from "../../api/accounts";
 import { Currency } from "../../types/Enums";
+import DashedButton from "../../common/components/ui/buttons/DashedButton";
+import CreateAccountButton from "./Buttons/CreateAccountButton";
 
 export default function AccountBalances() {
   const { data: accounts } = useAccounts();
 
   return (
-    <Card>
+    <Card className="gap-3">
       <CardHeader>
         <CardTitle>Balances</CardTitle>
         <div className="font-bold">
@@ -49,6 +51,7 @@ export default function AccountBalances() {
             </div>
           ))}
       </div>
+      <CreateAccountButton />
     </Card>
   );
 }

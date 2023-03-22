@@ -9,6 +9,7 @@ import moment, { DurationInputArg2 } from "moment";
 import { AccountRaw } from "../types/ModelsRaw";
 import { Currency, RepeatUnit } from "../types/Enums";
 import { useCurrencyConverter } from "../hooks/currencyConverter";
+import { CreateAccountData } from "../types/CreateAccountData";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
@@ -133,6 +134,24 @@ export function useUpdateAccount(accountId: number) {
   return useMutation<void, AxiosError<BackendErrorResponse>, UpdateAccountData>(
     async (data: UpdateAccountData) =>
       await api.put(`accounts/${accountId}`, data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+      },
+    }
+  );
+}
+
+export function useCreateAccount() {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    AccountRaw,
+    AxiosError<BackendErrorResponse>,
+    Partial<CreateAccountData>
+  >(
+    async (data: Partial<CreateAccountData>) =>
+      await api.post("accounts", data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(ACCOUNTS_QUERY);
