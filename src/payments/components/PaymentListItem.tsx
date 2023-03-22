@@ -113,7 +113,11 @@ export default function PaymentListItem({
         {showBalance && payment.balance !== undefined ? (
           <div
             className={`col-span-2 text-right ${
-              payment.balance < 0 ? "text-negative" : "text-slate-400"
+              payment.balance < 0
+                ? "text-negative"
+                : payment.balance > (account?.balance_savings || 0)
+                ? "text-slate-400"
+                : "text-warning"
             }`}
           >
             {currencyFormat(payment.balance, currency)}

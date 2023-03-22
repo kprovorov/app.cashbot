@@ -10,6 +10,7 @@ export type Account = Omit<AccountRaw, "payments_to" | "payments_from"> & {
   currency: Currency;
   balance: number;
   balance_converted: number;
+  balance_savings: number;
 };
 
 export type Payment = PaymentRaw & {

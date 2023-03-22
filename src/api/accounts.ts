@@ -28,6 +28,10 @@ export function useAccounts() {
             account.currency,
             Currency.UAH
           ),
+          balance_savings: account.jars?.reduce(
+            (acc, jar) => acc + jar.balance,
+            0
+          ),
           payments: [
             ...(account.payments_to || []),
             ...(account.payments_from || []),

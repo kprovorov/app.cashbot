@@ -17,11 +17,6 @@ export default function AccountCard({
 }>) {
   const [showModal, setShowModal] = useState(false);
 
-  const savingsBalance = account.jars?.reduce(
-    (acc, jar) => acc + jar.balance,
-    0
-  );
-
   return (
     <>
       <Card>
@@ -37,17 +32,17 @@ export default function AccountCard({
               </span>
             </CardTitle>
             <div className="font-bold flex items-center gap-2">
-              {!!savingsBalance && (
+              {!!account.balance_savings && (
                 <div>
                   <Popover className="relative">
                     <Popover.Button
                       className={`${
-                        savingsBalance > account.balance
+                        account.balance_savings > account.balance
                           ? "bg-orange-100 border-orange-300 hover:border-orange-400 aria-expanded:border-orange-400 text-warning aria-expanded:shadow-orange-900/10"
                           : "bg-slate-100 border-slate-200 hover:border-slate-300 aria-expanded:border-slate-300 text-slate-400 aria-expanded:shadow-slate-900/10"
                       }  rounded-full py-1 px-2 text-sm flex items-center font-bold gap-1 border  outline-none aria-expanded:shadow`}
                     >
-                      {savingsBalance > account.balance ? (
+                      {account.balance_savings > account.balance ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
@@ -71,7 +66,10 @@ export default function AccountCard({
                         </svg>
                       )}
 
-                      {currencyFormat(savingsBalance, account.currency)}
+                      {currencyFormat(
+                        account.balance_savings,
+                        account.currency
+                      )}
                     </Popover.Button>
 
                     <Popover.Panel className="absolute z-10 w-48 left-1/2 -translate-x-1/2">
