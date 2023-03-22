@@ -1,53 +1,30 @@
-import { useFormik } from "formik";
-import { useAccounts, useCreateAccount } from "../../../api/accounts";
+import { FormikErrors } from "formik";
+import { useAccounts } from "../../../api/accounts";
 import PrimaryButton from "../../../common/components/ui/buttons/PrimaryButton";
 import SecondaryButton from "../../../common/components/ui/buttons/SecondaryButton";
 import Input from "../../../common/components/ui/forms/Input";
 import InputError from "../../../common/components/ui/forms/InputError";
 import Label from "../../../common/components/ui/forms/Label";
-import { useHandleValidationErrors } from "../../../hooks/common";
-import { CreateAccountData } from "../../../types/CreateAccountData";
+import { AccountData } from "../../../types/AccountData";
 import { Currency } from "../../../types/Enums";
 
 export default function AccountForm({
+  values = {},
+  errors = {},
+  handleChange,
   onCancel = () => {},
-  onSuccess = () => {},
+  onSubmit,
 }: {
+  values?: AccountData;
+  errors?: FormikErrors<AccountData>;
+  handleChange?: (e: React.ChangeEvent<any>) => void;
   onCancel?: () => void;
-  onSuccess?: () => void;
+  onSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
 }) {
   const { data: accounts } = useAccounts();
-  const { mutate: createAccount } = useCreateAccount();
-  const handleValidationErrors =
-    useHandleValidationErrors<Partial<CreateAccountData>>();
-
-  const formik = useFormik<Partial<CreateAccountData>>({
-    initialValues: {
-      name: "",
-      balance: 0,
-      currency: undefined,
-      parent_id: undefined,
-    },
-    onSubmit: (values) => {
-      createAccount(
-        {
-          ...values,
-          balance: (values.balance || 0) * 100,
-        },
-        {
-          onSuccess,
-          onError: (error) => {
-            if (error.response?.status === 422) {
-              handleValidationErrors(error, formik);
-            }
-          },
-        }
-      );
-    },
-  });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={onSubmit}>
       <div className="grid grid-cols-1 gap-4">
         <div>
           <Label htmlFor="name">name</Label>
@@ -55,11 +32,11 @@ export default function AccountForm({
             type="text"
             id="name"
             name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            $invalid={!!formik.errors.name}
+            value={values.name}
+            onChange={handleChange}
+            $invalid={!!errors.name}
           />
-          <InputError>{formik.errors.name}</InputError>
+          <InputError>{errors.name}</InputError>
         </div>
         <div>
           <Label htmlFor="balance">balance</Label>
@@ -67,11 +44,11 @@ export default function AccountForm({
             type="text"
             id="balance"
             name="balance"
-            value={formik.values.balance}
-            onChange={formik.handleChange}
-            $invalid={!!formik.errors.balance}
+            value={values.balance}
+            onChange={handleChange}
+            $invalid={!!errors.balance}
           />
-          <InputError>{formik.errors.balance}</InputError>
+          <InputError>{errors.balance}</InputError>
         </div>
         <div>
           <Label htmlFor="currency">Currency</Label>
@@ -79,9 +56,9 @@ export default function AccountForm({
             $as="select"
             id="currency"
             name="currency"
-            value={formik.values.currency}
-            onChange={formik.handleChange}
-            $invalid={!!formik.errors.currency}
+            value={values.currency}
+            onChange={handleChange}
+            $invalid={!!errors.currency}
           >
             <option value={""}>Please select...</option>
             {Object.keys(Currency).map((key) => (
@@ -90,7 +67,7 @@ export default function AccountForm({
               </option>
             ))}
           </Input>
-          <InputError>{formik.errors.currency}</InputError>
+          <InputError>{errors.currency}</InputError>
         </div>
         <div>
           <Label htmlFor="parent_id">parent</Label>
@@ -98,9 +75,9 @@ export default function AccountForm({
             $as="select"
             id="parent_id"
             name="parent_id"
-            value={formik.values.parent_id}
-            onChange={formik.handleChange}
-            $invalid={!!formik.errors.parent_id}
+            value={values.parent_id || undefined}
+            onChange={handleChange}
+            $invalid={!!errors.parent_id}
           >
             <option value={""}>Please select...</option>
             {accounts?.map((account) => (
@@ -109,7 +86,7 @@ export default function AccountForm({
               </option>
             ))}
           </Input>
-          <InputError>{formik.errors.parent_id}</InputError>
+          <InputError>{errors.parent_id}</InputError>
         </div>
         <div className="flex gap-3 justify-end">
           <SecondaryButton onClick={onCancel}>Cancel</SecondaryButton>

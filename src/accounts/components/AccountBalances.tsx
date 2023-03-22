@@ -7,6 +7,7 @@ import { useAccounts } from "../../api/accounts";
 import { Currency } from "../../types/Enums";
 import DashedButton from "../../common/components/ui/buttons/DashedButton";
 import CreateAccountButton from "./Buttons/CreateAccountButton";
+import AccountBalancesRow from "./AccountBalancesRow";
 
 export default function AccountBalances() {
   const { data: accounts } = useAccounts();
@@ -34,21 +35,7 @@ export default function AccountBalances() {
         {accounts
           ?.filter((a) => a.parent_id === null)
           .map((account) => (
-            <div
-              key={account.id}
-              className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded"
-            >
-              <div className="col-span-2 truncate font-semibold">
-                {account.name}
-              </div>
-
-              <div className="text-end text-slate-400">
-                <AccountBalance account={account} />
-              </div>
-              <div className="text-end">
-                {currencyFormat(account.balance_converted, Currency.UAH)}
-              </div>
-            </div>
+            <AccountBalancesRow key={account.id} account={account} />
           ))}
       </div>
       <CreateAccountButton />

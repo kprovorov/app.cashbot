@@ -1,6 +1,5 @@
 import api from "../services/api";
 import Rate from "../interfaces/Rate";
-import UpdateAccountData from "../interfaces/UpdateAccountData";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
@@ -9,7 +8,7 @@ import moment, { DurationInputArg2 } from "moment";
 import { AccountRaw } from "../types/ModelsRaw";
 import { Currency, RepeatUnit } from "../types/Enums";
 import { useCurrencyConverter } from "../hooks/currencyConverter";
-import { CreateAccountData } from "../types/CreateAccountData";
+import { CreateAccountData, UpdateAccountData } from "../types/AccountData";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
@@ -148,16 +147,12 @@ export function useCreateAccount() {
   return useMutation<
     AccountRaw,
     AxiosError<BackendErrorResponse>,
-    Partial<CreateAccountData>
-  >(
-    async (data: Partial<CreateAccountData>) =>
-      await api.post("accounts", data),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
-      },
-    }
-  );
+    CreateAccountData
+  >(async (data: CreateAccountData) => await api.post("accounts", data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(ACCOUNTS_QUERY);
+    },
+  });
 }
 
 export async function getRate(from: string, to: string): Promise<Rate> {

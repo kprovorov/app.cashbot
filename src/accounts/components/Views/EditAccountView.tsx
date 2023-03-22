@@ -1,28 +1,29 @@
 import { useFormik } from "formik";
-import { useAccounts, useCreateAccount } from "../../../api/accounts";
+import { useUpdateAccount } from "../../../api/accounts";
 import { useHandleValidationErrors } from "../../../hooks/common";
 import { AccountData } from "../../../types/AccountData";
+import { Account } from "../../../types/Models";
 import AccountForm from "../Forms/AccountForm";
 
-export default function CreateAccountView({
+export default function EditAccountView({
+  account,
   onCancel = () => {},
   onSuccess = () => {},
 }: {
+  account: Account;
   onCancel?: () => void;
   onSuccess?: () => void;
 }) {
-  const { mutate: createAccount } = useCreateAccount();
+  const { mutate: updateAccount } = useUpdateAccount(account.id);
   const handleValidationErrors = useHandleValidationErrors<AccountData>();
 
   const formik = useFormik<AccountData>({
     initialValues: {
-      name: "",
-      balance: 0,
-      currency: undefined,
-      parent_id: undefined,
+      ...account,
+      balance: account.balance / 100,
     },
     onSubmit: (values) => {
-      createAccount(
+      updateAccount(
         {
           ...values,
           balance: (values.balance || 0) * 100,
