@@ -12,8 +12,7 @@ export function useCurrencyConverter() {
         const rate = (amount > 0 ? rates[from][to] : rates[to][from]) || 1;
 
         return (
-          Math.round((amount > 0 ? amount / rate : amount * rate) * 1000000) /
-          1000000
+          Math.round((amount > 0 ? amount / rate : amount * rate) * 100) / 100
         );
       }
 
