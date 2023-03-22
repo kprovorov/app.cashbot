@@ -1,6 +1,5 @@
 import api from "../services/api";
 import Rate from "../interfaces/Rate";
-import UpdateAccountData from "../interfaces/UpdateAccountData";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
@@ -9,6 +8,7 @@ import moment, { DurationInputArg2 } from "moment";
 import { AccountRaw } from "../types/ModelsRaw";
 import { Currency, RepeatUnit } from "../types/Enums";
 import { useCurrencyConverter } from "../hooks/currencyConverter";
+import { CreateAccountData, UpdateAccountData } from "../types/AccountData";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
@@ -141,13 +141,29 @@ export function useUpdateAccount(accountId: number) {
   );
 }
 
-export async function getRate(from: string, to: string): Promise<Rate> {
-  const { data } = await api.get("rates", {
-    params: {
-      from,
-      to,
+export function useCreateAccount() {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    AccountRaw,
+    AxiosError<BackendErrorResponse>,
+    CreateAccountData
+  >(async (data: CreateAccountData) => await api.post("accounts", data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(ACCOUNTS_QUERY);
     },
   });
+}
 
-  return data;
+export function useDeleteAccount(accountId: number) {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, AxiosError<BackendErrorResponse>>(
+    async () => await api.delete(`accounts/${accountId}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+      },
+    }
+  );
 }

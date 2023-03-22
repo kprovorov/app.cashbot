@@ -98,7 +98,7 @@ function Dashboard() {
               >
                 <SwiperSlide>
                   <div className="flex flex-col gap-4 px-4 pb-8">
-                    {accounts?.length ? (
+                    {accounts ? (
                       <>
                         <AccountBalances />
                         {accounts

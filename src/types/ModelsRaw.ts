@@ -4,7 +4,7 @@ export type AccountRaw = {
   id: number;
   user_id: number;
   user?: UserRaw;
-  parent_id?: number;
+  parent_id: number | null;
   parent?: AccountRaw;
   name: string;
   balance: number;
