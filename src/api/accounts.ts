@@ -155,13 +155,15 @@ export function useCreateAccount() {
   });
 }
 
-export async function getRate(from: string, to: string): Promise<Rate> {
-  const { data } = await api.get("rates", {
-    params: {
-      from,
-      to,
-    },
-  });
+export function useDeleteAccount(accountId: number) {
+  const queryClient = useQueryClient();
 
-  return data;
+  return useMutation<void, AxiosError<BackendErrorResponse>>(
+    async () => await api.delete(`accounts/${accountId}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+      },
+    }
+  );
 }

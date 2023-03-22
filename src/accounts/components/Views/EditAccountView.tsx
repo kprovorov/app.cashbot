@@ -3,6 +3,7 @@ import { useUpdateAccount } from "../../../api/accounts";
 import { useHandleValidationErrors } from "../../../hooks/common";
 import { AccountData } from "../../../types/AccountData";
 import { Account } from "../../../types/Models";
+import DeleteAccountButton from "../Buttons/DeleteAccountButton";
 import AccountForm from "../Forms/AccountForm";
 
 export default function EditAccountView({
@@ -49,6 +50,7 @@ export default function EditAccountView({
         onCancel={onCancel}
         onSubmit={formik.handleSubmit}
       />
+      <DeleteAccountButton account={account} />
     </div>
   );
 }

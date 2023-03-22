@@ -15,9 +15,9 @@ export default function AccountBalances() {
   return (
     <Card className="gap-3">
       <CardHeader>
-        <CardTitle>Balances</CardTitle>
+        <CardTitle>Accounts</CardTitle>
         <div className="font-bold">
-          {accounts
+          {accounts?.length
             ? currencyFormat(
                 accounts
                   .filter((a) => a.parent_id === null)
