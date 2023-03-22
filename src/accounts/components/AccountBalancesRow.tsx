@@ -24,11 +24,13 @@ export default function AccountBalancesRow({ account }: { account: Account }) {
           {currencyFormat(account.balance_converted, Currency.UAH)}
         </div>
       </div>
-      <EditAccountModal
-        show={showModal}
-        onClose={() => setShowModal(false)}
-        account={account}
-      />
+      {showModal ? (
+        <EditAccountModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          account={account}
+        />
+      ) : null}
     </>
   );
 }
