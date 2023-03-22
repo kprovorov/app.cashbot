@@ -73,6 +73,10 @@ export function useAccounts() {
             }))
             .map((payment) => ({
               ...payment,
+              amount_original: payment.amount,
+            }))
+            .map((payment) => ({
+              ...payment,
               amount_converted: convert(
                 payment.amount,
                 payment.currency,

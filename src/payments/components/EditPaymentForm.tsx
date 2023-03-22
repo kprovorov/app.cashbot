@@ -31,7 +31,7 @@ export default function EditPaymentForm({
       account_to_id: payment.account_to_id,
       account_from_id: payment.account_from_id,
       description: payment.description,
-      amount: Math.abs(payment.amount / 100),
+      amount: Math.abs(payment.amount_original / 100),
       currency: payment.currency,
       from_date: payment.date.format("YYYY-MM-DD"),
       mode: PaymentUpdateMode.SINGLE,
