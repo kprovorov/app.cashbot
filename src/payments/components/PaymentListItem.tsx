@@ -6,6 +6,7 @@ import EditPaymentModal from "./EditPaymentModal";
 import DeletePaymentButton from "./DeletePaymentButton";
 import { DatePill } from "../../common/components/DatePill";
 import { Account, Payment } from "../../types/Models";
+import { Currency } from "../../types/Enums";
 
 export default function PaymentListItem({
   payment,
@@ -22,7 +23,7 @@ export default function PaymentListItem({
 }: PropsWithChildren<{
   payment: Payment;
   account?: Account;
-  currency: string;
+  currency: Currency;
   showDescription?: boolean;
   showAccountName?: boolean;
   showDeleteButton?: boolean;
@@ -102,7 +103,7 @@ export default function PaymentListItem({
         )}
         <div
           className={`col-span-2 text-right ${
-            payment.amount_converted > 0
+            payment.amount > 0
               ? "text-positive font-semibold"
               : "text-slate-600"
           }`}

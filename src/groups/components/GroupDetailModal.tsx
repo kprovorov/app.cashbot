@@ -49,9 +49,7 @@ export default function GroupDetailModal({
             .map((payment) => (
               <PaymentListItem
                 account={account}
-                key={`${payment.id}_${payment.date.unix()}_${
-                  payment.amount_converted
-                }`}
+                key={`${payment.id}_${payment.date.unix()}`}
                 payment={payment}
                 currency={account.currency}
                 showDescription={false}

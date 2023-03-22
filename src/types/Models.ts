@@ -9,7 +9,7 @@ export type Account = Omit<AccountRaw, "payments_to" | "payments_from"> & {
   name: string;
   currency: Currency;
   balance: number;
-  uah_balance?: number;
+  balance_converted: number;
 };
 
 export type Payment = PaymentRaw & {

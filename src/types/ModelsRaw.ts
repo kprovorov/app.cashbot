@@ -12,7 +12,6 @@ export type AccountRaw = {
   payments_to?: PaymentRaw[];
   payments_from?: PaymentRaw[];
   jars?: AccountRaw[];
-  uah_balance?: number;
 };
 
 export type PaymentRaw = {
@@ -26,8 +25,6 @@ export type PaymentRaw = {
   date: string;
   amount: number;
   currency: Currency;
-  amount_from_converted?: number;
-  amount_to_converted?: number;
   auto_apply: boolean;
   applied_at?: string;
   budget: boolean;

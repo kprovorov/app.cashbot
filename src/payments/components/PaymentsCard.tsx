@@ -22,7 +22,11 @@ export default function PaymentsCard({
           <PaymentListItem
             key={`${payment.id}_${index}`}
             payment={payment}
-            currency={payment.currency}
+            currency={
+              payment.account_to?.currency ||
+              payment.account_from?.currency ||
+              payment.currency
+            }
           />
         ))}
       </div>

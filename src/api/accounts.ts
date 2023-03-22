@@ -1,6 +1,5 @@
 import api from "../services/api";
 import Rate from "../interfaces/Rate";
-import UpdatePaymentData from "../interfaces/UpdatePaymentData";
 import UpdateAccountData from "../interfaces/UpdateAccountData";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
@@ -8,11 +7,14 @@ import { BackendErrorResponse } from "../hooks/common";
 import { Account } from "../types/Models";
 import moment, { DurationInputArg2 } from "moment";
 import { AccountRaw } from "../types/ModelsRaw";
-import { RepeatUnit } from "../types/Enums";
+import { Currency, RepeatUnit } from "../types/Enums";
+import { useCurrencyConverter } from "../hooks/currencyConverter";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
 export function useAccounts() {
+  const { convert, isLoading } = useCurrencyConverter();
+
   return useQuery<Account[], AxiosError<BackendErrorResponse>>(
     ACCOUNTS_QUERY,
     async () => {
@@ -21,6 +23,11 @@ export function useAccounts() {
       return res.data.map((account: AccountRaw) => {
         return {
           ...account,
+          balance_converted: convert(
+            account.balance,
+            account.currency,
+            Currency.UAH
+          ),
           payments: [
             ...(account.payments_to || []),
             ...(account.payments_from || []),
@@ -59,10 +66,18 @@ export function useAccounts() {
             .sort((a, b) => a.date.unix() - b.date.unix())
             .map((payment) => ({
               ...payment,
-              amount_converted:
+              amount:
                 payment.account_from_id === account.id
-                  ? -(payment.amount_from_converted || 0)
-                  : payment.amount_to_converted || 0,
+                  ? -(payment.amount || 0)
+                  : payment.amount || 0,
+            }))
+            .map((payment) => ({
+              ...payment,
+              amount_converted: convert(
+                payment.amount,
+                payment.currency,
+                account.currency
+              ),
             }))
             .map((payment) => {
               let amount = payment.amount;
@@ -76,13 +91,6 @@ export function useAccounts() {
                 );
                 const totalDays = payment.date.diff(paymentEndsOn, "days");
                 const daysLeft = today.diff(paymentEndsOn, "days");
-
-                console.log({
-                  today,
-                  paymentEndsOn,
-                  totalDays,
-                  daysLeft,
-                });
 
                 amount = paymentEndsOn.isBefore(today)
                   ? 0
@@ -114,6 +122,7 @@ export function useAccounts() {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       retry: false,
+      enabled: !isLoading,
     }
   );
 }

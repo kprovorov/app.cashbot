@@ -4,6 +4,7 @@ import Card from "../../common/components/ui/card/Card";
 import CardHeader from "../../common/components/ui/card/CardHeader";
 import CardTitle from "../../common/components/ui/card/CardTitle";
 import { useAccounts } from "../../api/accounts";
+import { Currency } from "../../types/Enums";
 
 export default function AccountBalances() {
   const { data: accounts } = useAccounts();
@@ -19,10 +20,10 @@ export default function AccountBalances() {
                   .filter((a) => a.parent_id === null)
                   .reduce(
                     (partialSum, account) =>
-                      partialSum + (account.uah_balance || 0),
+                      partialSum + account.balance_converted,
                     0
                   ),
-                "UAH"
+                Currency.UAH
               )
             : null}
         </div>
@@ -42,11 +43,9 @@ export default function AccountBalances() {
               <div className="text-end text-slate-400">
                 <AccountBalance account={account} />
               </div>
-              {account.uah_balance !== undefined && (
-                <div className="text-end">
-                  {currencyFormat(account.uah_balance, "UAH")}
-                </div>
-              )}
+              <div className="text-end">
+                {currencyFormat(account.balance_converted, Currency.UAH)}
+              </div>
             </div>
           ))}
       </div>
