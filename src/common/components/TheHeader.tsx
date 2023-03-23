@@ -1,10 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../api/auth";
 import CreatePaymentButton from "../../payments/components/CreatePaymentButton";
 import { User } from "../../types/Models";
 import HeaderButton from "./HeaderButton";
 
 export default function TheHeader({ user }: { user?: User }) {
+  const navigate = useNavigate();
   const { mutate } = useLogoutMutation();
+
+  const logout = () => {
+    mutate(
+      {},
+      {
+        onSuccess: () => navigate("/"),
+      }
+    );
+  };
 
   return (
     <div className="flex bg-slate-800 p-3 text-white justify-between items-center">
@@ -18,11 +29,7 @@ export default function TheHeader({ user }: { user?: User }) {
         <div className="flex items-center gap-3">
           <div>{user.name}</div>
           <div>
-            <HeaderButton
-              onClick={() => {
-                mutate();
-              }}
-            >
+            <HeaderButton onClick={logout}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

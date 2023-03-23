@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { BackendErrorResponse } from "../hooks/common";
 import LoginFormData from "../interfaces/LoginFormData";
 import api from "../services/api";
@@ -12,7 +13,7 @@ export function useLoginMutation() {
   const queryClient = useQueryClient();
 
   return useMutation<void, AxiosError<BackendErrorResponse>, LoginFormData>(
-    async (data) => {
+    async (data: LoginFormData) => {
       await api.get("sanctum/csrf-cookie");
       await api.post("login", data);
     },
@@ -28,7 +29,7 @@ export function useLoginMutation() {
 export function useLogoutMutation() {
   const queryClient = useQueryClient();
 
-  return useMutation<void, AxiosError<BackendErrorResponse>>(
+  return useMutation<void, AxiosError<BackendErrorResponse>, {}>(
     async () => {
       await api.post("logout");
     },
@@ -41,6 +42,8 @@ export function useLogoutMutation() {
 }
 
 export function useCurrentUser() {
+  const navigate = useNavigate();
+
   return useQuery<User, AxiosError<BackendErrorResponse>>(
     CURRENT_USER_QUERY,
     async () => {
@@ -51,6 +54,10 @@ export function useCurrentUser() {
     {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
+      retry: false,
+      onError(err) {
+        navigate("/login");
+      },
     }
   );
 }
