@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BackendErrorResponse } from "../hooks/common";
 import LoginFormData from "../interfaces/LoginFormData";
 import api from "../services/api";
+import { PasswordResetData, PasswordRestoreData } from "../types/AuthData";
 import { User } from "../types/Models";
 import { ACCOUNTS_QUERY } from "./accounts";
 
@@ -14,7 +15,6 @@ export function useLoginMutation() {
 
   return useMutation<void, AxiosError<BackendErrorResponse>, LoginFormData>(
     async (data: LoginFormData) => {
-      await api.get("sanctum/csrf-cookie");
       await api.post("login", data);
     },
     {
@@ -41,6 +41,47 @@ export function useLogoutMutation() {
   );
 }
 
+export function usePasswordRestoreMutation() {
+  const navigate = useNavigate();
+
+  return useMutation<
+    void,
+    AxiosError<BackendErrorResponse>,
+    PasswordRestoreData
+  >(
+    async (data: PasswordRestoreData) => {
+      await api.post("forgot-password", data);
+    },
+    {
+      onSuccess: () => {
+        alert("Password restore link sent to your email");
+      },
+      onError: (error) => {
+        alert(error.response?.data.message);
+      },
+    }
+  );
+}
+
+export function usePasswordResetMutation() {
+  const navigate = useNavigate();
+
+  return useMutation<void, AxiosError<BackendErrorResponse>, PasswordResetData>(
+    async (data: PasswordResetData) => {
+      await api.post("reset-password", data);
+    },
+    {
+      onSuccess: (data) => {
+        alert("Password reset successfully");
+        navigate("/auth/login");
+      },
+      onError: (error) => {
+        alert(error.response?.data.message);
+      },
+    }
+  );
+}
+
 export function useCurrentUser() {
   const navigate = useNavigate();
 
@@ -55,8 +96,8 @@ export function useCurrentUser() {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       retry: false,
-      onError(err) {
-        navigate("/login");
+      onError() {
+        navigate("/auth/login");
       },
     }
   );

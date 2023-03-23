@@ -3,6 +3,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
+import AuthLayout from "./common/components/Layouts/AuthLayout";
+import PasswordRestore from "./pages/PasswordRestore";
+import PasswordReset from "./pages/PasswordReset";
 
 const router = createBrowserRouter([
   {
@@ -10,8 +13,22 @@ const router = createBrowserRouter([
     element: <Dashboard />,
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "password/restore",
+        element: <PasswordRestore />,
+      },
+      {
+        path: "password/reset",
+        element: <PasswordReset />,
+      },
+    ],
   },
 ]);
 
