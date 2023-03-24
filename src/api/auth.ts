@@ -15,6 +15,7 @@ export function useLoginMutation() {
 
   return useMutation<void, AxiosError<BackendErrorResponse>, LoginFormData>(
     async (data: LoginFormData) => {
+      await api.get("sanctum/csrf-cookie");
       await api.post("login", data);
     },
     {
@@ -50,6 +51,7 @@ export function usePasswordRestoreMutation() {
     PasswordRestoreData
   >(
     async (data: PasswordRestoreData) => {
+      await api.get("sanctum/csrf-cookie");
       await api.post("forgot-password", data);
     },
     {
@@ -68,6 +70,7 @@ export function usePasswordResetMutation() {
 
   return useMutation<void, AxiosError<BackendErrorResponse>, PasswordResetData>(
     async (data: PasswordResetData) => {
+      await api.get("sanctum/csrf-cookie");
       await api.post("reset-password", data);
     },
     {
