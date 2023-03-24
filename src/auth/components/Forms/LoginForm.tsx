@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
-import { useLoginMutation } from "../../api/auth";
-import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
-import Input from "../../common/components/ui/forms/Input";
-import InputError from "../../common/components/ui/forms/InputError";
-import Label from "../../common/components/ui/forms/Label";
-import LoginFormData from "../../interfaces/LoginFormData";
+import { useLoginMutation } from "../../../api/auth";
+import PrimaryButton from "../../../common/components/ui/buttons/PrimaryButton";
+import Input from "../../../common/components/ui/forms/Input";
+import InputError from "../../../common/components/ui/forms/InputError";
+import Label from "../../../common/components/ui/forms/Label";
+import LoginFormData from "../../../interfaces/LoginFormData";
 
 export default function LoginForm({
   onSubmit,
