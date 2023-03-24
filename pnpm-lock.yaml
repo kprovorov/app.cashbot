@@ -3,6 +3,8 @@ lockfileVersion: 5.4
 specifiers:
   '@headlessui/react': ^1.7.12
   '@heroicons/react': ^2.0.16
+  '@sentry/react': ^7.45.0
+  '@sentry/tracing': ^7.45.0
   '@tailwindcss/forms': ^0.5.3
   '@types/react': ^18.0.26
   '@types/react-dom': ^18.0.9
@@ -37,6 +39,8 @@ specifiers:
 dependencies:
   '@headlessui/react': 1.7.12_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 2.0.16_react@18.2.0
+  '@sentry/react': 7.45.0_react@18.2.0
+  '@sentry/tracing': 7.45.0
   axios: 1.3.3
   formik: 2.2.9_react@18.2.0
   localforage: 1.10.0
@@ -649,6 +653,80 @@ packages:
   /@remix-run/router/1.4.0:
     resolution: {integrity: sha512-BJ9SxXux8zAg991UmT8slpwpsd31K1dHHbD3Ba4VzD+liLQ4WAMSxQp2d2ZPRPfN0jN2NPRowcSSoM7lCaF08Q==}
     engines: {node: '>=14'}
+    dev: false
+
+  /@sentry-internal/tracing/7.45.0:
+    resolution: {integrity: sha512-0aIDY2OvUX7k2XHaimOlWkboXoQvJ9dEKvfpu0Wh0YxfUTGPa+wplUdg3WVdkk018sq1L11MKmj4MPZyYUvXhw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.45.0
+      '@sentry/types': 7.45.0
+      '@sentry/utils': 7.45.0
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/browser/7.45.0:
+    resolution: {integrity: sha512-/dUrUwnI34voMj+jSJT7b5Jun+xy1utVyzzwTq3Oc22N+SB17ZOX9svZ4jl1Lu6tVJPVjPyvL6zlcbrbMwqFjg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry-internal/tracing': 7.45.0
+      '@sentry/core': 7.45.0
+      '@sentry/replay': 7.45.0
+      '@sentry/types': 7.45.0
+      '@sentry/utils': 7.45.0
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/core/7.45.0:
+    resolution: {integrity: sha512-xJfdTS4lRmHvZI/A5MazdnKhBJFkisKu6G9EGNLlZLre+6W4PH5sb7QX4+xoBdqG7v10Jvdia112vi762ojO2w==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.45.0
+      '@sentry/utils': 7.45.0
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/react/7.45.0_react@18.2.0:
+    resolution: {integrity: sha512-Dbz85nfvMUikbLHUuIt6fBNPmTvThFn+rWB5KS1NIOJifyWAdpIU3X7yCUJE5xhsUObNLiHlNJlqhaQI4nR1bQ==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      react: 15.x || 16.x || 17.x || 18.x
+    dependencies:
+      '@sentry/browser': 7.45.0
+      '@sentry/types': 7.45.0
+      '@sentry/utils': 7.45.0
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      tslib: 1.14.1
+    dev: false
+
+  /@sentry/replay/7.45.0:
+    resolution: {integrity: sha512-smM7FIcFIyKu30BqCl8BzLo1gH/z9WwXdGX6V0fNvHab9fJZ09+xjFn+LmIyo6N8H8jjwsup0+yQ12kiF/ZsEw==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@sentry/core': 7.45.0
+      '@sentry/types': 7.45.0
+      '@sentry/utils': 7.45.0
+    dev: false
+
+  /@sentry/tracing/7.45.0:
+    resolution: {integrity: sha512-FsoFmZPzTBGvWeJH73NxSF1ot61Zw3aIZo5XolengiKnRmcrQOFxebtMKBiZ61QBRYGqsm5uT7QB7zITU6Ikgg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry-internal/tracing': 7.45.0
+    dev: false
+
+  /@sentry/types/7.45.0:
+    resolution: {integrity: sha512-iFt7msfUK8LCodFF3RKUyaxy9tJv/gpWhzxUFyNxtuVwlpmd+q6mtsFGn8Af3pbpm8A+MKyz1ebMwXj0PQqknw==}
+    engines: {node: '>=8'}
+    dev: false
+
+  /@sentry/utils/7.45.0:
+    resolution: {integrity: sha512-aTY7qqtNUudd09SH5DVSKMm3iQ6ZeWufduc0I9bPZe6UMM09BDc4KmjmrzRkdQ+VaOmHo7+v+HZKQk5f+AbuTQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.45.0
+      tslib: 1.14.1
     dev: false
 
   /@tailwindcss/forms/0.5.3_tailwindcss@3.2.7:
