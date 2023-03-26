@@ -76,19 +76,19 @@ function Dashboard() {
                 // "320": {
                 //   slidesPerView: 1,
                 // },
-                "560": {
+                "640": {
                   slidesPerView: 2,
                 },
-                "840": {
+                "960": {
                   slidesPerView: 3,
                 },
-                "1120": {
+                "1280": {
                   slidesPerView: 4,
                 },
-                "1400": {
+                "1600": {
                   slidesPerView: 5,
                 },
-                "1680": {
+                "1920": {
                   slidesPerView: 6,
                 },
               }}
@@ -127,7 +127,7 @@ function Dashboard() {
                       ) : null}
                       {accounts.flatMap((account) => account.payments || [])
                         .length ? (
-                        <div className="w-full pt-6 flex flex-col items-center gap-4">
+                        <div className="w-full pt-6 flex flex-col items-center gap-4 sm:hidden">
                           <div className="text-center font-semibold text-xl text-slate-300">
                             Swipe to see your payments
                           </div>
