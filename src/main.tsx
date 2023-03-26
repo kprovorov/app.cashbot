@@ -4,7 +4,6 @@ import App from "./App";
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 import "./index.css";
-import "swiper/css";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
