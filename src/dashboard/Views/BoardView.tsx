@@ -12,7 +12,7 @@ export default function BoardView({
   const { data: accounts } = useAccounts();
 
   return (
-    <div className="flex overflow-auto snap-x gap-x-6 px-4 w-full h-full">
+    <div className="flex overflow-auto snap-x gap-x-4 px-4 scroll-px-4 w-full h-full">
       <div className="snap-center xs:snap-start">
         <div className="flex flex-col gap-6 w-96">
           {accounts ? (
