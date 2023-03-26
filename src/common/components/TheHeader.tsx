@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useLogoutMutation } from "../../api/auth";
+import { useCurrentUser, useLogoutMutation } from "../../api/auth";
 import CreatePaymentButton from "../../payments/components/CreatePaymentButton";
-import { User } from "../../types/Models";
 import HeaderButton from "./HeaderButton";
 
-export default function TheHeader({ user }: { user?: User }) {
+export default function TheHeader() {
   const navigate = useNavigate();
+  const { data: user } = useCurrentUser();
   const { mutate } = useLogoutMutation();
 
   const logout = () => {
