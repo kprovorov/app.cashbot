@@ -100,33 +100,50 @@ function Dashboard() {
                     <>
                       <AccountBalances />
                       {accounts
-                        .map((account) => account.payments || [])
-                        .flat()
+                        .flatMap((account) => account.payments || [])
                         .filter((payment) => payment.balance < 0).length ? (
                         <PaymentsCard
                           title="Alerts"
                           payments={accounts
-                            .map((account) => account.payments || [])
-                            .flat()
+                            .flatMap((account) => account.payments || [])
                             .filter((payment) => payment.balance < 0)}
                         />
                       ) : null}
                       {accounts
-                        .map((account) => account.payments || [])
-                        .flat()
+                        .flatMap((account) => account.payments || [])
+
                         .filter(
                           (payment) => moment(payment.date).diff(moment()) < 0
                         ).length ? (
                         <PaymentsCard
                           title="Upcoming"
                           payments={accounts
-                            .map((account) => account.payments || [])
-                            .flat()
+                            .flatMap((account) => account.payments || [])
                             .filter(
                               (payment) =>
                                 moment(payment.date).diff(moment()) < 0
                             )}
                         />
+                      ) : null}
+                      {accounts.flatMap((account) => account.payments || [])
+                        .length ? (
+                        <div className="w-full pt-6 flex flex-col items-center gap-4">
+                          <div className="text-center font-semibold text-xl text-slate-300">
+                            Swipe to see your payments
+                          </div>
+                          <svg
+                            width="78"
+                            height="29"
+                            viewBox="0 0 78 29"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              className="fill-slate-300"
+                              d="M2.46935 19.3339C1.65573 19.5108 0.302145 19.2818 0.332366 18.2194C0.365012 17.1213 1.90493 16.5138 2.75684 16.3294C24.1151 11.6809 46.2696 11.0783 67.8471 14.5144C66.8747 13.5369 65.9024 12.5596 64.9239 11.5867C62.3454 9.00281 59.869 6.00749 56.8453 3.92899C54.8252 2.5316 58.7694 0.228797 60.2353 1.23726C63.6759 3.61274 66.4855 6.8818 69.4267 9.82423C70.9813 11.3784 72.5299 12.9362 74.0844 14.4903C75.166 15.569 77.8289 17.3052 77.3235 19.0648C76.8325 20.7801 74.5862 21.2795 73.1213 21.7515C71.0209 22.4226 68.9245 23.0995 66.8179 23.7746C62.4202 25.1844 58.0166 26.598 53.6194 28.0081C52.837 28.2595 51.2771 28.466 50.9152 27.4357C50.569 26.4294 51.9294 25.5603 52.6837 25.3181C56.2827 24.1614 59.8819 23.0051 63.4809 21.8485C65.1801 21.3012 66.8797 20.7537 68.5826 20.2125C69.4876 19.9244 70.3821 19.6342 71.2871 19.3461C71.6561 19.2264 72.0194 19.1099 72.3884 18.9902C72.3032 18.899 72.2142 18.802 72.1234 18.7152C49.139 14.1361 25.3735 14.3504 2.4698 19.3335L2.46935 19.3339Z"
+                            />
+                          </svg>
+                        </div>
                       ) : null}
                     </>
                   ) : null}
