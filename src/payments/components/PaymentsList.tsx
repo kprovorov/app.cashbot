@@ -8,7 +8,7 @@ export default function PaymentsList({
   account: Account;
 }>) {
   return (
-    <div className="overflow-y-auto flex flex-col">
+    <div>
       {account.payments?.map((payment) => (
         <PaymentListItem
           account={account}
