@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.12",
+    "@headlessui/tailwindcss": "^0.1.2",
     "@heroicons/react": "^2.0.16",
     "@sentry/react": "^7.45.0",
     "@sentry/tracing": "^7.45.0",
