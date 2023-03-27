@@ -18,3 +18,10 @@ export enum PaymentUpdateMode {
   FUTURE = "FUTURE",
   ALL = "ALL",
 }
+
+export enum PaymentType {
+  INCOME = "INCOME",
+  EXPENSE = "EXPENSE",
+  TRANSFER = "TRANSFER",
+  BUDGET = "BUDGET",
+}
