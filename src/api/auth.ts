@@ -99,9 +99,6 @@ export function useCurrentUser() {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       retry: false,
-      onError() {
-        navigate("/auth/login");
-      },
     }
   );
 }
