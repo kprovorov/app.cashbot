@@ -8,21 +8,28 @@ import SecondaryButton from "../buttons/SecondaryButton";
 export default function Datepicker({
   children,
   $invalid,
+  buttonClassName = "",
   ...props
-}: PropsWithChildren<ReactDatePickerProps & { $invalid: boolean }>) {
+}: PropsWithChildren<
+  ReactDatePickerProps & { $invalid: boolean; buttonClassName?: string }
+>) {
   const DatepickerInput = forwardRef<
     HTMLButtonElement,
     { value: Date | null | undefined; onClick?: () => void }
   >(({ value, onClick }, ref) => (
-    <Button
+    <SecondaryButton
       type="button"
-      className={`bg-slate-100 hover:bg-slate-200 w-full flex flex-row justify-between ${
+      className={`w-full flex flex-row justify-between text-slate-900  font-sans leading-tight py-2 px-3 border-slate-300 ${
         $invalid ? "text-error" : ""
-      }`}
+      } ${buttonClassName}`}
       onClick={onClick}
       ref={ref}
     >
-      <span>{value ? moment(value).format("D MMM YYYY") : "select date"}</span>
+      <span>
+        {value
+          ? moment(value).format("D MMM YYYY")
+          : props.placeholderText || "select date"}
+      </span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
@@ -35,7 +42,7 @@ export default function Datepicker({
           clipRule="evenodd"
         />
       </svg>
-    </Button>
+    </SecondaryButton>
   ));
 
   return (
