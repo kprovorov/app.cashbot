@@ -9,12 +9,12 @@ import { useCreatePayment } from "../../api/payments";
 import { useHandleValidationErrors } from "../../hooks/common";
 import InputError from "../../common/components/ui/forms/InputError";
 import { Currency, PaymentType, RepeatUnit } from "../../types/Enums";
-import Checkbox from "../../common/components/ui/forms/Checkbox";
 import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import { Tab } from "@headlessui/react";
 import Button from "../../common/components/ui/buttons/Button";
 import { currencyFormat } from "../../services/formatters";
+import Datepicker from "../../common/components/ui/forms/Datepicker";
 
 export default function CreatePaymentForm({
   onCreated,
@@ -127,13 +127,16 @@ export default function CreatePaymentForm({
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div>
             <Label htmlFor="date">Date</Label>
-            <Input
-              type="date"
+            <Datepicker
               id="date"
               name="date"
-              value={moment(formik.values.date).format("YYYY-MM-DD")}
-              onChange={formik.handleChange}
               $invalid={!!formik.errors.date}
+              selected={
+                formik.values.date ? new Date(formik.values.date) : null
+              }
+              onChange={(date) =>
+                formik.setFieldValue("date", date?.toISOString())
+              }
             />
             <InputError>{formik.errors.date}</InputError>
           </div>
