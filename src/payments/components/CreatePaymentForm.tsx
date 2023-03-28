@@ -103,7 +103,7 @@ export default function CreatePaymentForm({
             </Tab.Group>
           </div>
         </div>
-        <div className="col-span-12 flex flex-row items-center gap-2 text-slate-400">
+        <div className="col-span-12 flex flex-row items-top gap-2 text-slate-400">
           <div className="w-8 h-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ export default function CreatePaymentForm({
               />
             </svg>
           </div>
-          <div>{descriptions[paymentType]}</div>
+          <div className="flex items-center">{descriptions[paymentType]}</div>
         </div>
 
         <div className="col-span-6 sm:col-span-3">
