@@ -24,6 +24,13 @@ export default function CreatePaymentForm({
   const [paymentType, setPaymentType] = useState<PaymentType>(
     PaymentType.EXPENSE
   );
+  const descriptions: { [key in PaymentType]: string } = {
+    [PaymentType.EXPENSE]: "Plan expense payment",
+    [PaymentType.INCOME]: "Plan income payment",
+    [PaymentType.TRANSFER]: "Transfer between your accounts",
+    [PaymentType.BUDGET]:
+      "When budgeting expenses, the amount decreases daily. For instance, if you set a weekly payment of 700 EUR, after 2 days, it displays as 500 EUR.",
+  };
   const handleValidationErrors = useHandleValidationErrors<CreatePaymentData>();
   const { mutate } = useCreatePayment();
 
@@ -95,6 +102,25 @@ export default function CreatePaymentForm({
               </Tab.List>
             </Tab.Group>
           </div>
+        </div>
+        <div className="col-span-12 flex flex-row items-center gap-2 text-slate-400">
+          <div className="w-8 h-8">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-8 h-8 "
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+              />
+            </svg>
+          </div>
+          <div>{descriptions[paymentType]}</div>
         </div>
 
         <div className="col-span-6 sm:col-span-3">
