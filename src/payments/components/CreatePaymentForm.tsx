@@ -14,6 +14,7 @@ import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import { Tab } from "@headlessui/react";
 import Button from "../../common/components/ui/buttons/Button";
+import { currencyFormat } from "../../services/formatters";
 
 export default function CreatePaymentForm({
   onCreated,
@@ -53,7 +54,6 @@ export default function CreatePaymentForm({
       mutate(
         {
           ...values,
-          amount: values.amount * 100,
           budget: paymentType === PaymentType.BUDGET,
           account_from_id: [
             PaymentType.EXPENSE,
@@ -190,13 +190,21 @@ export default function CreatePaymentForm({
               className="text-center text-5xl border-none focus:outline-none focus:ring-0 bg-transparent"
               id="amount"
               name="amount"
-              value={formik.values.amount * 1}
-              onChange={formik.handleChange}
+              value={currencyFormat(
+                formik.values.amount,
+                formik.values.currency
+              )}
+              onChange={(e) => {
+                formik.setFieldValue(
+                  "amount",
+                  Number(e.target.value.replace(/\D/g, "")) * 100
+                );
+              }}
               $invalid={!!formik.errors.amount}
               autoComplete="off"
             />
 
-            <SecondaryButton
+            <Button
               type="button"
               className="border-none hover:bg-slate-200"
               onClick={() => {
@@ -223,7 +231,7 @@ export default function CreatePaymentForm({
                   clipRule="evenodd"
                 />
               </svg>
-            </SecondaryButton>
+            </Button>
           </div>
           <InputError>{formik.errors.amount}</InputError>
         </div>
