@@ -190,9 +190,10 @@ export default function CreatePaymentForm({
               className="text-center text-5xl border-none focus:outline-none focus:ring-0 bg-transparent"
               id="amount"
               name="amount"
-              value={formik.values.amount}
+              value={formik.values.amount * 1}
               onChange={formik.handleChange}
               $invalid={!!formik.errors.amount}
+              autoComplete="off"
             />
 
             <SecondaryButton
