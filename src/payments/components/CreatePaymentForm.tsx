@@ -17,15 +17,16 @@ import { currencyFormat } from "../../services/formatters";
 import Datepicker from "../../common/components/ui/forms/Datepicker";
 
 export default function CreatePaymentForm({
+  paymentType = PaymentType.EXPENSE,
   onCreated,
   onCancel = () => {},
 }: PropsWithChildren<{
+  paymentType?: PaymentType;
   onCreated: () => void;
   onCancel?: () => void;
 }>) {
-  const [paymentType, setPaymentType] = useState<PaymentType>(
-    PaymentType.EXPENSE
-  );
+  const [selectedPaymentType, setSelectedPaymentType] =
+    useState<PaymentType>(paymentType);
   const [customRepeat, setCustomRepeat] = useState(false);
   const descriptions: { [key in PaymentType]: string } = {
     [PaymentType.EXPENSE]: "Plan expense payment",
@@ -45,7 +46,7 @@ export default function CreatePaymentForm({
       amount: 0,
       currency: Currency.UAH,
       date: "",
-      budget: paymentType === PaymentType.BUDGET,
+      budget: selectedPaymentType === PaymentType.BUDGET,
       auto_apply: false,
       repeat_unit: RepeatUnit.NONE,
       repeat_interval: 1,
@@ -55,16 +56,16 @@ export default function CreatePaymentForm({
       mutate(
         {
           ...values,
-          budget: paymentType === PaymentType.BUDGET,
+          budget: selectedPaymentType === PaymentType.BUDGET,
           account_from_id: [
             PaymentType.EXPENSE,
             PaymentType.TRANSFER,
             PaymentType.BUDGET,
-          ].includes(paymentType)
+          ].includes(selectedPaymentType)
             ? values.account_from_id
             : undefined,
           account_to_id: [PaymentType.INCOME, PaymentType.TRANSFER].includes(
-            paymentType
+            selectedPaymentType
           )
             ? values.account_to_id
             : undefined,
@@ -88,14 +89,16 @@ export default function CreatePaymentForm({
       <div className="flex flex-col gap-4">
         <div className="bg-slate-100 p-2 rounded-lg">
           <Tab.Group
-            defaultIndex={Object.values(PaymentType).indexOf(paymentType)}
+            defaultIndex={Object.values(PaymentType).indexOf(
+              selectedPaymentType
+            )}
           >
             <Tab.List>
               {Object.values(PaymentType).map((key) => (
                 <Tab
                   key={key}
                   className="ui-selected:bg-white ui-selected:shadow ui-selected:shadow-slate-300 px-3 py-1 rounded capitalize font-semibold"
-                  onClick={() => setPaymentType(key)}
+                  onClick={() => setSelectedPaymentType(key)}
                 >
                   {key.toLowerCase()}
                 </Tab>
@@ -121,7 +124,9 @@ export default function CreatePaymentForm({
               />
             </svg>
           </div>
-          <div className="flex items-center">{descriptions[paymentType]}</div>
+          <div className="flex items-center">
+            {descriptions[selectedPaymentType]}
+          </div>
         </div>
 
         <div className="flex flex-col gap-4 items-center w-full">
