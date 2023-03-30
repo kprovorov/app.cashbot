@@ -21,6 +21,7 @@ export type Payment = PaymentRaw & {
   amount_original: number;
   applied_at?: Moment;
   balance: number;
+  group_repeat_ends_on: Moment | null;
 };
 
 export type User = UserRaw;
