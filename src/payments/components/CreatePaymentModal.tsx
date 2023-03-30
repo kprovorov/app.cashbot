@@ -4,11 +4,13 @@ import { PaymentType } from "../../types/Enums";
 import CreatePaymentView from "./Views/CreatePaymentView";
 
 export default function CreatePaymentModal({
-  paymentType = PaymentType.EXPENSE,
+  paymentType = undefined,
+  accountId = undefined,
   show,
   onClose,
 }: PropsWithChildren<{
   paymentType?: PaymentType;
+  accountId?: number;
   show: boolean;
   onClose: () => void;
 }>) {
@@ -18,6 +20,7 @@ export default function CreatePaymentModal({
         onCreated={onClose}
         onCancel={onClose}
         paymentType={paymentType}
+        accountId={accountId}
       />
     </Modal>
   );

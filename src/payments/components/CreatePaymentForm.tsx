@@ -1,7 +1,6 @@
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { useAccounts } from "../../api/accounts";
 import CreatePaymentData from "../../interfaces/CreatePaymentData";
-import moment from "moment";
 import Input from "../../common/components/ui/forms/Input";
 import Label from "../../common/components/ui/forms/Label";
 import { useFormik } from "formik";
@@ -17,16 +16,19 @@ import { currencyFormat } from "../../services/formatters";
 import Datepicker from "../../common/components/ui/forms/Datepicker";
 
 export default function CreatePaymentForm({
-  paymentType = PaymentType.EXPENSE,
+  paymentType = undefined,
+  accountId = undefined,
   onCreated,
   onCancel = () => {},
 }: PropsWithChildren<{
   paymentType?: PaymentType;
+  accountId?: number;
   onCreated: () => void;
   onCancel?: () => void;
 }>) {
-  const [selectedPaymentType, setSelectedPaymentType] =
-    useState<PaymentType>(paymentType);
+  const [selectedPaymentType, setSelectedPaymentType] = useState<PaymentType>(
+    PaymentType.EXPENSE
+  );
   const [customRepeat, setCustomRepeat] = useState(false);
   const descriptions: { [key in PaymentType]: string } = {
     [PaymentType.EXPENSE]: "Plan expense payment",
@@ -37,6 +39,17 @@ export default function CreatePaymentForm({
   };
   const handleValidationErrors = useHandleValidationErrors<CreatePaymentData>();
   const { mutate } = useCreatePayment();
+
+  useEffect(() => {
+    if (paymentType) {
+      setSelectedPaymentType(paymentType);
+    }
+
+    if (accountId) {
+      formik.setFieldValue("account_from_id", accountId);
+      formik.setFieldValue("account_to_id", accountId);
+    }
+  }, []);
 
   const formik = useFormik<CreatePaymentData>({
     initialValues: {
@@ -89,7 +102,7 @@ export default function CreatePaymentForm({
       <div className="flex flex-col gap-4">
         <div className="bg-slate-100 p-2 rounded-lg">
           <Tab.Group
-            defaultIndex={Object.values(PaymentType).indexOf(
+            selectedIndex={Object.values(PaymentType).indexOf(
               selectedPaymentType
             )}
           >
@@ -349,7 +362,7 @@ export default function CreatePaymentForm({
             PaymentType.EXPENSE,
             PaymentType.TRANSFER,
             PaymentType.BUDGET,
-          ].includes(paymentType) && (
+          ].includes(selectedPaymentType) && (
             <div className="flex-grow">
               <Label htmlFor="account_from_id">Account From</Label>
               <Input
@@ -371,7 +384,7 @@ export default function CreatePaymentForm({
             </div>
           )}
 
-          {paymentType === PaymentType.TRANSFER && (
+          {selectedPaymentType === PaymentType.TRANSFER && (
             <div className="pb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -390,7 +403,9 @@ export default function CreatePaymentForm({
             </div>
           )}
 
-          {[PaymentType.INCOME, PaymentType.TRANSFER].includes(paymentType) && (
+          {[PaymentType.INCOME, PaymentType.TRANSFER].includes(
+            selectedPaymentType
+          ) && (
             <div className="flex-grow">
               <Label htmlFor="account_to_id">Account To</Label>
               <Input

@@ -9,6 +9,7 @@ import "./AccountCard.css";
 import { Popover } from "@headlessui/react";
 import { Account } from "../../types/Models";
 import EditAccountModal from "./Modals/EditAccountModal";
+import CreatePaymentModal from "../../payments/components/CreatePaymentModal";
 
 export default function AccountCard({
   account,
@@ -16,20 +17,42 @@ export default function AccountCard({
   account: Account;
 }>) {
   const [showModal, setShowModal] = useState(false);
+  const [showCreatePaymentModal, setShowCreatePaymentModal] = useState(false);
 
   return (
     <>
       <Card>
         <div className="flex flex-col">
           <CardHeader>
-            <CardTitle
-              className="flex-grow flex gap-1 cursor-pointer hover:text-primary"
-              onClick={() => setShowModal(true)}
-            >
-              <span>{account.name}</span>
-              <span className="text-slate-400 font-normal">
+            <CardTitle className="flex-grow flex items-center gap-2">
+              <span
+                onClick={() => setShowModal(true)}
+                className="hover:text-primary cursor-pointer"
+              >
+                {account.name}
+              </span>
+              <span className="text-slate-400 font-normal ">
                 {account.currency}
               </span>
+              <button
+                className="border border-slate-200 rounded-full hover:bg-slate-100 flex items-center justify-center w-5 h-5 p-0 text-slate-400"
+                onClick={() => setShowCreatePaymentModal(true)}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v12m6-6H6"
+                  />
+                </svg>
+              </button>
             </CardTitle>
             <div className="font-bold flex items-center gap-2">
               {!!account.balance_savings && (
@@ -104,6 +127,13 @@ export default function AccountCard({
           <PaymentsList account={account} />
         </div>
       </Card>
+      {showCreatePaymentModal ? (
+        <CreatePaymentModal
+          show={showCreatePaymentModal}
+          onClose={() => setShowCreatePaymentModal(false)}
+          accountId={account.id}
+        />
+      ) : null}
       {showModal ? (
         <EditAccountModal
           show={showModal}
