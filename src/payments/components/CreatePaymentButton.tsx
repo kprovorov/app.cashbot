@@ -131,8 +131,6 @@ export default function CreatePaymentButton() {
               </Button>
             ))}
           </div>
-
-          <img src="/solutions.jpg" alt="" />
         </Popover.Panel>
       </Popover>
       <CreatePaymentModal
