@@ -20,6 +20,7 @@ function Dashboard() {
   return (
     <>
       <TheHeader user={user} />
+
       <div className="flex flex-col">
         <div>
           <div className="flex items-center justify-between px-4 py-6">
