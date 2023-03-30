@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
 import { Account } from "../types/Models";
 import moment, { DurationInputArg2 } from "moment";
-import { AccountRaw } from "../types/ModelsRaw";
+import { AccountRaw, PaymentRaw } from "../types/ModelsRaw";
 import { Currency, RepeatUnit } from "../types/Enums";
 import { useCurrencyConverter } from "../hooks/currencyConverter";
 import { CreateAccountData, UpdateAccountData } from "../types/AccountData";
@@ -19,6 +19,39 @@ export function useAccounts() {
     ACCOUNTS_QUERY,
     async () => {
       const res = await api.get("accounts");
+
+      const groupsEnds: {
+        [key: string]: string | null;
+      } = {};
+
+      res.data
+        .flatMap((a: AccountRaw) => {
+          return [...(a.payments_to || []), ...(a.payments_from || [])];
+        })
+        .forEach((p: PaymentRaw) => {
+          const repeatEndsOn = p.repeat_ends_on
+            ? moment(p.repeat_ends_on)
+            : null;
+
+          // If repeatEndsOn is null, it means group doesn't have end date
+          if (repeatEndsOn === null) {
+            groupsEnds[p.group] = null;
+          } else {
+            // If not defined yet
+            if (groupsEnds[p.group] === undefined) {
+              groupsEnds[p.group] = repeatEndsOn.format("YYYY-MM-DD");
+            }
+
+            // If not null, otherwise it means payment doesn't have end date
+            if (groupsEnds[p.group] !== null) {
+              groupsEnds[p.group] = moment(groupsEnds[p.group]).isBefore(
+                repeatEndsOn
+              )
+                ? repeatEndsOn.format("YYYY-MM-DD")
+                : groupsEnds[p.group];
+            }
+          }
+        });
 
       return res.data.map((account: AccountRaw) => {
         return {
@@ -122,6 +155,12 @@ export function useAccounts() {
                   (acc, payment) => acc + payment.amount_converted,
                   account.balance
                 ),
+            }))
+            .map((payment) => ({
+              ...payment,
+              group_repeat_ends_on: groupsEnds[payment.group]
+                ? moment(groupsEnds[payment.group])
+                : null,
             })),
         };
       });

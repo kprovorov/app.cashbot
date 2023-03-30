@@ -65,13 +65,13 @@ export default function EditPaymentForm({
               {payment.repeat_interval === 1
                 ? ""
                 : payment.repeat_interval + " "}
-              {payment.repeat_unit}
-              {payment.repeat_ends_on ? (
+              {payment.repeat_unit.toLocaleLowerCase()}
+              {payment.group_repeat_ends_on ? (
                 <span>
                   {" "}
                   until{" "}
                   <span className="font-medium">
-                    {dateFormat(payment.repeat_ends_on)}
+                    {dateFormat(payment.group_repeat_ends_on)}
                   </span>
                 </span>
               ) : null}
