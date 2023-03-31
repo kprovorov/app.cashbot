@@ -31,11 +31,9 @@ export default function AccountCard({
               >
                 {account.name}
               </span>
-              <span className="text-slate-400 font-normal ">
-                {account.currency}
-              </span>
+              <span className="text-gray font-normal ">{account.currency}</span>
               <button
-                className="border border-slate-200 rounded-full hover:bg-slate-100 flex items-center justify-center w-5 h-5 p-0 text-slate-400"
+                className="border border-gray-light rounded-full hover:bg-gray-light flex items-center justify-center w-5 h-5 p-0 text-gray"
                 onClick={() => setShowCreatePaymentModal(true)}
               >
                 <svg
@@ -61,8 +59,8 @@ export default function AccountCard({
                     <Popover.Button
                       className={`${
                         account.balance_savings > account.balance
-                          ? "bg-orange-100 border-orange-300 hover:border-orange-400 aria-expanded:border-orange-400 text-warning aria-expanded:shadow-orange-900/10"
-                          : "bg-slate-100 border-slate-200 hover:border-slate-300 aria-expanded:border-slate-300 text-slate-400 aria-expanded:shadow-slate-900/10"
+                          ? "bg-orange-light border-orange-dark hover:border-orange aria-expanded:border-orange text-orange aria-expanded:shadow-orange-dark/10"
+                          : "bg-gray-light border-gray-light hover:border-gray aria-expanded:border-gray text-gray aria-expanded:shadow-gray-dark/10"
                       }  rounded-full py-1 px-2 text-sm flex items-center font-bold gap-1 border  outline-none aria-expanded:shadow`}
                     >
                       {account.balance_savings > account.balance ? (
@@ -83,7 +81,7 @@ export default function AccountCard({
                           xmlns="http://www.w3.org/2000/svg"
                           fill="currentColor"
                           viewBox="0 0 24 22"
-                          className="w-3 h-3 fill-slate-400"
+                          className="w-3 h-3 fill-gray"
                         >
                           <path d="M19.7647 0C17.6471 0 15.8118 1.97647 15.5294 2.82353C10.5882 0.705882 0 2.4 0 9.88235C0 12.4235 0 14.1176 2.82353 16.2353V21.1765H8.47059V18.3529H12.7059V21.1765H18.3529V15.5294C19.7647 14.8235 20.7529 14.1176 21.1765 12.7059H24V7.05882H21.1765C21.1765 5.64706 20.4706 4.94118 19.7647 4.23529V0Z" />
                         </svg>
@@ -96,8 +94,8 @@ export default function AccountCard({
                     </Popover.Button>
 
                     <Popover.Panel className="absolute z-10 w-48 left-1/2 -translate-x-1/2">
-                      <div className="p-1 rounded bg-slate-100 mb-2 flex flex-col relative top-2 shadow-lg shadow-slate-900/10 border border-slate-300">
-                        <div className="savings after:bg-slate-300">
+                      <div className="p-1 rounded bg-gray-light mb-2 flex flex-col relative top-2 shadow-lg shadow-gray-dark/10 border border-gray">
+                        <div className="savings after:bg-gray">
                           {account.jars?.map((jar) => (
                             <div
                               key={`jar_${jar.id}`}

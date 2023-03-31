@@ -5,7 +5,7 @@ export default function AuthLayout() {
     <div className="h-full flex flex-col gap-12 justify-center items-center p-4">
       <a href="/" className="px-3">
         <svg
-          className="h-12 fill-slate-800"
+          className="h-12 fill-gray-dark"
           width="722"
           height="297"
           viewBox="0 0 722 297"

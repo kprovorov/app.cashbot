@@ -7,7 +7,7 @@ export function DatePill({ date }: { date: Moment }) {
       className={`h-8 w-8 flex flex-col rounded-full items-center justify-center leading-tight ${
         date.isSameOrBefore()
           ? "bg-primary text-white"
-          : "bg-slate-100 text-slate-500"
+          : "bg-gray-light text-gray-light0"
       }`}
     >
       <div className="text-sm font-bold">{date.format("D")}</div>

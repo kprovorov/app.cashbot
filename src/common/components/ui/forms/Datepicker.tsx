@@ -19,8 +19,8 @@ export default function Datepicker({
   >(({ value, onClick }, ref) => (
     <SecondaryButton
       type="button"
-      className={`w-full flex flex-row justify-between text-slate-900  font-sans leading-tight py-2 px-3 border-slate-300 ${
-        $invalid ? "text-error" : ""
+      className={`w-full flex flex-row justify-between text-gray-dark  font-sans leading-tight py-2 px-3 border-gray ${
+        $invalid ? "text-red" : ""
       } ${buttonClassName}`}
       onClick={onClick}
       ref={ref}
@@ -63,7 +63,7 @@ export default function Datepicker({
         <div className="flex flex-row justify-between items-center">
           <button
             type="button"
-            className="hover:bg-slate-100 rounded w-8 h-8 flex items-center justify-center"
+            className="hover:bg-gray-light rounded w-8 h-8 flex items-center justify-center"
             onClick={decreaseMonth}
             disabled={prevMonthButtonDisabled}
           >
@@ -92,7 +92,7 @@ export default function Datepicker({
 
           <button
             type="button"
-            className="hover:bg-slate-100 rounded w-8 h-8 flex items-center justify-center"
+            className="hover:bg-gray-light rounded w-8 h-8 flex items-center justify-center"
             onClick={increaseMonth}
             disabled={nextMonthButtonDisabled}
           >

@@ -27,7 +27,7 @@ export default function EditPaymentModal({
       <div className="flex gap-2 items-baseline">
         <span className="font-semibold">{dateFormat(payment.date)}</span>
         {payment.repeat_unit !== RepeatUnit.NONE ? (
-          <div className="bg-slate-100 py-1 px-3 rounded">
+          <div className="bg-gray-light py-1 px-3 rounded">
             Every{" "}
             {payment.repeat_interval === 1 ? "" : payment.repeat_interval + " "}
             {payment.repeat_unit}

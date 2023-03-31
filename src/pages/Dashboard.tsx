@@ -31,7 +31,7 @@ function Dashboard() {
                     checked={showEmptyAccounts}
                     onChange={setShowEmptyAccounts}
                     className={`${
-                      showEmptyAccounts ? "bg-primary" : "bg-slate-300"
+                      showEmptyAccounts ? "bg-primary" : "bg-gray"
                     } relative inline-flex h-6 w-11 items-center rounded-full`}
                   >
                     <span
@@ -48,7 +48,7 @@ function Dashboard() {
             </div>
             <div>
               <Button
-                className="hover:bg-slate-900/5"
+                className="hover:bg-gray-dark/5"
                 onClick={() => refetch()}
               >
                 <svg
@@ -186,7 +186,7 @@ function Dashboard() {
                               </clipPath>
                             </defs>
                           </svg>
-                          <div className="text-center font-medium text-xl text-slate-300">
+                          <div className="text-center font-medium text-xl text-gray">
                             Swipe to see your payments
                           </div>
                         </div>

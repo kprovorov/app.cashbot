@@ -20,7 +20,7 @@ export default function CreatePaymentButton() {
   return (
     <div className="fixed z-10 right-10 bottom-10">
       <Popover className="relative">
-        <Popover.Button className="bg-primary text-white p-5 rounded-3xl hover:bg-primary-darken shadow-lg shadow-primary/50 ui-open:outline-none focus:outline-none">
+        <Popover.Button className="bg-primary text-white p-5 rounded-3xl hover:bg-primary-dark shadow-lg shadow-primary/50 ui-open:outline-none focus:outline-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -37,7 +37,7 @@ export default function CreatePaymentButton() {
           </svg>
         </Popover.Button>
 
-        <Popover.Panel className="absolute z-10 bg-white shadow-lg shadow-slate-200 border border-slate-200 text-black bottom-14 right-14 rounded-2xl p-4">
+        <Popover.Panel className="absolute z-10 bg-white shadow-lg shadow-gray-light border border-gray-light text-black bottom-14 right-14 rounded-2xl p-4">
           <div className="flex flex-col">
             {[
               {
@@ -50,7 +50,7 @@ export default function CreatePaymentButton() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 text-slate-500"
+                    className="w-5 h-5 text-gray-light0"
                   >
                     <path
                       strokeLinecap="round"
@@ -70,7 +70,7 @@ export default function CreatePaymentButton() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 text-slate-500"
+                    className="w-5 h-5 text-gray-light0"
                   >
                     <path
                       strokeLinecap="round"
@@ -90,7 +90,7 @@ export default function CreatePaymentButton() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 text-slate-500"
+                    className="w-5 h-5 text-gray-light0"
                   >
                     <path
                       strokeLinecap="round"
@@ -110,7 +110,7 @@ export default function CreatePaymentButton() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 text-slate-500"
+                    className="w-5 h-5 text-gray-light0"
                   >
                     <path
                       strokeLinecap="round"
@@ -122,12 +122,12 @@ export default function CreatePaymentButton() {
               },
             ].map((item) => (
               <Button
-                className="flex gap-4 justify-start capitalize hover:bg-slate-100"
+                className="flex gap-4 justify-start capitalize hover:bg-gray-light"
                 key={item.label}
                 onClick={() => handleShow(item.paymentType)}
               >
                 {item.icon}
-                <span className="text-slate-700 font-medium">{item.label}</span>
+                <span className="text-gray-dark font-medium">{item.label}</span>
               </Button>
             ))}
           </div>
