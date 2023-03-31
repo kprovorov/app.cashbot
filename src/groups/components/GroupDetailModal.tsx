@@ -40,38 +40,39 @@ export default function GroupDetailModal({
           onDeleted={onClose}
         />
       ) : (
-        <div>
-          {accounts
-            ?.map((a) => a.payments || [])
-            .flat()
-            .filter((p) => p.group === group)
-            .sort((a, b) => a.date.unix() - b.date.unix())
-            .map((payment) => (
-              <PaymentListItem
-                account={account}
-                key={`${payment.id}_${payment.date.unix()}`}
-                payment={payment}
-                currency={account.currency}
-                showDescription={false}
-                showAccountName={true}
-                showDeleteButton={true}
-                showGroupOnClick={false}
-                showBalance={false}
-                onUpdated={onUpdated}
-                onDeleted={onDeleted}
-                onClick={() => {
-                  setEditPayment(payment);
-                }}
-              />
-            ))}
+        <div className="flex flex-col gap-6 p-6">
+          <div>
+            {accounts
+              ?.map((a) => a.payments || [])
+              .flat()
+              .filter((p) => p.group === group)
+              .sort((a, b) => a.date.unix() - b.date.unix())
+              .map((payment) => (
+                <PaymentListItem
+                  account={account}
+                  key={`${payment.id}_${payment.date.unix()}`}
+                  payment={payment}
+                  currency={account.currency}
+                  showDescription={false}
+                  showAccountName={true}
+                  showDeleteButton={true}
+                  showGroupOnClick={false}
+                  showBalance={false}
+                  onUpdated={onUpdated}
+                  onDeleted={onDeleted}
+                  onClick={() => {
+                    setEditPayment(payment);
+                  }}
+                />
+              ))}
+          </div>
+          {editPayment ? null : (
+            <div className="flex justify-between">
+              <DeleteGroupButton group={group} onDeleted={onClose} />
+              <SecondaryButton onClick={onClose}>Close</SecondaryButton>
+            </div>
+          )}
         </div>
-      )}
-
-      {editPayment ? null : (
-        <ModalFooter>
-          <DeleteGroupButton group={group} onDeleted={onClose} />
-          <SecondaryButton onClick={onClose}>Close</SecondaryButton>
-        </ModalFooter>
       )}
     </Modal>
   );
