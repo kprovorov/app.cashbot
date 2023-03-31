@@ -11,6 +11,7 @@ export default function CurrencySwitch({
 }) {
   return (
     <Button
+      $size="sm"
       type="button"
       className="hover:bg-gray-light"
       onClick={() => {

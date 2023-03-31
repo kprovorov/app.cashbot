@@ -14,6 +14,9 @@ import { Menu, Tab } from "@headlessui/react";
 import Button from "../../common/components/ui/buttons/Button";
 import { currencyFormat } from "../../services/formatters";
 import Datepicker from "../../common/components/ui/forms/Datepicker";
+import AmountInput from "../../common/components/ui/forms/AmountInput";
+import CurrencySwitch from "../../common/components/ui/forms/CurrencySwitch";
+import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 export default function CreatePaymentForm({
   paymentType = undefined,
@@ -142,57 +145,17 @@ export default function CreatePaymentForm({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 items-center w-full">
-          <div className="flex flex-col items-center p-4 w-full">
-            <Input
-              type="text"
-              className="text-center text-5xl border-none focus:outline-none focus:ring-0 bg-transparent"
-              id="amount"
-              name="amount"
-              value={currencyFormat(
-                formik.values.amount,
-                formik.values.currency
-              )}
-              onChange={(e) => {
-                formik.setFieldValue(
-                  "amount",
-                  Number(e.target.value.replace(/\D/g, "")) * 100
-                );
-              }}
-              $invalid={!!formik.errors.amount}
-              autoComplete="off"
-            />
-
-            <Button
-              type="button"
-              className="border-none hover:bg-gray-light"
-              onClick={() => {
-                const currencies = Object.values(Currency);
-
-                const index = currencies.indexOf(formik.values.currency);
-
-                formik.setFieldValue(
-                  "currency",
-                  currencies[index + 1 >= currencies.length ? 0 : index + 1]
-                );
-              }}
-            >
-              {formik.values.currency}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M13.2 2.24a.75.75 0 00.04 1.06l2.1 1.95H6.75a.75.75 0 000 1.5h8.59l-2.1 1.95a.75.75 0 101.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 00-1.06.04zm-6.4 8a.75.75 0 00-1.06-.04l-3.5 3.25a.75.75 0 000 1.1l3.5 3.25a.75.75 0 101.02-1.1l-2.1-1.95h8.59a.75.75 0 000-1.5H4.66l2.1-1.95a.75.75 0 00.04-1.06z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </Button>
-          </div>
-          <InputError>{formik.errors.amount}</InputError>
+        <div className="flex flex-col items-center justify-center py-16">
+          <AmountInput
+            value={formik.values.amount}
+            currency={formik.values.currency}
+            onChange={(v) => formik.setFieldValue("amount", v)}
+            $invalid={!!formik.errors.amount}
+          />
+          <CurrencySwitch
+            value={formik.values.currency}
+            onChange={(c) => formik.setFieldValue("currency", c)}
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -215,7 +178,7 @@ export default function CreatePaymentForm({
             <Menu as="div" className="relative">
               <Menu.Button
                 as={SecondaryButton}
-                className="w-full flex flex-row justify-between  text-gray-dark  font-sans leading-tight py-2 px-3"
+                className="w-full flex flex-row justify-between text-gray-dark  font-sans leading-tight"
               >
                 <span>
                   {customRepeat
@@ -284,6 +247,7 @@ export default function CreatePaymentForm({
                 ].map((repeat) => (
                   <Menu.Item key={repeat.label}>
                     <Button
+                      $size="sm"
                       onClick={repeat.onClick}
                       className="flex justify-start w-40 hover:bg-gray-light"
                     >
@@ -385,21 +349,8 @@ export default function CreatePaymentForm({
           )}
 
           {selectedPaymentType === PaymentType.TRANSFER && (
-            <div className="pb-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                />
-              </svg>
+            <div className="pb-4">
+              <ArrowRightIcon className="w-6 h-6" />
             </div>
           )}
 
@@ -440,11 +391,11 @@ export default function CreatePaymentForm({
           />
           <InputError>{formik.errors.description}</InputError>
         </div>
-        <div className=" flex justify-end gap-3">
-          <SecondaryButton type="button" onClick={onCancel}>
-            Close
-          </SecondaryButton>
-          <PrimaryButton type="submit">Save changes</PrimaryButton>
+        <div className="flex justify-center">
+          <PrimaryButton type="submit" className="w-full">
+            Save
+            <ChevronRightIcon className="w-6 h-6" />
+          </PrimaryButton>
         </div>
       </div>
     </form>

@@ -30,7 +30,7 @@
 }
 
 .react-datepicker__input-container input {
-  @apply block w-full text-base bg-primary border border-gray rounded shadow-sm;
+  @apply block w-full text-base bg-primary border border-gray-light rounded shadow-sm;
 }
 
 .react-datepicker__aria-live {
@@ -38,7 +38,7 @@
 }
 
 .react-datepicker-popper {
-  @apply z-40 bg-white shadow-lg shadow-gray/40 p-3 border border-gray rounded-md;
+  @apply z-40 bg-white shadow-lg shadow-gray p-3 border-none rounded-md;
 }
 
 .react-datepicker-left {
