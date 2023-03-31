@@ -13,11 +13,13 @@ export default function CreatePaymentView({
   onCancel?: () => void;
 }) {
   return (
-    <CreatePaymentForm
-      onCreated={onCreated}
-      onCancel={onCancel}
-      paymentType={paymentType}
-      accountId={accountId}
-    />
+    <div className="p-6">
+      <CreatePaymentForm
+        onCreated={onCreated}
+        onCancel={onCancel}
+        paymentType={paymentType}
+        accountId={accountId}
+      />
+    </div>
   );
 }
