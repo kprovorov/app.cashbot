@@ -122,7 +122,7 @@ export default function PaymentListItem({
 
         {showDeleteButton ? (
           <div className="flex justify-end">
-            <DeletePaymentButton payment={payment} />
+            <DeletePaymentButton payment={payment} $size="sm" />
           </div>
         ) : null}
       </div>
