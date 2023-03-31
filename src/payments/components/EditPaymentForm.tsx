@@ -106,7 +106,7 @@ export default function EditPaymentForm({
               $as="select"
               id="account_from_id"
               name="account_from_id"
-              value={formik.values.account_from_id}
+              value={formik.values.account_from_id || ""}
               onChange={formik.handleChange}
               $invalid={!!formik.errors.account_from_id}
             >
@@ -128,7 +128,7 @@ export default function EditPaymentForm({
               $as="select"
               id="account_to_id"
               name="account_to_id"
-              value={formik.values.account_to_id}
+              value={formik.values.account_to_id || ""}
               onChange={formik.handleChange}
               $invalid={!!formik.errors.account_to_id}
             >

@@ -9,6 +9,8 @@ import EditPaymentForm from "../../payments/components/EditPaymentForm";
 import PaymentListItem from "../../payments/components/PaymentListItem";
 import { Account, Payment } from "../../types/Models";
 import DeleteGroupButton from "./DeleteGroupButton";
+import { ArrowLeftIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import Heading from "../../common/components/Heading";
 
 export default function GroupDetailModal({
   group,
@@ -32,7 +34,24 @@ export default function GroupDetailModal({
   const { data: accounts } = useAccounts();
 
   return (
-    <Modal show={show} onClose={onClose} title={title || "Payments"}>
+    <Modal show={show} onClose={onClose}>
+      <div className="flex flex-row items-center justify-between p-6">
+        <div className="w-6 h-6">
+          {editPayment ? (
+            <button onClick={() => setEditPayment(null)}>
+              <ArrowLeftIcon className="w-6 h-6 text-gray hover:text-gray-dark" />
+            </button>
+          ) : null}
+        </div>
+        <div className="flex justify-center">
+          <Heading>{title}</Heading>
+        </div>
+        <div className="w-6 h-6">
+          <button onClick={onClose}>
+            <XMarkIcon className="w-6 h-6 text-gray hover:text-gray-dark" />
+          </button>
+        </div>
+      </div>
       {editPayment ? (
         <EditPaymentForm
           payment={editPayment}
@@ -50,7 +69,9 @@ export default function GroupDetailModal({
               .map((payment) => (
                 <PaymentListItem
                   account={account}
-                  key={`${payment.id}_${payment.date.unix()}`}
+                  key={`${payment.id}_${payment.date.unix()}_${
+                    payment.amount_converted
+                  }`}
                   payment={payment}
                   currency={account.currency}
                   showDescription={false}
