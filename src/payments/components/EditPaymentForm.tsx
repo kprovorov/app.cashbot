@@ -11,7 +11,7 @@ import { Payment } from "../../types/Models";
 import { dateFormat } from "../../services/formatters";
 import { Currency, PaymentUpdateMode, RepeatUnit } from "../../types/Enums";
 import { CalendarDaysIcon } from "@heroicons/react/20/solid";
-import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import Pill from "../../common/components/Pill";
 import CurrencySwitch from "../../common/components/ui/forms/CurrencySwitch";
 import AmountInput from "../../common/components/ui/forms/AmountInput";
@@ -99,8 +99,8 @@ export default function EditPaymentForm({
           />
         </div>
 
-        <div className="grid grid-cols-6 gap-4">
-          <div className="col-span-3">
+        <div className="flex gap-4 items-end justify-center">
+          <div className="flex-grow">
             <Label htmlFor="account_from_id">Account From</Label>
             <Input
               $as="select"
@@ -119,7 +119,10 @@ export default function EditPaymentForm({
             </Input>
             <InputError>{formik.errors.account_from_id}</InputError>
           </div>
-          <div className="col-span-3">
+          <div className="pb-4">
+            <ArrowRightIcon className="w-6 h-6" />
+          </div>
+          <div className="flex-grow">
             <Label htmlFor="account_to_id">Account To</Label>
             <Input
               $as="select"
