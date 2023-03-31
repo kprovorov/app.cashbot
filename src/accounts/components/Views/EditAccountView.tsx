@@ -42,7 +42,7 @@ export default function EditAccountView({
   });
 
   return (
-    <div>
+    <div className="p-6">
       <AccountForm
         values={formik.values}
         errors={formik.errors}
