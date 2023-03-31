@@ -2,7 +2,6 @@ import React, { PropsWithChildren, useState } from "react";
 import { currencyFormat } from "../../services/formatters";
 import moment from "moment";
 import GroupDetailModal from "../../groups/components/GroupDetailModal";
-import EditPaymentModal from "./EditPaymentModal";
 import DeletePaymentButton from "./DeletePaymentButton";
 import { DatePill } from "../../common/components/DatePill";
 import { Account, Payment } from "../../types/Models";
@@ -44,7 +43,7 @@ export default function PaymentListItem({
   return (
     <>
       <div
-        className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded"
+        className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-gray-light/50 rounded"
         onClick={() => {
           payment.group && showGroupOnClick
             ? handleShowGroup()
@@ -66,7 +65,7 @@ export default function PaymentListItem({
                 <span className="font-semibold">
                   {payment.account_from.name}{" "}
                 </span>
-                <span className="text-slate-400">
+                <span className="text-gray">
                   {payment.account_from.currency}
                 </span>
               </span>
@@ -79,7 +78,7 @@ export default function PaymentListItem({
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4 text-slate-600"
+                className="w-4 h-4 text-gray-dark"
               >
                 <path
                   strokeLinecap="round"
@@ -94,18 +93,14 @@ export default function PaymentListItem({
                 <span className="font-semibold">
                   {payment.account_to.name}{" "}
                 </span>
-                <span className="text-slate-400">
-                  {payment.account_to.currency}
-                </span>
+                <span className="text-gray">{payment.account_to.currency}</span>
               </span>
             ) : null}
           </div>
         )}
         <div
           className={`col-span-2 text-right ${
-            payment.amount > 0
-              ? "text-positive font-semibold"
-              : "text-slate-600"
+            payment.amount > 0 ? "text-green font-semibold" : "text-gray-dark"
           }`}
         >
           {currencyFormat(payment.amount_converted, currency)}
@@ -114,10 +109,10 @@ export default function PaymentListItem({
           <div
             className={`col-span-2 text-right ${
               payment.balance < 0
-                ? "text-negative"
+                ? "text-red"
                 : payment.balance > (account?.balance_savings || 0)
-                ? "text-slate-400"
-                : "text-warning"
+                ? "text-gray"
+                : "text-orange"
             }`}
           >
             {currencyFormat(payment.balance, currency)}
@@ -126,7 +121,7 @@ export default function PaymentListItem({
 
         {showDeleteButton ? (
           <div className="flex justify-end">
-            <DeletePaymentButton payment={payment} />
+            <DeletePaymentButton payment={payment} $size="sm" />
           </div>
         ) : null}
       </div>

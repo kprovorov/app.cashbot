@@ -10,14 +10,14 @@ export default function AccountBalancesRow({ account }: { account: Account }) {
 
   return (
     <>
-      <div className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-slate-50 rounded">
+      <div className="p-2 grid grid-flow-col auto-cols-fr cursor-pointer items-center hover:bg-gray-light rounded">
         <div
           className="col-span-2 truncate font-semibold hover:text-primary"
           onClick={() => setShowModal(true)}
         >
           {account.name}
         </div>
-        <div className="text-end text-slate-400">
+        <div className="text-end text-gray">
           <AccountBalance account={account} />
         </div>
         <div className="text-end font-semibold">

@@ -18,7 +18,7 @@ export default function TheHeader({ user }: { user?: User }) {
   };
 
   return (
-    <div className="flex bg-slate-800 p-3 text-white justify-between items-center">
+    <div className="flex bg-gray-dark p-3 text-white justify-between items-center">
       <div className="flex gap-3 items-center">
         <a href="/" className="px-3">
           <img className="h-6" src="logo.svg" alt="cashbot" />
