@@ -50,7 +50,7 @@ export default function CreatePaymentButton() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 text-gray-light0"
+                    className="w-5 h-5 text-gray-light"
                   >
                     <path
                       strokeLinecap="round"
@@ -70,7 +70,7 @@ export default function CreatePaymentButton() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 text-gray-light0"
+                    className="w-5 h-5 text-gray-light"
                   >
                     <path
                       strokeLinecap="round"
@@ -90,7 +90,7 @@ export default function CreatePaymentButton() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 text-gray-light0"
+                    className="w-5 h-5 text-gray-light"
                   >
                     <path
                       strokeLinecap="round"
@@ -110,7 +110,7 @@ export default function CreatePaymentButton() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 text-gray-light0"
+                    className="w-5 h-5 text-gray-light"
                   >
                     <path
                       strokeLinecap="round"

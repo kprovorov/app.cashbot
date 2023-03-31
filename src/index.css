@@ -30,7 +30,7 @@
 }
 
 .react-datepicker__input-container input {
-  @apply block w-full text-base bg-primary border border-gray rounded shadow-sm form-input;
+  @apply block w-full text-base bg-primary border border-gray rounded shadow-sm;
 }
 
 .react-datepicker__aria-live {

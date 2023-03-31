@@ -29,6 +29,9 @@ module.exports = {
       container: {
         center: true,
       },
+      boxShadow: {
+        outline: "0 0 30px 0 rgba(0, 0, 0, 0.3)",
+      },
     },
     colors: {
       white: colors.white,
