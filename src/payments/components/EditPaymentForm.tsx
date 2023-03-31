@@ -10,6 +10,8 @@ import { useHandleValidationErrors } from "../../hooks/common";
 import { Payment } from "../../types/Models";
 import { dateFormat } from "../../services/formatters";
 import { Currency, PaymentUpdateMode, RepeatUnit } from "../../types/Enums";
+import { CalendarDaysIcon } from "@heroicons/react/20/solid";
+import Pill from "../../common/components/Pill";
 
 export default function EditPaymentForm({
   payment,
@@ -56,11 +58,14 @@ export default function EditPaymentForm({
 
   return (
     <form id={formId} onSubmit={formik.handleSubmit}>
-      <div className="flex flex-col gap-6">
-        <div className="flex gap-3 items-baseline border-b border-slate-300 p-3 justify-between">
-          <span className="font-semibold">{dateFormat(payment.date)}</span>
+      <div className="flex flex-col gap-8">
+        <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row gap-1 items-center">
+            <CalendarDaysIcon className="w-5 h-5 text-gray" />
+            <span className="font-semibold">{dateFormat(payment.date)}</span>
+          </div>
           {payment.repeat_unit !== RepeatUnit.NONE ? (
-            <div className="bg-slate-100 py-1 px-3 rounded">
+            <Pill>
               Every{" "}
               {payment.repeat_interval === 1
                 ? ""
@@ -70,12 +75,12 @@ export default function EditPaymentForm({
                 <span>
                   {" "}
                   until{" "}
-                  <span className="font-medium">
+                  <span className="font-semibold">
                     {dateFormat(payment.group_repeat_ends_on)}
                   </span>
                 </span>
               ) : null}
-            </div>
+            </Pill>
           ) : null}
         </div>
         <div className="grid grid-cols-6 gap-4">
