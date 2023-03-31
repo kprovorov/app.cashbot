@@ -38,7 +38,7 @@
 }
 
 .react-datepicker-popper {
-  @apply z-40 bg-white shadow-lg shadow-gray p-3 border-none rounded-md;
+  @apply z-40 bg-white shadow-lg shadow-black/20 p-3 border-none rounded-md;
 }
 
 .react-datepicker-left {

@@ -131,7 +131,7 @@ export default function CreatePaymentForm({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-8 h-8 "
+              className="w-6 h-6 "
             >
               <path
                 strokeLinecap="round"
@@ -140,12 +140,12 @@ export default function CreatePaymentForm({
               />
             </svg>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center text-base">
             {descriptions[selectedPaymentType]}
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center py-16">
+        <div className="flex flex-col items-center justify-center py-8">
           <AmountInput
             value={formik.values.amount}
             currency={formik.values.currency}
@@ -178,7 +178,7 @@ export default function CreatePaymentForm({
             <Menu as="div" className="relative">
               <Menu.Button
                 as={SecondaryButton}
-                className="w-full flex flex-row justify-between text-gray-dark  font-sans leading-tight"
+                className="w-full flex flex-row justify-between text-gray-dark font-normal font-sans leading-tight"
               >
                 <span>
                   {customRepeat
@@ -200,7 +200,7 @@ export default function CreatePaymentForm({
                   />
                 </svg>
               </Menu.Button>
-              <Menu.Items className="absolute bg-white shadow-lg shadow-gray/40 p-3 border border-gray-light rounded-md flex flex-col">
+              <Menu.Items className="absolute bg-white shadow-lg shadow-black/20 p-3 w-full rounded-md flex flex-col">
                 {[
                   {
                     label: "Don't repeat",
@@ -249,7 +249,7 @@ export default function CreatePaymentForm({
                     <Button
                       $size="sm"
                       onClick={repeat.onClick}
-                      className="flex justify-start w-40 hover:bg-gray-light"
+                      className="flex justify-start w-full hover:bg-gray-light"
                     >
                       {repeat.label}
                     </Button>
@@ -266,7 +266,7 @@ export default function CreatePaymentForm({
               <Label>repeat every</Label>
               <div className="grid grid-cols-6 gap-4">
                 <Input
-                  className="col-span-2 w-full border-none py-1 px-2 shadow shadow-gray"
+                  className="col-span-2 w-full border-none py-1 px-2 shadow shadow-gray bg-white"
                   $as="select"
                   disabled={formik.values.repeat_unit === RepeatUnit.NONE}
                   type="number"
@@ -283,7 +283,7 @@ export default function CreatePaymentForm({
                   ))}
                 </Input>
                 <Input
-                  className="col-span-4 w-full border-none py-1 px-2 shadow shadow-gray"
+                  className="col-span-4 w-full border-none py-1 px-2 shadow shadow-gray bg-white"
                   $as="select"
                   id="repeat_unit"
                   name="repeat_unit"

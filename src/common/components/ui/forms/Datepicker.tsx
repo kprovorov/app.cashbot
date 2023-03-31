@@ -19,7 +19,7 @@ export default function Datepicker({
   >(({ value, onClick }, ref) => (
     <SecondaryButton
       type="button"
-      className={`w-full flex flex-row justify-between text-gray-dark  font-sans leading-tight border-gray ${
+      className={`w-full flex flex-row font-normal justify-between text-gray-dark  font-sans leading-none border-gray ${
         $invalid ? "text-red" : ""
       } ${buttonClassName}`}
       onClick={onClick}

@@ -35,7 +35,7 @@ export default function GroupDetailModal({
 
   return (
     <Modal show={show} onClose={onClose}>
-      <div className="flex flex-row items-center justify-between p-6">
+      <div className="flex flex-row items-center justify-between p-6 pb-0">
         <div className="w-6 h-6">
           {editPayment ? (
             <button onClick={() => setEditPayment(null)}>
