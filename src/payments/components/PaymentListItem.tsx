@@ -2,7 +2,6 @@ import React, { PropsWithChildren, useState } from "react";
 import { currencyFormat } from "../../services/formatters";
 import moment from "moment";
 import GroupDetailModal from "../../groups/components/GroupDetailModal";
-import EditPaymentModal from "./EditPaymentModal";
 import DeletePaymentButton from "./DeletePaymentButton";
 import { DatePill } from "../../common/components/DatePill";
 import { Account, Payment } from "../../types/Models";
