@@ -13,4 +13,4 @@ export default tw.input<InputProps>`${(p) =>
     ? "p-2"
     : p.$size === "lg"
     ? "p-8"
-    : "p-4"} bg-gray-light w-full rounded font-sans leading-tight disabled:opacity-50`;
+    : "p-4"} bg-gray-lightest w-full rounded font-sans leading-tight disabled:opacity-50`;

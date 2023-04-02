@@ -33,7 +33,7 @@ export default function AccountCard({
               </span>
               <span className="text-gray font-normal ">{account.currency}</span>
               <button
-                className="border border-gray-light rounded-full hover:bg-gray-light flex items-center justify-center w-5 h-5 p-0 text-gray"
+                className="border border-gray rounded-full hover:bg-gray-lightest flex items-center justify-center w-5 h-5 p-0 text-gray"
                 onClick={() => setShowCreatePaymentModal(true)}
               >
                 <svg
@@ -59,8 +59,8 @@ export default function AccountCard({
                     <Popover.Button
                       className={`${
                         account.balance_savings > account.balance
-                          ? "bg-orange-light border-orange-dark hover:border-orange aria-expanded:border-orange text-orange aria-expanded:shadow-orange-dark/10"
-                          : "bg-gray-light border-gray-light hover:border-gray aria-expanded:border-gray text-gray aria-expanded:shadow-gray-dark/10"
+                          ? "bg-orange-lightest border-orange hover:border-orange aria-expanded:border-orange text-orange aria-expanded:shadow-orange-dark/20"
+                          : "bg-gray-lightest border-gray-light hover:border-gray aria-expanded:border-gray text-gray aria-expanded:shadow-gray-dark/20"
                       }  rounded-full py-1 px-2 text-sm flex items-center font-bold gap-1 border  outline-none aria-expanded:shadow`}
                     >
                       {account.balance_savings > account.balance ? (
@@ -94,7 +94,7 @@ export default function AccountCard({
                     </Popover.Button>
 
                     <Popover.Panel className="absolute z-10 w-48 left-1/2 -translate-x-1/2">
-                      <div className="p-1 rounded bg-gray-light mb-2 flex flex-col relative top-2 shadow-lg shadow-gray-dark/10 border border-gray">
+                      <div className="p-1 rounded bg-gray-lightest mb-2 flex flex-col relative top-2 shadow-lg shadow-gray-dark/10 border border-gray">
                         <div className="savings after:bg-gray">
                           {account.jars?.map((jar) => (
                             <div

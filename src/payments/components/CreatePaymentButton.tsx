@@ -37,7 +37,7 @@ export default function CreatePaymentButton() {
           </svg>
         </Popover.Button>
 
-        <Popover.Panel className="absolute z-10 bg-white shadow-lg shadow-gray-light border border-gray-light text-black bottom-14 right-14 rounded-2xl p-4">
+        <Popover.Panel className="absolute z-10 bg-white shadow-lg shadow-gray-lightest border border-gray-lightest text-black bottom-14 right-14 rounded-2xl p-4">
           <div className="flex flex-col">
             {[
               {
@@ -122,7 +122,7 @@ export default function CreatePaymentButton() {
               },
             ].map((item) => (
               <Button
-                className="flex gap-4 justify-start capitalize hover:bg-gray-light"
+                className="flex gap-4 justify-start capitalize hover:bg-gray-lightest"
                 key={item.label}
                 onClick={() => handleShow(item.paymentType)}
               >

@@ -103,7 +103,7 @@ export default function CreatePaymentForm({
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="flex flex-col gap-4">
-        <div className="bg-gray-light p-2 rounded-lg">
+        <div className="bg-gray-lightest p-2 rounded-lg">
           <Tab.Group
             selectedIndex={Object.values(PaymentType).indexOf(
               selectedPaymentType
@@ -249,7 +249,7 @@ export default function CreatePaymentForm({
                     <Button
                       $size="sm"
                       onClick={repeat.onClick}
-                      className="flex justify-start w-full hover:bg-gray-light"
+                      className="flex justify-start w-full hover:bg-gray-lightest"
                     >
                       {repeat.label}
                     </Button>
@@ -261,7 +261,7 @@ export default function CreatePaymentForm({
         </div>
 
         {customRepeat ? (
-          <div className="grid grid-cols-2 gap-4 items-center bg-gray-light p-4 rounded-md">
+          <div className="grid grid-cols-2 gap-4 items-center bg-gray-lightest p-4 rounded-md">
             <div>
               <Label>repeat every</Label>
               <div className="grid grid-cols-6 gap-4">

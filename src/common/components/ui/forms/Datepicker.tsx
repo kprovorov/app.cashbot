@@ -63,7 +63,7 @@ export default function Datepicker({
         <div className="flex flex-row justify-between items-center">
           <button
             type="button"
-            className="hover:bg-gray-light rounded w-8 h-8 flex items-center justify-center"
+            className="hover:bg-gray-lightest rounded w-8 h-8 flex items-center justify-center"
             onClick={decreaseMonth}
             disabled={prevMonthButtonDisabled}
           >
@@ -92,7 +92,7 @@ export default function Datepicker({
 
           <button
             type="button"
-            className="hover:bg-gray-light rounded w-8 h-8 flex items-center justify-center"
+            className="hover:bg-gray-lightest rounded w-8 h-8 flex items-center justify-center"
             onClick={increaseMonth}
             disabled={nextMonthButtonDisabled}
           >

@@ -191,7 +191,7 @@ export default function EditPaymentForm({
                 ].map((item) => (
                   <label key={item.value} className="flex items-center gap-2">
                     <input
-                      className="w-6 h-6 text-primary focus:ring-0 border-gray bg-gray-light"
+                      className="w-6 h-6 text-primary focus:ring-0 border-gray bg-gray-lightest"
                       type="radio"
                       id={item.value}
                       name="updateMode"
