@@ -1,6 +1,5 @@
-import tw from "tailwind-styled-components";
 import Button from "./Button";
 
-export default tw(
-  Button
-)`border border-primary bg-primary hover:bg-primary-dark text-white`;
+export default function PrimaryButton(props) {
+  return <Button {...props} $variant="primary" $style="default" />;
+}

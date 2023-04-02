@@ -19,6 +19,8 @@ import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
 import DeletePaymentButton from "./DeletePaymentButton";
 import Heading from "../../common/components/Heading";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
+import SubmitButton from "../../common/components/ui/buttons/SubmitButton";
+import CancelButton from "../../common/components/ui/buttons/CancelButton";
 
 export default function EditPaymentForm({
   payment,
@@ -160,13 +162,9 @@ export default function EditPaymentForm({
           <DeletePaymentButton payment={payment} onDeleted={onDeleted}>
             Delete
           </DeletePaymentButton>
-          <PrimaryButton
-            type="button"
-            onClick={() => setShowConfirmation(true)}
-          >
+          <SubmitButton type="button" onClick={() => setShowConfirmation(true)}>
             Save changes
-            <ChevronRightIcon className="w-6 h-6" />
-          </PrimaryButton>
+          </SubmitButton>
         </div>
       </div>
       {showConfirmation ? (
@@ -204,16 +202,13 @@ export default function EditPaymentForm({
                 ))}
               </div>
               <div className="flex justify-between items-center">
-                <SecondaryButton
+                <CancelButton
                   type="button"
                   onClick={() => setShowConfirmation(false)}
                 >
                   Cancel
-                </SecondaryButton>
-                <PrimaryButton type="submit">
-                  Confirm
-                  <ChevronRightIcon className="w-6 h-6" />
-                </PrimaryButton>
+                </CancelButton>
+                <SubmitButton type="submit">Confirm</SubmitButton>
               </div>
             </div>
           </div>

@@ -1,8 +1,7 @@
 import { PropsWithChildren } from "react";
 import { useDeletePaymentMutation } from "../../api/payments";
 import { Payment } from "../../types/Models";
-import { TrashIcon } from "@heroicons/react/24/solid";
-import DangerButton from "../../common/components/ui/buttons/DangerButton";
+import DeleteButton from "../../common/components/ui/buttons/DeleteButton";
 
 export default function DeletePaymentButton({
   payment,
@@ -28,9 +27,8 @@ export default function DeletePaymentButton({
   };
 
   return (
-    <DangerButton onClick={submit} type="button" $size={$size}>
-      <TrashIcon className="w-6 h-6" />
+    <DeleteButton onClick={submit} type="button" $size={$size}>
       {children}
-    </DangerButton>
+    </DeleteButton>
   );
 }

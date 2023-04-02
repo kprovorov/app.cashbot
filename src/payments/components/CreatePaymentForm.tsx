@@ -17,6 +17,7 @@ import Datepicker from "../../common/components/ui/forms/Datepicker";
 import AmountInput from "../../common/components/ui/forms/AmountInput";
 import CurrencySwitch from "../../common/components/ui/forms/CurrencySwitch";
 import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import SubmitButton from "../../common/components/ui/buttons/SubmitButton";
 
 export default function CreatePaymentForm({
   paymentType = undefined,
@@ -392,10 +393,9 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.description}</InputError>
         </div>
         <div className="flex justify-center">
-          <PrimaryButton type="submit" className="w-full">
+          <SubmitButton type="submit" className="w-full">
             Save
-            <ChevronRightIcon className="w-6 h-6" />
-          </PrimaryButton>
+          </SubmitButton>
         </div>
       </div>
     </form>

@@ -32,6 +32,11 @@ module.exports = {
       boxShadow: {
         outline: "0 0 30px 0 rgba(0, 0, 0, 0.3)",
       },
+      spacing: {
+        sm: "0.75rem",
+        md: "1.5rem",
+        lg: "3rem",
+      },
     },
     colors: {
       white: colors.white,
