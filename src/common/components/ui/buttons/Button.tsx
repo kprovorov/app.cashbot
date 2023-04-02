@@ -29,19 +29,19 @@ ${(p) => {
   return {
     default: {
       default: "text-white bg-gray hover:bg-gray-dark",
-      link: "text-gray bg-transparent hover:text-gray-dark",
+      link: "text-gray bg-transparent hover:text-gray-dark hover:border-gray",
     },
     primary: {
       default: "text-white bg-primary hover:bg-primary-dark",
-      link: "text-primary bg-transparent hover:text-primary-dark",
+      link: "text-primary bg-transparent hover:text-primary-dark hover:border-primary",
     },
     danger: {
       default: "text-white bg-red hover:bg-red-dark",
-      link: "text-red bg-transparent hover:text-red-dark",
+      link: "text-red bg-transparent hover:text-red-dark hover:border-red",
     },
     warning: {
       default: "text-white bg-warning hover:bg-warning-dark",
-      link: "text-orange bg-transparent hover:text-orange-dark",
+      link: "text-orange bg-transparent hover:text-orange-dark hover:border-orange",
     },
   }[p.$variant || "default"][p.$style || "link"];
 }}`;

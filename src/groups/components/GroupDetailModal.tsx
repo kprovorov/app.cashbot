@@ -90,9 +90,6 @@ export default function GroupDetailModal({
           {editPayment ? null : (
             <div className="flex justify-between">
               <DeleteGroupButton group={group} onDeleted={onClose} />
-              <SecondaryButton onClick={onClose} $variant="default">
-                Close
-              </SecondaryButton>
             </div>
           )}
         </div>

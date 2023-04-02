@@ -4,6 +4,7 @@ import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 import Button from "../buttons/Button";
 import moment from "moment";
 import SecondaryButton from "../buttons/SecondaryButton";
+import InputButton from "../buttons/InputButton";
 
 export default function Datepicker({
   children,
@@ -17,9 +18,9 @@ export default function Datepicker({
     HTMLButtonElement,
     { value: Date | null | undefined; onClick?: () => void }
   >(({ value, onClick }, ref) => (
-    <SecondaryButton
+    <InputButton
       type="button"
-      className={`w-full flex flex-row font-normal justify-between text-gray-dark  font-sans leading-none border-gray ${
+      className={`w-full flex flex-row font-normal justify-between text-gray-dark  font-sans leading-none border-gray bg-gray-lightest hover:bg-gray-light ${
         $invalid ? "text-red" : ""
       } ${buttonClassName}`}
       onClick={onClick}
@@ -42,7 +43,7 @@ export default function Datepicker({
           clipRule="evenodd"
         />
       </svg>
-    </SecondaryButton>
+    </InputButton>
   ));
 
   return (

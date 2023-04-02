@@ -44,13 +44,13 @@ export default function EditAccountView({
   return (
     <div className="p-6">
       <AccountForm
+        accountId={account.id}
         values={formik.values}
         errors={formik.errors}
         handleChange={formik.handleChange}
         onCancel={onCancel}
         onSubmit={formik.handleSubmit}
       />
-      <DeleteAccountButton account={account} />
     </div>
   );
 }

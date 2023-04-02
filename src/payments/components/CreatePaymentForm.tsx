@@ -18,6 +18,7 @@ import AmountInput from "../../common/components/ui/forms/AmountInput";
 import CurrencySwitch from "../../common/components/ui/forms/CurrencySwitch";
 import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import SubmitButton from "../../common/components/ui/buttons/SubmitButton";
+import InputButton from "../../common/components/ui/buttons/InputButton";
 
 export default function CreatePaymentForm({
   paymentType = undefined,
@@ -178,8 +179,8 @@ export default function CreatePaymentForm({
           <div>
             <Menu as="div" className="relative">
               <Menu.Button
-                as={SecondaryButton}
-                className="w-full flex flex-row justify-between text-gray-dark font-normal font-sans leading-tight"
+                as={InputButton}
+                className="w-full flex flex-row justify-between text-gray-dark font-normal font-sans leading-tight bg-gray-lightest hover:bg-gray-light"
               >
                 <span>
                   {customRepeat
@@ -250,7 +251,7 @@ export default function CreatePaymentForm({
                     <Button
                       $size="sm"
                       onClick={repeat.onClick}
-                      className="flex justify-start w-full hover:bg-gray-lightest"
+                      className="flex justify-start w-full hover:bg-gray-lightest text-gray-dark"
                     >
                       {repeat.label}
                     </Button>

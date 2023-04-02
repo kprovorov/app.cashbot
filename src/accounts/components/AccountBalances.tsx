@@ -5,7 +5,6 @@ import CardHeader from "../../common/components/ui/card/CardHeader";
 import CardTitle from "../../common/components/ui/card/CardTitle";
 import { useAccounts } from "../../api/accounts";
 import { Currency } from "../../types/Enums";
-import DashedButton from "../../common/components/ui/buttons/DashedButton";
 import CreateAccountButton from "./Buttons/CreateAccountButton";
 import AccountBalancesRow from "./AccountBalancesRow";
 
