@@ -33,9 +33,9 @@ module.exports = {
         outline: "0 0 30px 0 rgba(0, 0, 0, 0.3)",
       },
       spacing: {
-        sm: "0.75rem",
-        md: "1.5rem",
-        lg: "3rem",
+        sm: "0.5rem",
+        md: "1rem",
+        lg: "2rem",
       },
     },
     colors: {

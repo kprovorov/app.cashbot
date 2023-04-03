@@ -1,6 +1,10 @@
-import Button from "./Button";
+import { PropsWithChildren } from "react";
+import Button, { ButtonProps } from "./Button";
 
-export default function InputButton({ children, ...props }) {
+export default function InputButton({
+  children,
+  ...props
+}: PropsWithChildren<ButtonProps & React.ComponentProps<"button">>) {
   return (
     <Button {...props} $variant="default" $style="default">
       {children}

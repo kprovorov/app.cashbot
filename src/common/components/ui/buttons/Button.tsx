@@ -1,26 +1,25 @@
 import tw from "tailwind-styled-components";
 
-interface ButtonProps {
+export type ButtonProps = {
   $size?: "sm" | "md" | "lg";
   $variant?: "default" | "primary" | "danger" | "warning";
   $style?: "default" | "link";
-}
+};
 
 export default tw.button<ButtonProps>`
 ${(p) => {
   return {
-    sm: "px-sm py-2",
-    md: "px-md py-4",
-    lg: "px-lg py-8",
+    sm: "p-sm rounded",
+    md: "p-md rounded-md",
+    lg: "p-lg rounded-lg",
   }[p.$size || "md"];
 }}
-rounded-lg
 transition
 duration-200
 ease-in-out
 capitalize
 flex
-gap-2
+gap-sm
 items-center
 justify-center
 font-semibold
@@ -28,20 +27,20 @@ box-border
 ${(p) => {
   return {
     default: {
-      default: "text-white bg-gray hover:bg-gray-dark",
-      link: "text-gray bg-transparent hover:text-gray-dark hover:border-gray",
+      default: "text-white bg-gray-dark hover:bg-gray-darkest",
+      link: "text-gray-dark bg-transparent hover:bg-gray-dark/5 hover:border-gray-darkest",
     },
     primary: {
       default: "text-white bg-primary hover:bg-primary-dark",
-      link: "text-primary bg-transparent hover:text-primary-dark hover:border-primary",
+      link: "text-primary bg-transparent hover:bg-gray-dark/5 hover:border-primary",
     },
     danger: {
       default: "text-white bg-red hover:bg-red-dark",
-      link: "text-red bg-transparent hover:text-red-dark hover:border-red",
+      link: "text-red bg-transparent hover:bg-gray-dark/5 hover:border-red",
     },
     warning: {
       default: "text-white bg-warning hover:bg-warning-dark",
-      link: "text-orange bg-transparent hover:text-orange-dark hover:border-orange",
+      link: "text-orange bg-transparent hover:bg-gray-dark/5 hover:border-orange",
     },
   }[p.$variant || "default"][p.$style || "link"];
 }}`;

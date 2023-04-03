@@ -46,7 +46,7 @@ export default function AccountBalance({
             reset();
           }
         }}
-        className="border-transparent bg-transparent w-24 text-right "
+        className="border-transparent bg-transparent w-24 text-right hover:bg-gray-lightest"
         type="text"
         placeholder="Balance"
         value={currencyFormat(balance, account.currency)}

@@ -268,7 +268,8 @@ export default function CreatePaymentForm({
               <Label>repeat every</Label>
               <div className="grid grid-cols-6 gap-4">
                 <Input
-                  className="col-span-2 w-full border-none py-1 px-2 shadow shadow-gray bg-white"
+                  className="col-span-2 w-full border-none shadow shadow-gray bg-white"
+                  $size="sm"
                   $as="select"
                   disabled={formik.values.repeat_unit === RepeatUnit.NONE}
                   type="number"
@@ -285,7 +286,8 @@ export default function CreatePaymentForm({
                   ))}
                 </Input>
                 <Input
-                  className="col-span-4 w-full border-none py-1 px-2 shadow shadow-gray bg-white"
+                  className="col-span-4 w-full border-none shadow shadow-gray bg-white"
+                  $size="sm"
                   $as="select"
                   id="repeat_unit"
                   name="repeat_unit"
@@ -305,9 +307,10 @@ export default function CreatePaymentForm({
             <div>
               <Label>until</Label>
               <Datepicker
-                buttonClassName="border-none py-1 px-2 shadow shadow-gray bg-white"
+                buttonClassName="border-none shadow shadow-gray bg-white"
                 id="repeat_ends_on"
                 name="repeat_ends_on"
+                $size="sm"
                 $invalid={!!formik.errors.repeat_ends_on}
                 placeholderText="Forever"
                 selected={
