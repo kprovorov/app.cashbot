@@ -33,6 +33,7 @@ module.exports = {
         outline: "0 0 30px 0 rgba(0, 0, 0, 0.3)",
       },
       spacing: {
+        xs: "0.25rem",
         sm: "0.5rem",
         md: "1rem",
         lg: "2rem",

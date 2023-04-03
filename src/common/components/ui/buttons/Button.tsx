@@ -1,7 +1,7 @@
 import tw from "tailwind-styled-components";
 
 export type ButtonProps = {
-  $size?: "sm" | "md" | "lg";
+  $size?: "xs" | "sm" | "md" | "lg";
   $variant?: "default" | "primary" | "danger" | "warning";
   $style?: "default" | "link";
 };
@@ -9,6 +9,7 @@ export type ButtonProps = {
 export default tw.button<ButtonProps>`
 ${(p) => {
   return {
+    xs: "p-xs rounded",
     sm: "p-sm rounded",
     md: "p-md rounded-md",
     lg: "p-lg rounded-lg",

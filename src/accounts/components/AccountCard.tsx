@@ -9,15 +9,18 @@ import "./AccountCard.css";
 import { Popover } from "@headlessui/react";
 import { Account } from "../../types/Models";
 import EditAccountModal from "./Modals/EditAccountModal";
-import CreatePaymentModal from "../../payments/components/CreatePaymentModal";
+import { PlusIcon } from "@heroicons/react/24/solid";
+import CreateAccountModal from "./Modals/CreateAccountModal";
+import Button from "../../common/components/ui/buttons/Button";
+import CreateButton from "../../common/components/ui/buttons/CreateButton";
 
 export default function AccountCard({
   account,
 }: PropsWithChildren<{
   account: Account;
 }>) {
-  const [showModal, setShowModal] = useState(false);
-  const [showCreatePaymentModal, setShowCreatePaymentModal] = useState(false);
+  const [editAccount, setEditAccount] = useState<Account | null>(null);
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false);
 
   return (
     <>
@@ -26,34 +29,15 @@ export default function AccountCard({
           <CardHeader>
             <CardTitle className="flex-grow flex items-center gap-2">
               <span
-                onClick={() => setShowModal(true)}
+                onClick={() => setEditAccount(account)}
                 className="hover:text-primary cursor-pointer"
               >
                 {account.name}
               </span>
               <span className="text-gray font-normal ">{account.currency}</span>
-              <button
-                className="border border-gray rounded-full hover:bg-gray-lightest flex items-center justify-center w-5 h-5 p-0 text-gray"
-                onClick={() => setShowCreatePaymentModal(true)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 6v12m6-6H6"
-                  />
-                </svg>
-              </button>
             </CardTitle>
             <div className="font-bold flex items-center gap-2">
-              {!!account.balance_savings && (
+              {account.jars?.length && account.jars?.length > 0 ? (
                 <div>
                   <Popover className="relative">
                     <Popover.Button
@@ -61,7 +45,7 @@ export default function AccountCard({
                         account.balance_savings > account.balance
                           ? "bg-orange-lightest border-orange hover:border-orange aria-expanded:border-orange text-orange aria-expanded:shadow-orange-dark/20"
                           : "bg-gray-lightest border-gray-light hover:border-gray aria-expanded:border-gray text-gray aria-expanded:shadow-gray-dark/20"
-                      }  rounded-full py-1 px-2 text-sm flex items-center font-bold gap-1 border  outline-none aria-expanded:shadow`}
+                      } rounded-full h-6 px-2 text-sm flex items-center font-bold gap-1 border  outline-none aria-expanded:shadow`}
                     >
                       {account.balance_savings > account.balance ? (
                         <svg
@@ -94,26 +78,44 @@ export default function AccountCard({
                     </Popover.Button>
 
                     <Popover.Panel className="absolute z-10 w-48 left-1/2 -translate-x-1/2">
-                      <div className="p-1 rounded bg-gray-lightest mb-2 flex flex-col relative top-2 shadow-lg shadow-gray-dark/10 border border-gray">
+                      <div className="p-sm rounded bg-gray-lightest flex flex-col relative top-2 shadow-lg shadow-gray-dark/10 border border-gray">
                         <div className="savings after:bg-gray">
                           {account.jars?.map((jar) => (
                             <div
                               key={`jar_${jar.id}`}
-                              className="grid grid-cols-2 p-1"
+                              className="grid grid-cols-2 p-sm"
                             >
-                              <div className="font-semibold truncate">
+                              <button
+                                className="font-semibold truncate capitalize hover:text-primary flex justify-start"
+                                onClick={() => setEditAccount(jar)}
+                              >
                                 {jar.name}
-                              </div>
+                              </button>
                               <div className="text-right">
                                 {currencyFormat(jar.balance, jar.currency)}
                               </div>
                             </div>
                           ))}
+                          <hr className="text-gray-light my-2"></hr>
+                          <CreateButton
+                            $size="xs"
+                            className="w-full p-2"
+                            onClick={() => setShowCreateAccountModal(true)}
+                          >
+                            Add jar
+                          </CreateButton>
                         </div>
                       </div>
                     </Popover.Panel>
                   </Popover>
                 </div>
+              ) : (
+                <button
+                  onClick={() => setShowCreateAccountModal(true)}
+                  className="w-6 h-6 bg-gray-lightest border-gray-light hover:border-gray text-gray rounded-full text-sm flex items-center justify-center font-bold gap-1 border outline-none"
+                >
+                  <PlusIcon className="w-4 h-4 fill-gray" />
+                </button>
               )}
               <div>
                 <AccountBalance account={account} />
@@ -125,18 +127,18 @@ export default function AccountCard({
           <PaymentsList account={account} />
         </div>
       </Card>
-      {showCreatePaymentModal ? (
-        <CreatePaymentModal
-          show={showCreatePaymentModal}
-          onClose={() => setShowCreatePaymentModal(false)}
-          accountId={account.id}
+      {showCreateAccountModal ? (
+        <CreateAccountModal
+          show={showCreateAccountModal}
+          onClose={() => setShowCreateAccountModal(false)}
+          parent={account}
         />
       ) : null}
-      {showModal ? (
+      {editAccount ? (
         <EditAccountModal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          account={account}
+          show={!!editAccount}
+          onClose={() => setEditAccount(null)}
+          account={editAccount}
         />
       ) : null}
     </>

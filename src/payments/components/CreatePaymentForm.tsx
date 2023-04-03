@@ -8,17 +8,16 @@ import { useCreatePayment } from "../../api/payments";
 import { useHandleValidationErrors } from "../../hooks/common";
 import InputError from "../../common/components/ui/forms/InputError";
 import { Currency, PaymentType, RepeatUnit } from "../../types/Enums";
-import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
-import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import { Menu, Tab } from "@headlessui/react";
 import Button from "../../common/components/ui/buttons/Button";
-import { currencyFormat } from "../../services/formatters";
 import Datepicker from "../../common/components/ui/forms/Datepicker";
 import AmountInput from "../../common/components/ui/forms/AmountInput";
 import CurrencySwitch from "../../common/components/ui/forms/CurrencySwitch";
-import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import SubmitButton from "../../common/components/ui/buttons/SubmitButton";
 import InputButton from "../../common/components/ui/buttons/InputButton";
+import Info from "../../common/components/Info";
 
 export default function CreatePaymentForm({
   paymentType = undefined,
@@ -37,7 +36,8 @@ export default function CreatePaymentForm({
   const [customRepeat, setCustomRepeat] = useState(false);
   const descriptions: { [key in PaymentType]: string } = {
     [PaymentType.EXPENSE]: "Plan expense payment",
-    [PaymentType.INCOME]: "Plan income payment",
+    [PaymentType.INCOME]:
+      "Plan income payment. When budgeting expenses, the amount decreases daily. For instance, if you set a weekly payment of 700 EUR, after 2 days, it displays as 500 EUR.",
     [PaymentType.TRANSFER]: "Transfer between your accounts",
     [PaymentType.BUDGET]:
       "When budgeting expenses, the amount decreases daily. For instance, if you set a weekly payment of 700 EUR, after 2 days, it displays as 500 EUR.",
@@ -124,29 +124,7 @@ export default function CreatePaymentForm({
             </Tab.List>
           </Tab.Group>
         </div>
-
-        <div className="flex flex-row items-top gap-2 text-gray">
-          <div className="w-8 h-8">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 "
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-              />
-            </svg>
-          </div>
-          <div className="flex items-center text-base">
-            {descriptions[selectedPaymentType]}
-          </div>
-        </div>
-
+        <Info>{descriptions[selectedPaymentType]}</Info>
         <div className="flex flex-col items-center justify-center py-8">
           <AmountInput
             value={formik.values.amount}

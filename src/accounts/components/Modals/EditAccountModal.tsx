@@ -14,9 +14,9 @@ export default function EditAccountModal({
   return (
     <Modal show={show} onClose={onClose} title="Edit Account">
       <EditAccountView
-        onCancel={onClose}
         onSuccess={onClose}
         account={account}
+        onDeleted={onClose}
       />
     </Modal>
   );
