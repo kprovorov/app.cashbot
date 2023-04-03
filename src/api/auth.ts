@@ -85,9 +85,7 @@ export function usePasswordResetMutation() {
   );
 }
 
-export function useCurrentUser() {
-  const navigate = useNavigate();
-
+export function useCurrentUserQuery() {
   return useQuery<User, AxiosError<BackendErrorResponse>>(
     CURRENT_USER_QUERY,
     async () => {

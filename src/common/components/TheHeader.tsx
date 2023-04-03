@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useLogoutMutation } from "../../api/auth";
+import { useCurrentUserQuery, useLogoutMutation } from "../../api/auth";
 import CreatePaymentButton from "../../payments/components/CreatePaymentButton";
-import { User } from "../../types/Models";
-import HeaderButton from "./HeaderButton";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
 import SecondaryButton from "./ui/buttons/SecondaryButton";
 
-export default function TheHeader({ user }: { user?: User }) {
+export default function TheHeader() {
   const navigate = useNavigate();
   const { mutate } = useLogoutMutation();
+  const { data: user } = useCurrentUserQuery();
 
   const logout = () => {
     mutate(

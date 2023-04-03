@@ -7,9 +7,8 @@ import { Keyboard, Mousewheel } from "swiper";
 import PaymentsCard from "../payments/components/PaymentsCard";
 import moment from "moment";
 import { Switch } from "@headlessui/react";
-import Button from "../common/components/ui/buttons/Button";
 import { useAccounts } from "../api/accounts";
-import { useCurrentUser } from "../api/auth";
+import { useCurrentUserQuery } from "../api/auth";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import SecondaryButton from "../common/components/ui/buttons/SecondaryButton";
 
@@ -17,11 +16,11 @@ function Dashboard() {
   const [showEmptyAccounts, setShowEmptyAccounts] = useState(false);
 
   const { data: accounts, isLoading, refetch } = useAccounts();
-  const { data: user } = useCurrentUser();
+  const { data: user } = useCurrentUserQuery();
 
   return (
     <>
-      <TheHeader user={user} />
+      <TheHeader />
 
       <div className="flex flex-col">
         <div>
