@@ -7,16 +7,13 @@ import { Keyboard, Mousewheel } from "swiper";
 import PaymentsCard from "../payments/components/PaymentsCard";
 import moment from "moment";
 import { Switch } from "@headlessui/react";
-import { useAccounts } from "../api/accounts";
-import { useCurrentUserQuery } from "../api/auth";
-import { ArrowPathIcon } from "@heroicons/react/24/solid";
-import SecondaryButton from "../common/components/ui/buttons/SecondaryButton";
+import { useAccountsQuery } from "../api/accounts";
+import RefreshAccountsButton from "../accounts/components/Buttons/RefreshAccountsButton";
 
 function Dashboard() {
   const [showEmptyAccounts, setShowEmptyAccounts] = useState(false);
 
-  const { data: accounts, isLoading, refetch } = useAccounts();
-  const { data: user } = useCurrentUserQuery();
+  const { data: accounts } = useAccountsQuery();
 
   return (
     <>
@@ -47,11 +44,7 @@ function Dashboard() {
                 </div>
               </Switch.Group>
             </div>
-            <div>
-              <SecondaryButton $size="sm" onClick={() => refetch()}>
-                <ArrowPathIcon className="w-6 h-6" />
-              </SecondaryButton>
-            </div>
+            <RefreshAccountsButton />
           </div>
           <div>
             <Swiper

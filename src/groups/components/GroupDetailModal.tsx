@@ -1,5 +1,5 @@
 import { PropsWithChildren, useState } from "react";
-import { useAccounts } from "../../api/accounts";
+import { useAccountsQuery } from "../../api/accounts";
 import PrimaryButton from "../../common/components/ui/buttons/PrimaryButton";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
 import Modal from "../../common/components/ui/modal/Modal";
@@ -31,7 +31,7 @@ export default function GroupDetailModal({
 }>) {
   const [editPayment, setEditPayment] = useState<Payment | null>(null);
 
-  const { data: accounts } = useAccounts();
+  const { data: accounts } = useAccountsQuery();
 
   return (
     <Modal show={show} onClose={onClose}>

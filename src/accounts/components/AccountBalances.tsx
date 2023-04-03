@@ -3,13 +3,13 @@ import { currencyFormat } from "../../services/formatters";
 import Card from "../../common/components/ui/card/Card";
 import CardHeader from "../../common/components/ui/card/CardHeader";
 import CardTitle from "../../common/components/ui/card/CardTitle";
-import { useAccounts } from "../../api/accounts";
+import { useAccountsQuery } from "../../api/accounts";
 import { Currency } from "../../types/Enums";
 import CreateAccountButton from "./Buttons/CreateAccountButton";
 import AccountBalancesRow from "./AccountBalancesRow";
 
 export default function AccountBalances() {
-  const { data: accounts } = useAccounts();
+  const { data: accounts } = useAccountsQuery();
 
   return (
     <Card className="gap-3">
