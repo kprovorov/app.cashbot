@@ -9,9 +9,9 @@ export default function CreateButton({
   ...props
 }: PropsWithChildren<ButtonProps & React.ComponentProps<"button">>) {
   return (
-    <DashedButton {...props}>
+    <SecondaryButton {...props}>
       <PlusIcon className="w-6 h-6" />
       {children}
-    </DashedButton>
+    </SecondaryButton>
   );
 }

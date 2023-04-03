@@ -8,12 +8,12 @@ import AccountForm from "../Forms/AccountForm";
 
 export default function EditAccountView({
   account,
-  onCancel = () => {},
   onSuccess = () => {},
+  onDeleted,
 }: {
   account: Account;
-  onCancel?: () => void;
   onSuccess?: () => void;
+  onDeleted?: () => void;
 }) {
   const { mutate: updateAccount } = useUpdateAccount(account.id);
   const handleValidationErrors = useHandleValidationErrors<AccountData>();
@@ -48,8 +48,8 @@ export default function EditAccountView({
         values={formik.values}
         errors={formik.errors}
         handleChange={formik.handleChange}
-        onCancel={onCancel}
         onSubmit={formik.handleSubmit}
+        onDeleted={onDeleted}
       />
     </div>
   );

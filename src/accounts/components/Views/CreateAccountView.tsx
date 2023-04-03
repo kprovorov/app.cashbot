@@ -3,12 +3,14 @@ import { useAccountsQuery, useCreateAccount } from "../../../api/accounts";
 import { useHandleValidationErrors } from "../../../hooks/common";
 import { AccountData } from "../../../types/AccountData";
 import AccountForm from "../Forms/AccountForm";
+import { Account } from "../../../types/Models";
+import Info from "../../../common/components/Info";
 
 export default function CreateAccountView({
-  onCancel = () => {},
+  parent,
   onSuccess = () => {},
 }: {
-  onCancel?: () => void;
+  parent?: Account;
   onSuccess?: () => void;
 }) {
   const { mutate: createAccount } = useCreateAccount();
@@ -18,8 +20,8 @@ export default function CreateAccountView({
     initialValues: {
       name: "",
       balance: 0,
-      currency: undefined,
-      parent_id: undefined,
+      currency: parent?.currency,
+      parent_id: parent?.id,
     },
     onSubmit: (values) => {
       createAccount(
@@ -40,12 +42,20 @@ export default function CreateAccountView({
   });
 
   return (
-    <div className="p-6">
+    <div className="flex flex-col p-6 gap-6">
+      {parent ? (
+        <Info>
+          <span>
+            Jar is a virtual savings account inside of your «parent» account{" "}
+            <span className="font-semibold"> {parent.name}</span>
+          </span>
+        </Info>
+      ) : null}
       <AccountForm
+        parent={parent}
         values={formik.values}
         errors={formik.errors}
         handleChange={formik.handleChange}
-        onCancel={onCancel}
         onSubmit={formik.handleSubmit}
       />
     </div>

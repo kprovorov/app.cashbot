@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useCurrentUserQuery, useLogoutMutation } from "../../api/auth";
 import CreatePaymentButton from "../../payments/components/CreatePaymentButton";
-import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowRightOnRectangleIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 import SecondaryButton from "./ui/buttons/SecondaryButton";
 
 export default function TheHeader() {
@@ -28,9 +31,13 @@ export default function TheHeader() {
       </div>
       {user ? (
         <div className="flex items-center gap-3">
-          <div>{user.name}</div>
+          <div className="font-medium">{user.name}</div>
           <div>
-            <SecondaryButton onClick={logout}>
+            <SecondaryButton
+              $size="sm"
+              onClick={logout}
+              className="hover:bg-gray-darkest/30"
+            >
               <ArrowRightOnRectangleIcon className="w-6 h-6 text-white" />
             </SecondaryButton>
           </div>

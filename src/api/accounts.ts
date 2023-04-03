@@ -205,7 +205,7 @@ export function useCreateAccount() {
 export function useDeleteAccount(accountId: number) {
   const queryClient = useQueryClient();
 
-  return useMutation<void, AxiosError<BackendErrorResponse>>(
+  return useMutation<void, AxiosError<BackendErrorResponse>, null>(
     async () => await api.delete(`accounts/${accountId}`),
     {
       onSuccess: () => {

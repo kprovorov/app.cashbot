@@ -2,7 +2,10 @@ import { Moment } from "moment";
 import { Currency } from "./Enums";
 import { AccountRaw, PaymentRaw, UserRaw } from "./ModelsRaw";
 
-export type Account = Omit<AccountRaw, "payments_to" | "payments_from"> & {
+export type Account = Omit<
+  AccountRaw,
+  "payments_to" | "payments_from" | "jars"
+> & {
   parent?: Account;
   payments?: Payment[];
   jars?: Account[];
