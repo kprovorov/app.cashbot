@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect, useState } from "react";
-import { useAccounts } from "../../api/accounts";
+import { useAccountsQuery } from "../../api/accounts";
 import CreatePaymentData from "../../interfaces/CreatePaymentData";
 import Input from "../../common/components/ui/forms/Input";
 import Label from "../../common/components/ui/forms/Label";
@@ -100,7 +100,7 @@ export default function CreatePaymentForm({
     },
   });
 
-  const { data: accounts } = useAccounts();
+  const { data: accounts } = useAccountsQuery();
 
   return (
     <form onSubmit={formik.handleSubmit}>

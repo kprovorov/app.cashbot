@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useAccounts, useCreateAccount } from "../../../api/accounts";
+import { useAccountsQuery, useCreateAccount } from "../../../api/accounts";
 import { useHandleValidationErrors } from "../../../hooks/common";
 import { AccountData } from "../../../types/AccountData";
 import AccountForm from "../Forms/AccountForm";

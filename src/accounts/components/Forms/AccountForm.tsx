@@ -1,5 +1,5 @@
 import { FormikErrors } from "formik";
-import { useAccounts } from "../../../api/accounts";
+import { useAccountsQuery } from "../../../api/accounts";
 import PrimaryButton from "../../../common/components/ui/buttons/PrimaryButton";
 import SecondaryButton from "../../../common/components/ui/buttons/SecondaryButton";
 import Input from "../../../common/components/ui/forms/Input";
@@ -25,7 +25,7 @@ export default function AccountForm({
   onCancel?: () => void;
   onSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
 }) {
-  const { data: accounts } = useAccounts();
+  const { data: accounts } = useAccountsQuery();
 
   return (
     <form onSubmit={onSubmit}>

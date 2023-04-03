@@ -1,5 +1,5 @@
 import { PropsWithChildren, useState } from "react";
-import { useAccounts } from "../../api/accounts";
+import { useAccountsQuery } from "../../api/accounts";
 import Label from "../../common/components/ui/forms/Label";
 import Input from "../../common/components/ui/forms/Input";
 import { useFormik } from "formik";
@@ -32,7 +32,7 @@ export default function EditPaymentForm({
   onUpdated?: () => void;
 }>) {
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const { data: accounts } = useAccounts();
+  const { data: accounts } = useAccountsQuery();
   const handleValidationErrors =
     useHandleValidationErrors<UpdatePaymentGeneralData>();
 

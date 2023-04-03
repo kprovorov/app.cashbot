@@ -12,7 +12,7 @@ import { CreateAccountData, UpdateAccountData } from "../types/AccountData";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
-export function useAccounts() {
+export function useAccountsQuery() {
   const { convert, isLoading } = useCurrencyConverter();
 
   return useQuery<Account[], AxiosError<BackendErrorResponse>>(

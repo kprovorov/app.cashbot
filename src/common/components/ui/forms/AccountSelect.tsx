@@ -1,4 +1,4 @@
-import { useAccounts } from "../../../../api/accounts";
+import { useAccountsQuery } from "../../../../api/accounts";
 import Input from "./Input";
 
 export default function AccountSelect({
@@ -10,7 +10,7 @@ export default function AccountSelect({
   onChange: (value: number) => void;
   $invalid?: boolean;
 }) {
-  const { data: accounts } = useAccounts();
+  const { data: accounts } = useAccountsQuery();
 
   return (
     <Input
