@@ -4,10 +4,13 @@ import Input from "../../../common/components/ui/forms/Input";
 import InputError from "../../../common/components/ui/forms/InputError";
 import Label from "../../../common/components/ui/forms/Label";
 import { PasswordResetData } from "../../../types/AuthData";
+import SubmitButton from "../../../common/components/ui/buttons/SubmitButton";
 
 export default function PasswordResetForm({
+  loading = false,
   onSubmit,
 }: {
+  loading?: boolean;
   onSubmit: (values: Omit<PasswordResetData, "token" | "email">) => void;
 }) {
   const formik = useFormik<Omit<PasswordResetData, "token" | "email">>({
@@ -48,9 +51,9 @@ export default function PasswordResetForm({
           <InputError>{formik.errors.password_confirmation}</InputError>
         </div>
         <div>
-          <PrimaryButton className="w-full" type="submit">
+          <SubmitButton className="w-full" type="submit" $loading={loading}>
             Restore
-          </PrimaryButton>
+          </SubmitButton>
         </div>
       </div>
     </form>

@@ -6,7 +6,7 @@ import Link from "../Misc/Link";
 
 export default function LoginView() {
   const navigate = useNavigate();
-  const { mutate } = useLoginMutation();
+  const { mutate, isLoading } = useLoginMutation();
 
   const submit = (values: LoginFormData) => {
     mutate(values, {
@@ -19,7 +19,7 @@ export default function LoginView() {
   return (
     <div className="bg-white p-6 rounded-xl shadow-xl flex flex-col gap-3 w-full">
       <h1 className="uppercase font-bold">Login</h1>
-      <LoginForm onSubmit={submit} />
+      <LoginForm onSubmit={submit} loading={isLoading} />
       <div className="flex justify-center">
         <Link href="/auth/password/restore">Forgot password?</Link>
       </div>

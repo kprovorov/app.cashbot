@@ -10,6 +10,7 @@ import DeleteAccountButton from "../Buttons/DeleteAccountButton";
 import { Account } from "../../../types/Models";
 
 export default function AccountForm({
+  loading = false,
   accountId,
   parent,
   values = {},
@@ -18,6 +19,7 @@ export default function AccountForm({
   onSubmit,
   onDeleted,
 }: {
+  loading?: boolean;
   accountId?: number;
   parent?: Account;
   values?: AccountData;
@@ -81,6 +83,7 @@ export default function AccountForm({
           ) : null}
           <SubmitButton
             type="submit"
+            $loading={loading}
             className={`${accountId ? "" : "flex-grow"}`}
           >
             Save

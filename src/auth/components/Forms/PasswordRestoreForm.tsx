@@ -1,14 +1,15 @@
 import { useFormik } from "formik";
-import { usePasswordRestoreMutation } from "../../../api/auth";
-import PrimaryButton from "../../../common/components/ui/buttons/PrimaryButton";
 import Input from "../../../common/components/ui/forms/Input";
 import InputError from "../../../common/components/ui/forms/InputError";
 import Label from "../../../common/components/ui/forms/Label";
 import { PasswordRestoreData } from "../../../types/AuthData";
+import SubmitButton from "../../../common/components/ui/buttons/SubmitButton";
 
 export default function PasswordRestoreForm({
+  loading = false,
   onSubmit,
 }: {
+  loading?: boolean;
   onSubmit: (values: PasswordRestoreData) => void;
 }) {
   const formik = useFormik<PasswordRestoreData>({
@@ -36,9 +37,9 @@ export default function PasswordRestoreForm({
           <InputError>{formik.errors.email}</InputError>
         </div>
         <div>
-          <PrimaryButton className="w-full" type="submit">
+          <SubmitButton className="w-full" type="submit" $loading={loading}>
             Restore
-          </PrimaryButton>
+          </SubmitButton>
         </div>
       </div>
     </form>

@@ -15,7 +15,7 @@ export default function EditAccountView({
   onSuccess?: () => void;
   onDeleted?: () => void;
 }) {
-  const { mutate: updateAccount } = useUpdateAccount(account.id);
+  const { mutate: updateAccount, isLoading } = useUpdateAccount(account.id);
   const handleValidationErrors = useHandleValidationErrors<AccountData>();
 
   const formik = useFormik<AccountData>({
@@ -44,6 +44,7 @@ export default function EditAccountView({
   return (
     <div className="p-6">
       <AccountForm
+        loading={isLoading}
         accountId={account.id}
         values={formik.values}
         errors={formik.errors}
