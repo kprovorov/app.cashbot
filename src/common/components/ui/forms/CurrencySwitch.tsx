@@ -13,7 +13,7 @@ export default function CurrencySwitch({
     <Button
       $size="sm"
       type="button"
-      className="hover:bg-gray-light"
+      className="hover:bg-gray-lightest"
       onClick={() => {
         const currencies = Object.values(Currency);
 

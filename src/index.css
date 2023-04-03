@@ -8,6 +8,9 @@
     -webkit-appearance: none;
     margin: 0;
   }
+  select {
+    cursor: pointer;
+  }
 }
 
 @layer base {
@@ -30,7 +33,7 @@
 }
 
 .react-datepicker__input-container input {
-  @apply block w-full text-base bg-primary border border-gray-light rounded shadow-sm;
+  @apply block w-full text-base bg-primary border border-gray-lightest rounded shadow-sm;
 }
 
 .react-datepicker__aria-live {
@@ -86,15 +89,15 @@
 }
 
 .react-datepicker__navigation--previous {
-  @apply right-12 w-0 h-8 rounded transition flex items-center justify-center hover:bg-gray-light;
+  @apply right-12 w-0 h-8 rounded transition flex items-center justify-center hover:bg-gray-lightest;
 }
 
 .react-datepicker__navigation--next {
-  @apply right-4 w-8 h-8 rounded transition flex items-center justify-center hover:bg-gray-light;
+  @apply right-4 w-8 h-8 rounded transition flex items-center justify-center hover:bg-gray-lightest;
 }
 
 .react-datepicker__day {
-  @apply mb-1 w-8 h-8 flex items-center justify-center py-1 text-base leading-loose transition text-gray-dark rounded hover:bg-gray-light cursor-pointer;
+  @apply mb-1 w-8 h-8 flex items-center justify-center py-1 text-base leading-loose transition text-gray-dark rounded hover:bg-gray-lightest cursor-pointer;
 }
 
 .react-datepicker__day--disabled {
@@ -134,5 +137,5 @@
 }
 
 .react-datepicker__today-button {
-  @apply py-1 px-2 hover:bg-gray-light text-base font-semibold w-full cursor-pointer rounded text-center;
+  @apply py-1 px-2 hover:bg-gray-lightest text-base font-semibold w-full cursor-pointer rounded text-center;
 }

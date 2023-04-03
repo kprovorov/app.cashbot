@@ -16,7 +16,7 @@ export default function AmountInput({
   return (
     <Input
       type="text"
-      className="text-center text-5xl border-none font-semibold focus:outline-none focus:ring-0 bg-transparent"
+      className="text-center text-5xl border-none font-semibold focus:outline-none focus:ring-0 bg-transparent hover:bg-transparent"
       value={currencyFormat(value, currency)}
       onChange={(e) => {
         onChange(Number(e.target.value.replace(/\D/g, "")) * 100);

@@ -1,4 +1,13 @@
-import tw from "tailwind-styled-components";
-import Button from "./Button";
+import { PropsWithChildren } from "react";
+import Button, { ButtonProps } from "./Button";
 
-export default tw(Button)`bg-transparent text-red`;
+export default function DangerButton({
+  children,
+  ...props
+}: PropsWithChildren<ButtonProps & React.ComponentProps<"button">>) {
+  return (
+    <Button {...props} $variant="danger" $style="link">
+      {children}
+    </Button>
+  );
+}

@@ -17,6 +17,8 @@ import Datepicker from "../../common/components/ui/forms/Datepicker";
 import AmountInput from "../../common/components/ui/forms/AmountInput";
 import CurrencySwitch from "../../common/components/ui/forms/CurrencySwitch";
 import { ArrowRightIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import SubmitButton from "../../common/components/ui/buttons/SubmitButton";
+import InputButton from "../../common/components/ui/buttons/InputButton";
 
 export default function CreatePaymentForm({
   paymentType = undefined,
@@ -103,7 +105,7 @@ export default function CreatePaymentForm({
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="flex flex-col gap-4">
-        <div className="bg-gray-light p-2 rounded-lg">
+        <div className="bg-gray-lightest p-2 rounded-lg">
           <Tab.Group
             selectedIndex={Object.values(PaymentType).indexOf(
               selectedPaymentType
@@ -177,8 +179,8 @@ export default function CreatePaymentForm({
           <div>
             <Menu as="div" className="relative">
               <Menu.Button
-                as={SecondaryButton}
-                className="w-full flex flex-row justify-between text-gray-dark font-normal font-sans leading-tight"
+                as={InputButton}
+                className="w-full flex flex-row justify-between text-gray-dark font-normal font-sans leading-tight bg-gray-lightest hover:bg-gray-light"
               >
                 <span>
                   {customRepeat
@@ -249,7 +251,7 @@ export default function CreatePaymentForm({
                     <Button
                       $size="sm"
                       onClick={repeat.onClick}
-                      className="flex justify-start w-full hover:bg-gray-light"
+                      className="flex justify-start w-full hover:bg-gray-lightest text-gray-dark"
                     >
                       {repeat.label}
                     </Button>
@@ -261,12 +263,13 @@ export default function CreatePaymentForm({
         </div>
 
         {customRepeat ? (
-          <div className="grid grid-cols-2 gap-4 items-center bg-gray-light p-4 rounded-md">
+          <div className="grid grid-cols-2 gap-4 items-center bg-gray-lightest p-4 rounded-md">
             <div>
               <Label>repeat every</Label>
               <div className="grid grid-cols-6 gap-4">
                 <Input
-                  className="col-span-2 w-full border-none py-1 px-2 shadow shadow-gray bg-white"
+                  className="col-span-2 w-full border-none shadow shadow-gray bg-white"
+                  $size="sm"
                   $as="select"
                   disabled={formik.values.repeat_unit === RepeatUnit.NONE}
                   type="number"
@@ -283,7 +286,8 @@ export default function CreatePaymentForm({
                   ))}
                 </Input>
                 <Input
-                  className="col-span-4 w-full border-none py-1 px-2 shadow shadow-gray bg-white"
+                  className="col-span-4 w-full border-none shadow shadow-gray bg-white"
+                  $size="sm"
                   $as="select"
                   id="repeat_unit"
                   name="repeat_unit"
@@ -303,9 +307,10 @@ export default function CreatePaymentForm({
             <div>
               <Label>until</Label>
               <Datepicker
-                buttonClassName="border-none py-1 px-2 shadow shadow-gray bg-white"
+                buttonClassName="border-none shadow shadow-gray bg-white"
                 id="repeat_ends_on"
                 name="repeat_ends_on"
+                $size="sm"
                 $invalid={!!formik.errors.repeat_ends_on}
                 placeholderText="Forever"
                 selected={
@@ -392,10 +397,9 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.description}</InputError>
         </div>
         <div className="flex justify-center">
-          <PrimaryButton type="submit" className="w-full">
+          <SubmitButton type="submit" className="w-full">
             Save
-            <ChevronRightIcon className="w-6 h-6" />
-          </PrimaryButton>
+          </SubmitButton>
         </div>
       </div>
     </form>

@@ -7,14 +7,18 @@ import InputError from "../../../common/components/ui/forms/InputError";
 import Label from "../../../common/components/ui/forms/Label";
 import { AccountData } from "../../../types/AccountData";
 import { Currency } from "../../../types/Enums";
+import SubmitButton from "../../../common/components/ui/buttons/SubmitButton";
+import DeleteAccountButton from "../Buttons/DeleteAccountButton";
 
 export default function AccountForm({
+  accountId,
   values = {},
   errors = {},
   handleChange,
   onCancel = () => {},
   onSubmit,
 }: {
+  accountId?: number;
   values?: AccountData;
   errors?: FormikErrors<AccountData>;
   handleChange?: (e: React.ChangeEvent<any>) => void;
@@ -88,9 +92,14 @@ export default function AccountForm({
           </Input>
           <InputError>{errors.parent_id}</InputError>
         </div>
-        <div className="flex gap-3 justify-end">
-          <SecondaryButton onClick={onCancel}>Cancel</SecondaryButton>
-          <PrimaryButton type="submit">Save changes</PrimaryButton>
+        <div className="flex gap-3 justify-between">
+          {accountId ? <DeleteAccountButton accountId={accountId} /> : null}
+          <SubmitButton
+            type="submit"
+            className={`${accountId ? "" : "flex-grow"}`}
+          >
+            Save
+          </SubmitButton>
         </div>
       </div>
     </form>

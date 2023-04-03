@@ -1,6 +1,13 @@
-import tw from "tailwind-styled-components";
-import Button from "./Button";
+import { PropsWithChildren } from "react";
+import Button, { ButtonProps } from "./Button";
 
-export default tw(
-  Button
-)`border border-primary bg-primary hover:bg-primary-dark text-white`;
+export default function PrimaryButton({
+  children,
+  ...props
+}: PropsWithChildren<ButtonProps & React.ComponentProps<"button">>) {
+  return (
+    <Button {...props} $variant="primary" $style="default">
+      {children}
+    </Button>
+  );
+}

@@ -4,22 +4,29 @@ import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 import Button from "../buttons/Button";
 import moment from "moment";
 import SecondaryButton from "../buttons/SecondaryButton";
+import InputButton from "../buttons/InputButton";
 
 export default function Datepicker({
   children,
   $invalid,
+  $size = "md",
   buttonClassName = "",
   ...props
 }: PropsWithChildren<
-  ReactDatePickerProps & { $invalid: boolean; buttonClassName?: string }
+  ReactDatePickerProps & {
+    $invalid: boolean;
+    $size?: "sm" | "md" | "lg";
+    buttonClassName?: string;
+  }
 >) {
   const DatepickerInput = forwardRef<
     HTMLButtonElement,
     { value: Date | null | undefined; onClick?: () => void }
   >(({ value, onClick }, ref) => (
-    <SecondaryButton
+    <InputButton
+      $size={$size}
       type="button"
-      className={`w-full flex flex-row font-normal justify-between text-gray-dark  font-sans leading-none border-gray ${
+      className={`w-full flex flex-row font-normal justify-between text-gray-dark  font-sans leading-none border-gray bg-gray-lightest hover:bg-gray-light ${
         $invalid ? "text-red" : ""
       } ${buttonClassName}`}
       onClick={onClick}
@@ -42,7 +49,7 @@ export default function Datepicker({
           clipRule="evenodd"
         />
       </svg>
-    </SecondaryButton>
+    </InputButton>
   ));
 
   return (
@@ -63,7 +70,7 @@ export default function Datepicker({
         <div className="flex flex-row justify-between items-center">
           <button
             type="button"
-            className="hover:bg-gray-light rounded w-8 h-8 flex items-center justify-center"
+            className="hover:bg-gray-lightest rounded w-8 h-8 flex items-center justify-center"
             onClick={decreaseMonth}
             disabled={prevMonthButtonDisabled}
           >
@@ -92,7 +99,7 @@ export default function Datepicker({
 
           <button
             type="button"
-            className="hover:bg-gray-light rounded w-8 h-8 flex items-center justify-center"
+            className="hover:bg-gray-lightest rounded w-8 h-8 flex items-center justify-center"
             onClick={increaseMonth}
             disabled={nextMonthButtonDisabled}
           >
