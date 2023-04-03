@@ -1,4 +1,4 @@
-import { useLoaderData, useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { usePasswordResetMutation } from "../../../api/auth";
 import { PasswordResetData } from "../../../types/AuthData";
 import PasswordResetForm from "../Forms/PasswordResetForm";

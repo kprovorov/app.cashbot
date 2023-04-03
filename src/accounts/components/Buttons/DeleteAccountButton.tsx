@@ -8,10 +8,11 @@ export default function DeleteAccountButton({
   accountId: number;
   onDeleted?: () => void;
 }) {
-  const { mutate: deleteAccount } = useDeleteAccount(accountId);
+  const { mutate: deleteAccount, isLoading } = useDeleteAccount(accountId);
 
   return (
     <DeleteButton
+      $loading={isLoading}
       type="button"
       onClick={() =>
         deleteAccount(null, {
