@@ -16,7 +16,7 @@ export default function TheHeader() {
     mutate(
       {},
       {
-        onSuccess: () => navigate("/"),
+        onSuccess: () => navigate("/auth/login"),
       }
     );
   };

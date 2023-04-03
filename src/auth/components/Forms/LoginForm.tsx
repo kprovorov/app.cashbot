@@ -5,10 +5,13 @@ import Input from "../../../common/components/ui/forms/Input";
 import InputError from "../../../common/components/ui/forms/InputError";
 import Label from "../../../common/components/ui/forms/Label";
 import LoginFormData from "../../../interfaces/LoginFormData";
+import SubmitButton from "../../../common/components/ui/buttons/SubmitButton";
 
 export default function LoginForm({
+  loading = false,
   onSubmit,
 }: {
+  loading?: boolean;
   onSubmit: (values: LoginFormData) => void;
 }) {
   const formik = useFormik<LoginFormData>({
@@ -49,9 +52,9 @@ export default function LoginForm({
           <InputError>{formik.errors.password}</InputError>
         </div>
         <div>
-          <PrimaryButton className="w-full" type="submit">
+          <SubmitButton className="w-full" type="submit" $loading={loading}>
             Login
-          </PrimaryButton>
+          </SubmitButton>
         </div>
       </div>
     </form>

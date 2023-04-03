@@ -13,7 +13,7 @@ export default function DeletePaymentButton({
   onDeleted?: () => void;
   $size?: "sm" | "md" | "lg";
 }>) {
-  const { mutate } = useDeletePaymentMutation(payment.id);
+  const { mutate, isLoading } = useDeletePaymentMutation(payment.id);
 
   const submit = () => {
     mutate(
@@ -27,7 +27,12 @@ export default function DeletePaymentButton({
   };
 
   return (
-    <DeleteButton onClick={submit} type="button" $size={$size}>
+    <DeleteButton
+      onClick={submit}
+      type="button"
+      $size={$size}
+      $loading={isLoading}
+    >
       {children}
     </DeleteButton>
   );

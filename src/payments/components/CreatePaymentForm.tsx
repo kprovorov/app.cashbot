@@ -43,7 +43,7 @@ export default function CreatePaymentForm({
       "When budgeting expenses, the amount decreases daily. For instance, if you set a weekly payment of 700 EUR, after 2 days, it displays as 500 EUR.",
   };
   const handleValidationErrors = useHandleValidationErrors<CreatePaymentData>();
-  const { mutate } = useCreatePayment();
+  const { mutate, isLoading } = useCreatePayment();
 
   useEffect(() => {
     if (paymentType) {
@@ -375,7 +375,7 @@ export default function CreatePaymentForm({
           <InputError>{formik.errors.description}</InputError>
         </div>
         <div className="flex justify-center">
-          <SubmitButton type="submit" className="w-full">
+          <SubmitButton type="submit" className="w-full" $loading={isLoading}>
             Save
           </SubmitButton>
         </div>

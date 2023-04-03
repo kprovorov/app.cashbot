@@ -52,7 +52,7 @@ module.exports = {
       },
       red: {
         lightest: colors.red[100],
-        light: colors.red[200],
+        light: colors.red[300],
         DEFAULT: colors.red[500],
         dark: colors.red[700],
         darkest: colors.red[900],
@@ -66,7 +66,7 @@ module.exports = {
       },
       primary: {
         lightest: colors.indigo[100],
-        light: colors.indigo[200],
+        light: colors.indigo[400],
         DEFAULT: colors.indigo[600],
         dark: colors.indigo[700],
         darkest: colors.indigo[900],

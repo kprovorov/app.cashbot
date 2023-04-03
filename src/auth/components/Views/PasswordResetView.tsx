@@ -5,7 +5,7 @@ import PasswordResetForm from "../Forms/PasswordResetForm";
 import Link from "../Misc/Link";
 
 export default function PasswordResetView() {
-  const { mutate } = usePasswordResetMutation();
+  const { mutate, isLoading } = usePasswordResetMutation();
   const [searchParams] = useSearchParams();
 
   const token = searchParams.get("token") || "";
@@ -22,7 +22,7 @@ export default function PasswordResetView() {
   return (
     <div className="bg-white p-6 rounded-xl shadow-xl flex flex-col gap-3 w-full">
       <h1 className="uppercase font-bold">Create new password</h1>
-      <PasswordResetForm onSubmit={submit} />
+      <PasswordResetForm onSubmit={submit} loading={isLoading} />
       <div className="flex justify-center">
         <Link href="/auth/login">Login</Link>
       </div>

@@ -13,7 +13,7 @@ export default function CreateAccountView({
   parent?: Account;
   onSuccess?: () => void;
 }) {
-  const { mutate: createAccount } = useCreateAccount();
+  const { mutate: createAccount, isLoading } = useCreateAccount();
   const handleValidationErrors = useHandleValidationErrors<AccountData>();
 
   const formik = useFormik<AccountData>({
@@ -52,6 +52,7 @@ export default function CreateAccountView({
         </Info>
       ) : null}
       <AccountForm
+        loading={isLoading}
         parent={parent}
         values={formik.values}
         errors={formik.errors}

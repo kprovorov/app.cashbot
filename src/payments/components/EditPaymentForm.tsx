@@ -36,7 +36,7 @@ export default function EditPaymentForm({
   const handleValidationErrors =
     useHandleValidationErrors<UpdatePaymentGeneralData>();
 
-  const { mutate } = useUpdatePaymentGeneralData(payment.id);
+  const { mutate, isLoading } = useUpdatePaymentGeneralData(payment.id);
 
   const formik = useFormik<UpdatePaymentGeneralData>({
     initialValues: {
@@ -208,7 +208,9 @@ export default function EditPaymentForm({
                 >
                   Cancel
                 </CancelButton>
-                <SubmitButton type="submit">Confirm</SubmitButton>
+                <SubmitButton $loading={isLoading} type="submit">
+                  Confirm
+                </SubmitButton>
               </div>
             </div>
           </div>
