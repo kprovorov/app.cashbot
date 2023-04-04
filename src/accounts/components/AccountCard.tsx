@@ -24,7 +24,7 @@ export default function AccountCard({
 
   return (
     <>
-      <Card>
+      <Card className="p-sm">
         <div className="flex flex-col">
           <CardHeader>
             <CardTitle className="flex-grow flex items-center gap-2">
