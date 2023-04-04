@@ -16,7 +16,7 @@ export default function UserProfileForm({
     name: "",
     email: "",
   },
-  isLoading,
+  isLoading = false,
   onSubmit,
 }: {
   initialValues?: UserProfileData;
@@ -40,6 +40,10 @@ export default function UserProfileForm({
           if (error.response?.status === 422) {
             handleValidationErrors(error, formik);
           }
+        },
+        onSuccess: () => {
+          formik.resetForm();
+          alert("Profile updated successfully!");
         },
       });
     },

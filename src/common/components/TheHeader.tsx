@@ -25,9 +25,9 @@ export default function TheHeader() {
   return (
     <div className="flex bg-gray-dark p-3 text-white justify-between items-center">
       <div className="flex gap-3 items-center">
-        <a href="/" className="px-3">
+        <Link to="/" className="px-3">
           <img className="h-6" src="logo.svg" alt="cashbot" />
-        </a>
+        </Link>
         {user ? <CreatePaymentButton /> : null}
       </div>
       {user ? (
