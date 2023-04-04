@@ -43,8 +43,6 @@ export function useLogoutMutation() {
 }
 
 export function usePasswordRestoreMutation() {
-  const navigate = useNavigate();
-
   return useMutation<
     void,
     AxiosError<BackendErrorResponse>,

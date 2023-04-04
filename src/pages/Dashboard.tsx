@@ -7,6 +7,8 @@ import PaymentsCard from "../payments/components/PaymentsCard";
 import moment from "moment";
 import { useAccountsQuery } from "../api/accounts";
 import { AppContext } from "../context/AppContext";
+import ShowEmptyAccountsSwitch from "../common/components/ShowEmptyAccountsSwitch";
+import RefreshAccountsButton from "../accounts/components/Buttons/RefreshAccountsButton";
 
 export default function Dashboard() {
   const { showEmptyAccounts } = useContext(AppContext);
@@ -15,6 +17,10 @@ export default function Dashboard() {
 
   return (
     <div>
+      <div className="flex items-center justify-between px-4 py-6">
+        <ShowEmptyAccountsSwitch />
+        <RefreshAccountsButton />
+      </div>
       <Swiper
         cssMode={true}
         mousewheel={true}
