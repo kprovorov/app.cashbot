@@ -6,15 +6,22 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordRestore from "./pages/PasswordRestore";
+import AppLayout from "./common/components/Layouts/AppLayout";
 
 export default createBrowserRouter([
   {
     path: "/",
     element: (
       <AuthOnly>
-        <Dashboard />
+        <AppLayout />
       </AuthOnly>
     ),
+    children: [
+      {
+        path: "/",
+        element: <Dashboard />,
+      },
+    ],
   },
   {
     path: "/auth",
