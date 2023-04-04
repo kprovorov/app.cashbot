@@ -13,7 +13,7 @@ export default function PaymentsCard({
   payments: Payment[];
 }>) {
   return (
-    <Card>
+    <Card className="p-sm">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>

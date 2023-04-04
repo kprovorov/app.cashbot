@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import PasswordReset from "./pages/PasswordReset";
 import PasswordRestore from "./pages/PasswordRestore";
 import AppLayout from "./common/components/Layouts/AppLayout";
+import Profile from "./pages/Profile";
 
 export default createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export default createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

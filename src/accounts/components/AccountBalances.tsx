@@ -12,7 +12,7 @@ export default function AccountBalances() {
   const { data: accounts } = useAccountsQuery();
 
   return (
-    <Card className="gap-3">
+    <Card className="p-sm">
       <CardHeader>
         <CardTitle>Accounts</CardTitle>
         <div className="font-bold">
