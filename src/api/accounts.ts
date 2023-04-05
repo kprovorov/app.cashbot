@@ -1,5 +1,4 @@
 import api from "../services/api";
-import Rate from "../interfaces/Rate";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
@@ -174,10 +173,14 @@ export function useAccountsQuery() {
   );
 }
 
-export function useUpdateAccount(accountId: number) {
+export function useUpdateAccountMutation(accountId: number) {
   const queryClient = useQueryClient();
 
-  return useMutation<void, AxiosError<BackendErrorResponse>, UpdateAccountData>(
+  return useMutation<
+    AccountRaw,
+    AxiosError<BackendErrorResponse>,
+    UpdateAccountData
+  >(
     async (data: UpdateAccountData) =>
       await api.put(`accounts/${accountId}`, data),
     {
@@ -188,7 +191,7 @@ export function useUpdateAccount(accountId: number) {
   );
 }
 
-export function useCreateAccount() {
+export function useCreateAccountMutation() {
   const queryClient = useQueryClient();
 
   return useMutation<
@@ -202,7 +205,7 @@ export function useCreateAccount() {
   });
 }
 
-export function useDeleteAccount(accountId: number) {
+export function useDeleteAccountMutation(accountId: number) {
   const queryClient = useQueryClient();
 
   return useMutation<void, AxiosError<BackendErrorResponse>, null>(

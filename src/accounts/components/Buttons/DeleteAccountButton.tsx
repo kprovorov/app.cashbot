@@ -1,4 +1,4 @@
-import { useDeleteAccount } from "../../../api/accounts";
+import { useDeleteAccountMutation } from "../../../api/accounts";
 import DeleteButton from "../../../common/components/ui/buttons/DeleteButton";
 
 export default function DeleteAccountButton({
@@ -8,7 +8,8 @@ export default function DeleteAccountButton({
   accountId: number;
   onDeleted?: () => void;
 }) {
-  const { mutate: deleteAccount, isLoading } = useDeleteAccount(accountId);
+  const { mutate: deleteAccount, isLoading } =
+    useDeleteAccountMutation(accountId);
 
   return (
     <DeleteButton
