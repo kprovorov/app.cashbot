@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="flex items-center justify-between px-4 py-6">
+      <div className="flex items-center justify-between px-6 py-md">
         <ShowEmptyAccountsSwitch />
         <RefreshAccountsButton />
       </div>

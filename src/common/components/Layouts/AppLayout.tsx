@@ -4,7 +4,9 @@ import TheHeader from "../TheHeader";
 export default function AppLayout() {
   return (
     <>
-      <TheHeader />
+      <div className="p-md pb-0">
+        <TheHeader />
+      </div>
       <Outlet />
     </>
   );
