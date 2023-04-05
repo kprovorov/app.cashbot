@@ -78,6 +78,7 @@ export default function AccountForm({
           <InputError>{formik.errors.name}</InputError>
         </div>
         <div className="flex flex-col items-center justify-center py-8">
+          <Label htmlFor="balance">balance</Label>
           <AmountInput
             value={formik.values.balance || 0}
             currency={formik.values.currency || Currency.EUR}
