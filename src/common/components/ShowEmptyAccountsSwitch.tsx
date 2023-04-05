@@ -13,7 +13,7 @@ export default function ShowEmptyAccountsSwitch() {
             checked={showEmptyAccounts}
             onChange={setShowEmptyAccounts}
             className={`${
-              showEmptyAccounts ? "bg-primary" : "bg-gray"
+              showEmptyAccounts ? "bg-gray-darkest" : "bg-gray"
             } relative inline-flex h-6 w-11 items-center rounded-full`}
           >
             <span
