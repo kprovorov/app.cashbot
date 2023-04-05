@@ -6,7 +6,7 @@ export default function PrimaryButton({
   ...props
 }: PropsWithChildren<ButtonProps & React.ComponentProps<"button">>) {
   return (
-    <Button {...props} $variant="primary" $style="default">
+    <Button {...props} $variant="default" $style="default">
       {children}
     </Button>
   );

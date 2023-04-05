@@ -28,7 +28,7 @@ box-border
 ${(p) => {
   return {
     default: {
-      default: "text-white bg-gray-dark hover:bg-gray-darkest disabled:bg-gray",
+      default: "text-white bg-gray-darkest hover:bg-black disabled:bg-gray",
       link: "text-gray-dark bg-transparent hover:bg-gray-dark/5 hover:border-gray-darkest disabled:text-gray disabled:bg-transparent",
     },
     primary: {

@@ -18,7 +18,7 @@ export default function DeleteGroupButton({
   };
 
   return (
-    <DeleteButton onClick={submit} $loading={isLoading}>
+    <DeleteButton onClick={submit} $loading={isLoading} className="w-full">
       Delete Group
     </DeleteButton>
   );

@@ -112,10 +112,7 @@ export default function AccountForm({
           </div>
         </div>
 
-        <div className="flex gap-3 justify-between">
-          {accountId ? (
-            <DeleteAccountButton accountId={accountId} onDeleted={onDeleted} />
-          ) : null}
+        <div className="flex flex-col gap-sm justify-between">
           <SubmitButton
             type="submit"
             $loading={isLoading}
@@ -123,6 +120,9 @@ export default function AccountForm({
           >
             Save
           </SubmitButton>
+          {accountId ? (
+            <DeleteAccountButton accountId={accountId} onDeleted={onDeleted} />
+          ) : null}
         </div>
       </div>
     </form>

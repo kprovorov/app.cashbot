@@ -159,13 +159,13 @@ export default function EditPaymentForm({
           <InputError>{formik.errors.description}</InputError>
         </div>
 
-        <div className="flex flex-row justify-between items-center">
-          <DeletePaymentButton payment={payment} onDeleted={onDeleted}>
-            Delete
-          </DeletePaymentButton>
+        <div className="flex flex-col gap-sm justify-between items-stretch">
           <SubmitButton type="button" onClick={() => setShowConfirmation(true)}>
             Save changes
           </SubmitButton>
+          <DeletePaymentButton payment={payment} onDeleted={onDeleted}>
+            Delete
+          </DeletePaymentButton>
         </div>
       </div>
       {showConfirmation ? (
@@ -190,7 +190,7 @@ export default function EditPaymentForm({
                 ].map((item) => (
                   <label key={item.value} className="flex items-center gap-2">
                     <input
-                      className="w-6 h-6 text-primary focus:ring-0 border-gray bg-gray-lightest"
+                      className="w-6 h-6 text-gray-darkest focus:ring-0 border-gray bg-gray-lightest"
                       type="radio"
                       id={item.value}
                       name="updateMode"
@@ -202,16 +202,16 @@ export default function EditPaymentForm({
                   </label>
                 ))}
               </div>
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col gap-sm justify-between items-stretch">
+                <SubmitButton $loading={isLoading} type="submit">
+                  Confirm
+                </SubmitButton>
                 <CancelButton
                   type="button"
                   onClick={() => setShowConfirmation(false)}
                 >
                   Cancel
                 </CancelButton>
-                <SubmitButton $loading={isLoading} type="submit">
-                  Confirm
-                </SubmitButton>
               </div>
             </div>
           </div>

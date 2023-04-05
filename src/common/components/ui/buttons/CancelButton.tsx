@@ -7,10 +7,5 @@ export default function CancelButton({
   children,
   ...props
 }: PropsWithChildren<ButtonProps & React.ComponentProps<"button">>) {
-  return (
-    <SecondaryButton {...props}>
-      <NoSymbolIcon className="w-6 h-6" />
-      {children}
-    </SecondaryButton>
-  );
+  return <SecondaryButton {...props}>{children}</SecondaryButton>;
 }
