@@ -127,6 +127,7 @@ export default function CreatePaymentForm({
         <Info>{descriptions[selectedPaymentType]}</Info>
         <div className="flex flex-col items-center justify-center py-8">
           <AmountInput
+            giant={true}
             value={formik.values.amount}
             currency={formik.values.currency}
             onChange={(v) => formik.setFieldValue("amount", v)}

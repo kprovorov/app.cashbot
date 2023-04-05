@@ -77,20 +77,39 @@ export default function AccountForm({
           />
           <InputError>{formik.errors.name}</InputError>
         </div>
-        <div className="flex flex-col items-center justify-center py-8">
+
+        {!parent ? (
+          <div>
+            <Label htmlFor="currency">Currency</Label>
+            <Input
+              $as="select"
+              id="currency"
+              name="currency"
+              value={formik.values.currency}
+              onChange={formik.handleChange}
+              $invalid={!!formik.errors.currency}
+            >
+              <option value={""}>Please select...</option>
+              {Object.keys(Currency).map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </Input>
+            <InputError>{formik.errors.currency}</InputError>
+          </div>
+        ) : null}
+
+        <div>
           <Label htmlFor="balance">balance</Label>
-          <AmountInput
-            value={formik.values.balance || 0}
-            currency={formik.values.currency || Currency.EUR}
-            onChange={(v) => formik.setFieldValue("balance", v)}
-            $invalid={!!formik.errors.balance}
-          />
-          {!parent ? (
-            <CurrencySwitch
-              value={formik.values.currency || Currency.EUR}
-              onChange={(c) => formik.setFieldValue("currency", c)}
+          <div className="flex flex-row items-center justify-start gap-md">
+            <AmountInput
+              value={formik.values.balance || 0}
+              currency={formik.values.currency || Currency.EUR}
+              onChange={(v) => formik.setFieldValue("balance", v)}
+              $invalid={!!formik.errors.balance}
             />
-          ) : null}
+          </div>
         </div>
 
         <div className="flex gap-3 justify-between">

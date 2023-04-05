@@ -90,6 +90,7 @@ export default function EditPaymentForm({
 
         <div className="flex flex-col items-center justify-center py-16">
           <AmountInput
+            giant={true}
             value={formik.values.amount}
             currency={formik.values.currency}
             onChange={(v) => formik.setFieldValue("amount", v)}
