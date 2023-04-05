@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useUpdateAccount } from "../../api/accounts";
+import { useUpdateAccountMutation } from "../../api/accounts";
 import Input from "../../common/components/ui/forms/Input";
 import { currencyFormat } from "../../services/formatters";
 import { Account } from "../../types/Models";
@@ -16,7 +16,7 @@ export default function AccountBalance({
 }>) {
   const [balance, setBalance] = useState<number>(account.balance);
 
-  const { mutate } = useUpdateAccount(account.id);
+  const { mutate } = useUpdateAccountMutation(account.id);
 
   const update = async () => {
     if (balance !== account.balance) {

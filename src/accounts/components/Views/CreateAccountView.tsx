@@ -1,10 +1,8 @@
-import { useFormik } from "formik";
-import { useAccountsQuery, useCreateAccount } from "../../../api/accounts";
-import { useHandleValidationErrors } from "../../../hooks/common";
-import { AccountData } from "../../../types/AccountData";
+import { useCreateAccountMutation } from "../../../api/accounts";
 import AccountForm from "../Forms/AccountForm";
 import { Account } from "../../../types/Models";
 import Info from "../../../common/components/Info";
+import { Currency } from "../../../types/Enums";
 
 export default function CreateAccountView({
   parent,
@@ -13,33 +11,7 @@ export default function CreateAccountView({
   parent?: Account;
   onSuccess?: () => void;
 }) {
-  const { mutate: createAccount, isLoading } = useCreateAccount();
-  const handleValidationErrors = useHandleValidationErrors<AccountData>();
-
-  const formik = useFormik<AccountData>({
-    initialValues: {
-      name: "",
-      balance: 0,
-      currency: parent?.currency,
-      parent_id: parent?.id,
-    },
-    onSubmit: (values) => {
-      createAccount(
-        {
-          ...values,
-          balance: (values.balance || 0) * 100,
-        },
-        {
-          onSuccess,
-          onError: (error) => {
-            if (error.response?.status === 422) {
-              handleValidationErrors(error, formik);
-            }
-          },
-        }
-      );
-    },
-  });
+  const { mutate: createAccount, isLoading } = useCreateAccountMutation();
 
   return (
     <div className="flex flex-col p-6 gap-6">
@@ -52,12 +24,16 @@ export default function CreateAccountView({
         </Info>
       ) : null}
       <AccountForm
-        loading={isLoading}
+        initialValues={{
+          name: "",
+          balance: 0,
+          currency: parent?.currency || Currency.EUR,
+          parent_id: parent?.id,
+        }}
+        isLoading={isLoading}
+        onSubmit={createAccount}
+        onSuccess={onSuccess}
         parent={parent}
-        values={formik.values}
-        errors={formik.errors}
-        handleChange={formik.handleChange}
-        onSubmit={formik.handleSubmit}
       />
     </div>
   );
