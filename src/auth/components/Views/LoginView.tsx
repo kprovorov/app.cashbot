@@ -5,7 +5,7 @@ import Button from "../../../common/components/ui/buttons/Button";
 
 export default function LoginView() {
   const navigate = useNavigate();
-  const { mutate: login, isLoading } = useLoginMutation();
+  const { mutate, isLoading } = useLoginMutation();
 
   return (
     <div className="flex flex-col gap-md">
@@ -13,7 +13,7 @@ export default function LoginView() {
         <h1 className="uppercase font-bold">Login</h1>
         <LoginForm
           isLoading={isLoading}
-          onSubmit={login}
+          onSubmit={mutate}
           onSuccess={() => navigate("/")}
         />
         <Button $as={Link} to="/auth/password/restore">

@@ -74,9 +74,6 @@ export function usePasswordRestoreMutation() {
       onSuccess: () => {
         alert("Password restore link sent to your email");
       },
-      onError: (error) => {
-        alert(error.response?.data.message);
-      },
     }
   );
 }

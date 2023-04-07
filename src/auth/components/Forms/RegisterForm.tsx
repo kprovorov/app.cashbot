@@ -20,7 +20,7 @@ export default function RegisterForm({
   },
   isLoading = false,
   onSubmit,
-  onSuccess,
+  onSuccess = () => {},
 }: {
   initialValues?: RegisterData;
   isLoading?: boolean;

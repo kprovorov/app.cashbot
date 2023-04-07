@@ -18,7 +18,7 @@ export default function LoginForm({
   },
   isLoading = false,
   onSubmit,
-  onSuccess,
+  onSuccess = () => {},
 }: {
   initialValues?: LoginData;
   isLoading?: boolean;
