@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import SecondaryButton from "./ui/buttons/SecondaryButton";
 import Button from "./ui/buttons/Button";
+import Logo from "./Logo";
 
 export default function TheHeader() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function TheHeader() {
     <div className="flex bg-gray-darkest p-3 text-white justify-between items-center rounded-xl shadow-lg">
       <div className="flex gap-3 items-center">
         <Link to="/" className="px-3">
-          <img className="h-6" src="logo.svg" alt="cashbot" />
+          <Logo className="h-6 fill-white" />
         </Link>
         {user ? <CreatePaymentButton /> : null}
       </div>
