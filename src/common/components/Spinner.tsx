@@ -1,12 +1,9 @@
 export default function Spinner(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      width="24"
-      height="24"
       viewBox="0 0 24 24"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`animate-spin fill-white ${props.className}`}
+      className={`animate-spin ${props.className}`}
     >
       <path
         opacity="0.4"
