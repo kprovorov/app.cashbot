@@ -11,15 +11,16 @@ import ShowEmptyAccountsSwitch from "../common/components/ShowEmptyAccountsSwitc
 import RefreshAccountsButton from "../accounts/components/Buttons/RefreshAccountsButton";
 import CreateAccountButton from "../accounts/components/Buttons/CreateAccountButton";
 import { InboxIcon } from "@heroicons/react/24/solid";
+import Spinner from "../common/components/Spinner";
 
 export default function Dashboard() {
   const { showEmptyAccounts } = useContext(AppContext);
 
-  const { data: accounts } = useAccountsQuery();
+  const { data: accounts, isLoading } = useAccountsQuery();
 
-  return (
+  return accounts ? (
     <div>
-      {accounts?.length ? (
+      {accounts.length > 0 ? (
         <>
           <div className="flex items-center justify-between px-6 py-md">
             <ShowEmptyAccountsSwitch />
@@ -171,5 +172,9 @@ export default function Dashboard() {
         </div>
       )}
     </div>
-  );
+  ) : isLoading ? (
+    <div className="flex justify-center pt-16">
+      <Spinner className="fill-gray-dark/50 w-12 h-12" />
+    </div>
+  ) : null;
 }
