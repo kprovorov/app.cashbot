@@ -18,7 +18,6 @@ ${(p) => {
 transition
 duration-200
 ease-in-out
-capitalize
 flex
 gap-sm
 items-center
