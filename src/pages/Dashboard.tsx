@@ -173,7 +173,7 @@ export default function Dashboard() {
       )}
     </div>
   ) : isLoading ? (
-    <div className="flex justify-center pt-16">
+    <div className="flex justify-center pt-44">
       <Spinner className="fill-gray w-12 h-12" />
     </div>
   ) : null;
