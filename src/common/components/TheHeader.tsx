@@ -35,7 +35,7 @@ export default function TheHeader() {
           <Menu.Button className="flex gap-1 justify-center items-center hover:bg-black p-sm rounded">
             {user.name || user.email} <ChevronDownIcon className="h-5 w-5" />
           </Menu.Button>
-          <Menu.Items className="absolute bg-white shadow rounded-md flex flex-col right-0 z-10 w-48 divide-y divide-gray-lightest">
+          <Menu.Items className="absolute bg-white shadow-xl rounded-md flex flex-col right-0 z-10 w-48 divide-y divide-gray-lightest">
             <div className="p-sm flex flex-col">
               <Menu.Item
                 as={Link}
