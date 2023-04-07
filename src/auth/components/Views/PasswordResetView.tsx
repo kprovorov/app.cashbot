@@ -1,8 +1,8 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { usePasswordResetMutation } from "../../../api/auth";
 import { PasswordResetData } from "../../../types/AuthData";
 import PasswordResetForm from "../Forms/PasswordResetForm";
-import Link from "../Misc/Link";
+import Button from "../../../common/components/ui/buttons/Button";
 
 export default function PasswordResetView() {
   const { mutate, isLoading } = usePasswordResetMutation();
@@ -23,9 +23,9 @@ export default function PasswordResetView() {
     <div className="bg-white p-6 rounded-xl shadow-xl flex flex-col gap-3 w-full">
       <h1 className="uppercase font-bold">Create new password</h1>
       <PasswordResetForm onSubmit={submit} loading={isLoading} />
-      <div className="flex justify-center">
-        <Link href="/auth/login">Login</Link>
-      </div>
+      <Button $as={Link} to="/auth/login">
+        Login
+      </Button>
     </div>
   );
 }
