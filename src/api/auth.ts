@@ -2,19 +2,20 @@ import { AxiosError } from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { BackendErrorResponse } from "../hooks/common";
-import LoginFormData from "../interfaces/LoginFormData";
 import api from "../services/api";
 import { PasswordResetData, PasswordRestoreData } from "../types/AuthData";
 import { User } from "../types/Models";
 import { ACCOUNTS_QUERY } from "./accounts";
+import { RegisterData } from "../types/RegisterData";
+import { LoginData } from "../types/LoginData";
 
 export const CURRENT_USER_QUERY = "CURRENT_USER_QUERY";
 
 export function useLoginMutation() {
   const queryClient = useQueryClient();
 
-  return useMutation<void, AxiosError<BackendErrorResponse>, LoginFormData>(
-    async (data: LoginFormData) => {
+  return useMutation<void, AxiosError<BackendErrorResponse>, LoginData>(
+    async (data: LoginData) => {
       await api.get("sanctum/csrf-cookie");
       await api.post("login", data);
     },
@@ -42,6 +43,23 @@ export function useLogoutMutation() {
   );
 }
 
+export function useRegisterMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, AxiosError<BackendErrorResponse>, RegisterData>(
+    async (data: RegisterData) => {
+      await api.get("sanctum/csrf-cookie");
+      await api.post("register", data);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(CURRENT_USER_QUERY);
+        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+      },
+    }
+  );
+}
+
 export function usePasswordRestoreMutation() {
   return useMutation<
     void,
@@ -55,9 +73,6 @@ export function usePasswordRestoreMutation() {
     {
       onSuccess: () => {
         alert("Password restore link sent to your email");
-      },
-      onError: (error) => {
-        alert(error.response?.data.message);
       },
     }
   );

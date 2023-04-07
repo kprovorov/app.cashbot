@@ -8,6 +8,7 @@ import PasswordReset from "./pages/PasswordReset";
 import PasswordRestore from "./pages/PasswordRestore";
 import AppLayout from "./common/components/Layouts/AppLayout";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 
 export default createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export default createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
       {
         path: "password/restore",

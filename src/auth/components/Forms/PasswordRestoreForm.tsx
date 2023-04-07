@@ -4,20 +4,47 @@ import InputError from "../../../common/components/ui/forms/InputError";
 import Label from "../../../common/components/ui/forms/Label";
 import { PasswordRestoreData } from "../../../types/AuthData";
 import SubmitButton from "../../../common/components/ui/buttons/SubmitButton";
+import { AxiosError } from "axios";
+import { MutateOptions } from "react-query";
+import {
+  BackendErrorResponse,
+  useHandleValidationErrors,
+} from "../../../hooks/common";
 
 export default function PasswordRestoreForm({
-  loading = false,
+  initialValues = {
+    email: "",
+  },
+  isLoading = false,
   onSubmit,
+  onSuccess = () => {},
 }: {
-  loading?: boolean;
-  onSubmit: (values: PasswordRestoreData) => void;
+  initialValues?: PasswordRestoreData;
+  isLoading?: boolean;
+  onSubmit: (
+    values: PasswordRestoreData,
+    options?: MutateOptions<
+      void,
+      AxiosError<BackendErrorResponse>,
+      PasswordRestoreData
+    >
+  ) => void;
+  onSuccess?: () => void;
 }) {
+  const handleValidationErrors =
+    useHandleValidationErrors<PasswordRestoreData>();
+
   const formik = useFormik<PasswordRestoreData>({
-    initialValues: {
-      email: "",
-    },
+    initialValues,
     onSubmit: (values) => {
-      onSubmit(values);
+      onSubmit(values, {
+        onSuccess,
+        onError: (error) => {
+          if (error.response?.status === 422) {
+            handleValidationErrors(error, formik);
+          }
+        },
+      });
     },
   });
 
@@ -37,7 +64,7 @@ export default function PasswordRestoreForm({
           <InputError>{formik.errors.email}</InputError>
         </div>
         <div>
-          <SubmitButton className="w-full" type="submit" $loading={loading}>
+          <SubmitButton className="w-full" type="submit" $loading={isLoading}>
             Restore
           </SubmitButton>
         </div>

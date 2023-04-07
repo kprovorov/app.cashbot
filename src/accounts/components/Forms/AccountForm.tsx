@@ -15,7 +15,6 @@ import {
 } from "../../../hooks/common";
 import { AccountRaw } from "../../../types/ModelsRaw";
 import AmountInput from "../../../common/components/ui/forms/AmountInput";
-import CurrencySwitch from "../../../common/components/ui/forms/CurrencySwitch";
 
 export default function AccountForm({
   initialValues = {
