@@ -9,25 +9,33 @@ import {
   BriefcaseIcon,
 } from "@heroicons/react/24/outline";
 import SecondaryButton from "../../common/components/ui/buttons/SecondaryButton";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { ArrowRightIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { useAccountsQuery } from "../../api/accounts";
 
 export default function CreatePaymentButton() {
-  const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [paymentType, setPaymentType] = useState<PaymentType>(
     PaymentType.EXPENSE
   );
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => setShowModal(false);
   const handleShow = (paymentType: PaymentType) => {
     setPaymentType(paymentType);
-    setShow(true);
+    setShowModal(true);
   };
 
+  const { data: accounts } = useAccountsQuery();
+
   return (
-    <div className="fixed z-10 right-10 bottom-10">
+    <div className="fixed z-10 right-10 bottom-10 group">
       <Popover className="relative">
-        <Popover.Button className="bg-primary hover:scale-110 transition duration-200 ease-in-out text-white p-5 rounded-full hover:bg-primary-dark shadow-lg shadow-primary/50 ui-open:outline-none focus:outline-none">
-          <PlusIcon className="w-6 h-6" />
+        <Popover.Button className="flex justify-center items-center w-16 h-16 bg-primary hover:scale-110 transition duration-200 ease-in-out text-white  rounded-full  shadow-lg shadow-primary/50 ui-open:outline-none focus:outline-none">
+          <div>
+            <PlusIcon className="w-6 h-6" />
+          </div>
+          {accounts?.flatMap((a) => a.payments).length === 0 && !showModal ? (
+            <div className="animate-ping group-hover:animate-none absolute top-2 left-2 bg-transparent border-8 border-primary rounded-full w-12 h-12 opacity-80"></div>
+          ) : null}
         </Popover.Button>
 
         <Popover.Panel className="absolute bg-white shadow-outline shadow-black/10 text-black bottom-16 right-0 rounded-xl p-4 w-48">
@@ -67,10 +75,16 @@ export default function CreatePaymentButton() {
         </Popover.Panel>
       </Popover>
       <CreatePaymentModal
-        show={show}
+        show={showModal}
         onClose={handleClose}
         paymentType={paymentType}
       />
+      {accounts?.flatMap((a) => a.payments).length === 0 && !showModal ? (
+        <div className="absolute top-0 right-20 text-xl font-medium flex items-center justify-center h-16 gap-2 w-60 text-gray">
+          Create first payment
+          <ArrowRightIcon className="w-6 h-6" />
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -35,7 +35,7 @@ export default function Datepicker({
       <span>
         {value
           ? moment(value).format("D MMM YYYY")
-          : props.placeholderText || "select date"}
+          : props.placeholderText || "Select date"}
       </span>
       <svg
         xmlns="http://www.w3.org/2000/svg"

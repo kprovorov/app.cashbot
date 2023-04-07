@@ -163,10 +163,10 @@ export default function CreatePaymentForm({
               >
                 <span>
                   {customRepeat
-                    ? "custom"
+                    ? "Custom"
                     : formik.values.repeat_unit === RepeatUnit.NONE
-                    ? "don't repeat"
-                    : `every ${formik.values.repeat_unit.toLowerCase()}`}
+                    ? "Don't repeat"
+                    : `Every ${formik.values.repeat_unit.toLowerCase()}`}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
