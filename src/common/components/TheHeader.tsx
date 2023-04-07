@@ -1,11 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useCurrentUserQuery, useLogoutMutation } from "../../api/auth";
-import CreatePaymentButton from "../../payments/components/CreatePaymentButton";
-import {
-  ArrowRightOnRectangleIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/outline";
-import SecondaryButton from "./ui/buttons/SecondaryButton";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import Button from "./ui/buttons/Button";
 import Logo from "./Logo";
 
@@ -29,7 +24,6 @@ export default function TheHeader() {
         <Link to="/" className="px-3">
           <Logo className="h-6 fill-white" />
         </Link>
-        {user ? <CreatePaymentButton /> : null}
       </div>
       {user ? (
         <div className="flex items-center">

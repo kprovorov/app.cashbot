@@ -26,7 +26,7 @@ export default function CreatePaymentButton() {
   return (
     <div className="fixed z-10 right-10 bottom-10">
       <Popover className="relative">
-        <Popover.Button className="bg-primary text-white p-5 rounded-full hover:bg-primary-dark shadow-lg shadow-primary/50 ui-open:outline-none focus:outline-none">
+        <Popover.Button className="bg-primary hover:scale-110 transition duration-200 ease-in-out text-white p-5 rounded-full hover:bg-primary-dark shadow-lg shadow-primary/50 ui-open:outline-none focus:outline-none">
           <PlusIcon className="w-6 h-6" />
         </Popover.Button>
 
