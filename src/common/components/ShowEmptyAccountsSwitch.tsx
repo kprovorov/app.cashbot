@@ -23,7 +23,7 @@ export default function ShowEmptyAccountsSwitch() {
             />
           </Switch>
           <Switch.Label className="uppercase font-bold text-base">
-            show empty accounts
+            empty accounts
           </Switch.Label>
         </div>
       </Switch.Group>

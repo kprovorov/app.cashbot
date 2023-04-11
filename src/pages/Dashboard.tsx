@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AccountCard from "../accounts/components/AccountCard";
 import AccountBalances from "../accounts/components/AccountBalances";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,11 +12,17 @@ import RefreshAccountsButton from "../accounts/components/Buttons/RefreshAccount
 import CreateAccountButton from "../accounts/components/Buttons/CreateAccountButton";
 import { InboxIcon } from "@heroicons/react/24/solid";
 import Spinner from "../common/components/Spinner";
+import { Tab } from "@headlessui/react";
 
 export default function Dashboard() {
-  const { showEmptyAccounts } = useContext(AppContext);
+  const { showEmptyAccounts, projectionMonths, setProjectionMonths } =
+    useContext(AppContext);
 
-  const { data: accounts, isLoading } = useAccountsQuery();
+  const { data: accounts, isLoading, refetch } = useAccountsQuery();
+
+  useEffect(() => {
+    refetch();
+  }, [projectionMonths]);
 
   return accounts ? (
     <div>
@@ -24,7 +30,24 @@ export default function Dashboard() {
         <>
           <div className="flex items-center justify-between px-6 py-md">
             <ShowEmptyAccountsSwitch />
-            <RefreshAccountsButton />
+
+            <div className="flex gap-2 items-center font-semibold uppercase text-base">
+              <Tab.Group>
+                <Tab.List>
+                  {[12, 24, 36].map((key) => (
+                    <Tab
+                      key={key}
+                      className="ui-selected:bg-white ui-selected:shadow ui-selected:shadow-gray px-3 py-1 rounded capitalize font-semibold focus:outline-none"
+                      onClick={() => setProjectionMonths(key)}
+                    >
+                      {key}
+                    </Tab>
+                  ))}
+                </Tab.List>
+              </Tab.Group>
+              <div className="border-l h-6 border-black/10"></div>
+              <RefreshAccountsButton />
+            </div>
           </div>
           <Swiper
             cssMode={true}

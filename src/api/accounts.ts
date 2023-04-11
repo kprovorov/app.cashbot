@@ -8,10 +8,13 @@ import { AccountRaw, PaymentRaw } from "../types/ModelsRaw";
 import { Currency, RepeatUnit } from "../types/Enums";
 import { useCurrencyConverter } from "../hooks/currencyConverter";
 import { CreateAccountData, UpdateAccountData } from "../types/AccountData";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
 export function useAccountsQuery() {
+  const { projectionMonths } = useContext(AppContext);
   const { convert, isLoading } = useCurrencyConverter();
 
   return useQuery<Account[], AxiosError<BackendErrorResponse>>(
@@ -83,7 +86,7 @@ export function useAccountsQuery() {
 
               const dateTill = payment.repeat_ends_on
                 ? moment(payment.repeat_ends_on)
-                : moment().add(1, "year");
+                : moment().add(projectionMonths, "months");
 
               while (date.isSameOrBefore(dateTill)) {
                 res.push({
