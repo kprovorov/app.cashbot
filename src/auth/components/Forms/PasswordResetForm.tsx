@@ -5,7 +5,7 @@ import Label from "../../../common/components/ui/forms/Label";
 import { PasswordResetData } from "../../../types/AuthData";
 import SubmitButton from "../../../common/components/ui/buttons/SubmitButton";
 import { AxiosError } from "axios";
-import { MutateOptions } from "react-query";
+import { MutateOptions } from "@tanstack/react-query";
 import {
   BackendErrorResponse,
   useHandleValidationErrors,

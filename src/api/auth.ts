@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { BackendErrorResponse } from "../hooks/common";
 import api from "../services/api";
@@ -21,8 +21,8 @@ export function useLoginMutation() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(CURRENT_USER_QUERY);
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+        queryClient.invalidateQueries({ queryKey: [CURRENT_USER_QUERY] });
+        queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
       },
     }
   );
@@ -53,8 +53,8 @@ export function useRegisterMutation() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(CURRENT_USER_QUERY);
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+        queryClient.invalidateQueries({ queryKey: [CURRENT_USER_QUERY] });
+        queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
       },
     }
   );
@@ -99,17 +99,15 @@ export function usePasswordResetMutation() {
 }
 
 export function useCurrentUserQuery() {
-  return useQuery<User, AxiosError<BackendErrorResponse>>(
-    CURRENT_USER_QUERY,
-    async () => {
+  return useQuery<User, AxiosError<BackendErrorResponse>>({
+    queryKey: [CURRENT_USER_QUERY],
+    queryFn: async () => {
       const res = await api.get("user");
 
       return res.data;
     },
-    {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      retry: false,
-    }
-  );
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 }

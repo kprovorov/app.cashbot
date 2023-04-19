@@ -1,5 +1,5 @@
 import api from "../services/api";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UpdatePaymentGeneralData } from "../interfaces/UpdatePaymentGeneralData";
 import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
@@ -20,7 +20,7 @@ export function useCreatePayment() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+        queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
       },
     }
   );
@@ -39,7 +39,7 @@ export function useUpdatePaymentGeneralData(paymentId: number) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+        queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
       },
     }
   );
@@ -54,7 +54,7 @@ export function useDeletePaymentMutation(paymentId: number) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+        queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
       },
     }
   );
@@ -67,7 +67,7 @@ export function useDeletePaymentsGroupMutation() {
     (group: string) => api.delete(`payments/groups/${group}`),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+        queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
       },
     }
   );
