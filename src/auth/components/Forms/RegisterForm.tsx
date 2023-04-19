@@ -4,7 +4,7 @@ import InputError from "../../../common/components/ui/forms/InputError";
 import Label from "../../../common/components/ui/forms/Label";
 import SubmitButton from "../../../common/components/ui/buttons/SubmitButton";
 import { RegisterData } from "../../../types/RegisterData";
-import { MutateOptions } from "react-query";
+import { MutateOptions } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import {
   BackendErrorResponse,

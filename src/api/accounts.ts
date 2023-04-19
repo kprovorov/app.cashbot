@@ -1,5 +1,5 @@
 import api from "../services/api";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { BackendErrorResponse } from "../hooks/common";
 import { Account } from "../types/Models";
@@ -10,16 +10,18 @@ import { useCurrencyConverter } from "../hooks/currencyConverter";
 import { CreateAccountData, UpdateAccountData } from "../types/AccountData";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { useRates } from "./rates";
 
 export const ACCOUNTS_QUERY = "ACCOUNTS_QUERY";
 
 export function useAccountsQuery() {
   const { projectionMonths } = useContext(AppContext);
-  const { convert, isLoading } = useCurrencyConverter();
+  const { data: rates } = useRates();
+  const { convert, isFetched, isLoading } = useCurrencyConverter();
 
-  return useQuery<Account[], AxiosError<BackendErrorResponse>>(
-    ACCOUNTS_QUERY,
-    async () => {
+  return useQuery<Account[], AxiosError<BackendErrorResponse>>({
+    queryKey: [ACCOUNTS_QUERY],
+    queryFn: async () => {
       const res = await api.get("accounts");
 
       const groupsEnds: {
@@ -167,13 +169,9 @@ export function useAccountsQuery() {
         };
       });
     },
-    {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      retry: false,
-      enabled: !isLoading,
-    }
-  );
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 }
 
 export function useUpdateAccountMutation(accountId: number) {
@@ -188,7 +186,7 @@ export function useUpdateAccountMutation(accountId: number) {
       await api.put(`accounts/${accountId}`, data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+        queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
       },
     }
   );
@@ -203,7 +201,7 @@ export function useCreateAccountMutation() {
     CreateAccountData
   >(async (data: CreateAccountData) => await api.post("accounts", data), {
     onSuccess: () => {
-      queryClient.invalidateQueries(ACCOUNTS_QUERY);
+      queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
     },
   });
 }
@@ -215,7 +213,7 @@ export function useDeleteAccountMutation(accountId: number) {
     async () => await api.delete(`accounts/${accountId}`),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(ACCOUNTS_QUERY);
+        queryClient.invalidateQueries({ queryKey: [ACCOUNTS_QUERY] });
       },
     }
   );

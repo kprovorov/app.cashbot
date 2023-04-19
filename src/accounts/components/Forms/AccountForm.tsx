@@ -7,7 +7,7 @@ import { Currency } from "../../../types/Enums";
 import SubmitButton from "../../../common/components/ui/buttons/SubmitButton";
 import DeleteAccountButton from "../Buttons/DeleteAccountButton";
 import { Account } from "../../../types/Models";
-import { MutateOptions } from "react-query";
+import { MutateOptions } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import {
   BackendErrorResponse,

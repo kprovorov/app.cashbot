@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BackendErrorResponse } from "../hooks/common";
 import api from "../services/api";
 import { CURRENT_USER_QUERY } from "./auth";
@@ -15,7 +15,7 @@ export function useUpdateUserProfileMutation() {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(CURRENT_USER_QUERY);
+        queryClient.invalidateQueries({ queryKey: [CURRENT_USER_QUERY] });
       },
     }
   );
