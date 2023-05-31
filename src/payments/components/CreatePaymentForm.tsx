@@ -18,6 +18,7 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import SubmitButton from "../../common/components/ui/buttons/SubmitButton";
 import InputButton from "../../common/components/ui/buttons/InputButton";
 import Info from "../../common/components/Info";
+import moment from "moment";
 
 export default function CreatePaymentForm({
   paymentType = undefined,
@@ -148,9 +149,12 @@ export default function CreatePaymentForm({
               selected={
                 formik.values.date ? new Date(formik.values.date) : null
               }
-              onChange={(date) =>
-                formik.setFieldValue("date", date?.toISOString())
-              }
+              onChange={(date) => {
+                formik.setFieldValue(
+                  "date",
+                  date ? moment(date).format("YYYY-MM-DD") : null
+                );
+              }}
             />
             <InputError>{formik.errors.date}</InputError>
           </div>
