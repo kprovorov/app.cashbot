@@ -41,6 +41,7 @@ export default function AccountBalance({
     <form onSubmit={submit}>
       <Input
         $size="sm"
+        inputMode="numeric"
         onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>): void => {
           if (e.key === "Escape") {
             reset();

@@ -18,6 +18,7 @@ export default function AmountInput({
   return (
     <Input
       type="text"
+      inputMode="numeric"
       className={
         giant
           ? "text-center text-5xl border-none font-semibold focus:outline-none focus:ring-0 bg-transparent hover:bg-transparent"
